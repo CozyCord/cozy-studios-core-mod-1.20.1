@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "minecraft:deepslate"
+  },
+  "result": "minecraft:deepslate_brick_wall",
+  "conditions": [
+    {
+      "condition": "cozystudioscore:custom_recipes_enabled"
+    }
+  ]
+}

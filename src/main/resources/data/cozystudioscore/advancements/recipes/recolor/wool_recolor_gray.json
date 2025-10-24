@@ -1,0 +1,36 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_wool": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "minecraft:wools"
+          }
+        ]
+      }
+    },
+    "has_dye": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "minecraft:dyes"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_wool",
+      "has_dye"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "cozystudioscore:recolor/wool_recolor_gray"
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "criteria": {
+    "has_concrete": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:brown_concrete"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "cozystudioscore:brown_concrete_powder_smelting",
+      "cozystudioscore:brown_concrete_powder_blasting"
+    ]
+  }
+}

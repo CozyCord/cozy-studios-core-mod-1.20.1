@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "minecraft:deepslate"
+  },
+  "result": "minecraft:cobbled_deepslate_stairs",
+  "conditions": [
+    {
+      "condition": "cozystudioscore:custom_recipes_enabled"
+    }
+  ]
+}

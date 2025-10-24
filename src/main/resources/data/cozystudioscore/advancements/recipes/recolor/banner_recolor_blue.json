@@ -1,0 +1,36 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_banner": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "minecraft:banners"
+          }
+        ]
+      }
+    },
+    "has_dye": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "minecraft:dyes"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_banner",
+      "has_dye"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "cozystudioscore:recolor/banner_recolor_blue"
+    ]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "id": "cozystudioscore",
+  "version": "${version}",
+  "name": "Cozy Studios Core",
+  "description": "This is the CozyStudios Core mod to power all of their modpacks!",
+  "authors": [
+    "Tokimi",
+    "CozyStudios"
+  ],
+  "contact": {
+    "homepage": "https://discord.gg/cozycord",
+    "sources": "https://github.com/iamtokimi/cozy-studios-core-mod-1.20.1",
+    "issues": "https://github.com/iamtokimi/cozy-studios-core-mod-1.20.1/issues",
+    "tokimi": "https://linktr.ee/iamtokimi",
+    "cozystudios": "https://modrinth.com/organization/cozystudios"
+  },
+  "license": "CC0-1.0",
+  "icon": "assets/cozystudioscore/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.cozystudios.cozystudioscore.CozyStudiosCore"
+    ],
+    "client": [
+      "net.cozystudios.cozystudioscore.CozyStudiosCoreClient"
+    ],
+    "modmenu": [
+      "net.cozystudios.cozystudioscore.CozyStudiosCoreModMenuIntegration"
+    ],
+    "fabric-datagen": [
+      "net.cozystudios.cozystudioscore.CozyStudiosCoreDataGenerator"
+    ]
+  },
+  "mixins": [
+    "cozystudioscore.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.17.2",
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "cloth-config": "*",
+    "modmenu": "*"
+  },
+  "custom": {
+    "modmenu": {
+      "badges": ["library"]
+    }
+  }
+}

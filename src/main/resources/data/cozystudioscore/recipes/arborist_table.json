@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "arborist_table",
+  "pattern": [
+    "SSS",
+    "SBS",
+    "SSS"
+  ],
+  "key": {
+    "S": { "tag": "minecraft:saplings" },
+    "B": { "item": "minecraft:barrel" }
+  },
+  "result": {
+    "item": "cozystudioscore:arborist_table"
+  }
+}

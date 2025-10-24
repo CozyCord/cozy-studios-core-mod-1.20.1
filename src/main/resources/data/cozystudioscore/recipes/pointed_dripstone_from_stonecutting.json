@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "minecraft:dripstone_block"
+  },
+  "result": "minecraft:pointed_dripstone",
+  "conditions": [
+    {
+      "condition": "cozystudioscore:custom_recipes_enabled"
+    }
+  ]
+}

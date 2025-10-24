@@ -1,0 +1,73 @@
+{
+  "golden_leaf_use": {
+    "subtitle": "sounds.cozystudioscore.golden_leaf_use",
+    "sounds": [
+      "cozystudioscore:golden_leaf_use"
+    ]
+  },
+  "at_original_soundtrack": {
+    "sounds": [
+      {
+        "name": "cozystudioscore:at_original_soundtrack",
+        "stream": true
+      }
+    ]
+  },
+  "dayspring": {
+    "sounds": [
+      {
+        "name": "cozystudioscore:dayspring",
+        "stream": true
+      }
+    ]
+  },
+  "fernling_idle": {
+    "sounds": [
+      {
+        "name": "cozystudioscore:fernling_idle",
+        "stream": true
+      }
+    ]
+  },
+  "mushling_idle_1": {
+    "sounds": [
+      {
+        "name": "cozystudioscore:mushling/mushling_idle_1",
+        "stream": true
+      }
+    ]
+  },
+  "mushling_idle_2": {
+    "sounds": [
+      {
+        "name": "cozystudioscore:mushling/mushling_idle_2",
+        "stream": true
+      }
+    ]
+  },
+  "mushling_idle_3": {
+    "sounds": [
+      {
+        "name": "cozystudioscore:mushling/mushling_idle_3",
+        "stream": true
+      }
+    ]
+  },
+  "mushling_idle_4": {
+    "sounds": [
+      {
+        "name": "cozystudioscore:mushling/mushling_idle_4",
+        "stream": true
+      }
+    ]
+  },
+  "jungle_horn": {
+    "subtitle": "subtitles.cozystudioscore.jungle_horn",
+    "sounds": [
+      {
+        "name": "cozystudioscore:jungle_horn",
+        "stream": true
+      }
+    ]
+  }
+}

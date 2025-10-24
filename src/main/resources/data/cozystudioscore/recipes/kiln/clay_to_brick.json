@@ -1,0 +1,10 @@
+{
+  "type": "cozystudioscore:kiln",
+  "ingredient": {
+    "item": "minecraft:clay_ball"
+  },
+  "result": "minecraft:brick",
+  "experience": 0.3,
+  "cookingtime": 100,
+  "group": "kiln"
+}

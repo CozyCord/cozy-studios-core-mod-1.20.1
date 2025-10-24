@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "cozystudioscore_recolor_wool",
+  "ingredients": [
+    {
+      "tag": "minecraft:wools"
+    },
+    {
+      "item": "minecraft:lime_dye"
+    }
+  ],
+  "result": {
+    "item": "minecraft:lime_wool",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "condition": "cozystudioscore:custom_recipes_enabled"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "cozystudioscore:block/mud_kiln_front_on",
+    "north": "cozystudioscore:block/mud_kiln_front_on",
+    "south": "cozystudioscore:block/mud_kiln_back",
+    "east":  "cozystudioscore:block/mud_kiln_side_alt",
+    "west":  "cozystudioscore:block/mud_kiln_side",
+    "up":    "cozystudioscore:block/mud_kiln_top_on",
+    "down":  "cozystudioscore:block/mud_kiln_bottom"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "parent": "cozystudioscore:cozystudioscore/root",
+  "display": {
+    "icon": { "item": "cozystudioscore:tranquil_lantern" },
+    "title": { "translate": "advancements.cozystudioscore.tranquil_lantern.title" },
+    "description": { "translate": "advancements.cozystudioscore.tranquil_lantern.description" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "crafted_tranquil_lantern": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipe_id": "cozystudioscore:tranquil_lantern"
+      }
+    }
+  },
+  "requirements": [
+    ["crafted_tranquil_lantern"]
+  ]
+}

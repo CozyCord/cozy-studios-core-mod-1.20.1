@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": {
+      "item": "minecraft:diamond"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    }
+  },
+  "pattern": [
+    "  I",
+    "ILI",
+    "III"
+  ],
+  "result": {
+    "item": "minecraft:diamond_horse_armor"
+  },
+  "show_notification": true,
+  "conditions": [
+    {
+      "condition": "cozystudioscore:custom_recipes_enabled"
+    }
+  ]
+}
