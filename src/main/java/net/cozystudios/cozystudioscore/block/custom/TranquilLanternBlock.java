@@ -1,6 +1,7 @@
 package net.cozystudios.cozystudioscore.block.custom;
 
 import net.cozystudios.cozystudioscore.block.entity.TranquilLanternBlockEntity;
+import net.cozystudios.cozystudioscore.world.TranquilLanternSpawnBlocker;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -8,7 +9,10 @@ import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.util.math.BlockPos;
@@ -51,6 +55,7 @@ public class TranquilLanternBlock extends BlockWithEntity {
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, net.minecraft.block.ShapeContext context) {
         return SHAPE;
     }
+
     @SuppressWarnings("deprecation")
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, net.minecraft.block.ShapeContext context) {
@@ -72,5 +77,21 @@ public class TranquilLanternBlock extends BlockWithEntity {
     @Override
     public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
+    }
+
+    @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
+        super.onPlaced(world, pos, state, placer, itemStack);
+        if (!world.isClient && world instanceof net.minecraft.server.world.ServerWorld serverWorld) {
+            TranquilLanternSpawnBlocker.addLantern(serverWorld, pos);
+        }
+    }
+
+    @Override
+    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        super.onBreak(world, pos, state, player);
+        if (!world.isClient && world instanceof net.minecraft.server.world.ServerWorld serverWorld) {
+            TranquilLanternSpawnBlocker.removeLantern(serverWorld, pos);
+        }
     }
 }

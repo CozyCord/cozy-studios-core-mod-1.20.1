@@ -51,11 +51,12 @@ public class TranquilLanternBlockEntity extends BlockEntity {
             double dz = mob.getZ() - cz;
             double d2 = dx * dx + dy * dy + dz * dz;
 
-            if (d2 <= r2) {
-                double d = Math.max(0.001, Math.sqrt(d2));
-                double strength = 0.15 * (1.0 - (d / RADIUS));
+            if (d2 <= r2 && d2 > 0.25) {
+                double d = Math.sqrt(d2);
+                double normalized = Math.max(0.0, 1.0 - (d / RADIUS));
+                double strength = 0.25 * Math.pow(normalized, 2.0);
 
-                mob.addVelocity((dx / d) * strength, 0.05, (dz / d) * strength);
+                mob.addVelocity((dx / d) * strength, 0, (dz / d) * strength);
                 mob.velocityModified = true;
             }
         }

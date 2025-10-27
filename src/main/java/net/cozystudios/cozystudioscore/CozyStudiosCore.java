@@ -12,6 +12,7 @@ import net.cozystudios.cozystudioscore.recipe.ConfigKilnDataPack;
 import net.cozystudios.cozystudioscore.recipe.ModRecipeTypes;
 import net.cozystudios.cozystudioscore.sound.ModSounds;
 import net.cozystudios.cozystudioscore.world.ModTradersSpawner;
+import net.cozystudios.cozystudioscore.world.TranquilLanternSpawnBlocker;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.item.Item;
@@ -36,6 +37,7 @@ public class CozyStudiosCore implements ModInitializer {
         ModBlocks.registerModBlocks();
         ModBlockEntities.registerBlockEntities();
         ModRecipeTypes.register();
+        TranquilLanternSpawnBlocker.register();
         net.cozystudios.cozystudioscore.screen.ModScreenHandlers.registerScreenHandlers();
         ServerLifecycleEvents.SERVER_STARTING.register(server -> {
             var config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();

@@ -1,20 +1,19 @@
 {
-	"required": true,
-	"package": "net.cozystudios.cozystudioscore.mixin",
-	"compatibilityLevel": "JAVA_17",
-	"mixins": [
-		"MobEntityMixin",
-        "MobEntityAccessor"
-	],
-    "client": [
-      "TitleScreenMixin",
-      "PlayerEntityMixin",
-      "HungerManagerMixin"
-    ],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"overwrites": {
-		"requireAnnotations": true
-	}
+  "required": true,
+  "package": "net.cozystudios.cozystudioscore.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "MobEntityAccessor"
+  ],
+  "client": [
+    "TitleScreenMixin",
+    "PlayerEntityMixin",
+    "HungerManagerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
 }

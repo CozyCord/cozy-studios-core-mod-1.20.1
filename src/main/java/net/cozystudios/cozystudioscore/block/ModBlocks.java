@@ -34,6 +34,7 @@ public class ModBlocks {
             new Block(Block.Settings.copy(Blocks.COMPOSTER))
     );
 
+
     // --- Registration helpers ---
     @SuppressWarnings("SameParameterValue")
     private static Block registerBlock(String name, Block block) {

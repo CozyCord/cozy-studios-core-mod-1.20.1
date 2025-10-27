@@ -43,7 +43,6 @@ public class MushlingEntity extends TameableEntity {
 
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
-
     public final AnimationState sitAnimationState = new AnimationState();
 
     @Nullable
@@ -77,23 +76,11 @@ public class MushlingEntity extends TameableEntity {
             sitAnimationState.startIfNotRunning(this.age);
         } else {
             sitAnimationState.stop();
-            if (this.idleAnimationTimeout <= 0) {
+            if (this.idleAnimationTimeout-- <= 0) {
                 this.idleAnimationTimeout = this.random.nextInt(40) + 80;
                 this.idleAnimationState.start(this.age);
-            } else {
-                --this.idleAnimationTimeout;
             }
         }
-    }
-
-    protected void updateLimbs(float v) {
-        float f;
-        if (this.getPose() == EntityPose.STANDING) {
-            f = Math.min(v * 6.0F, 1.0F);
-        } else {
-            f = 0.0F;
-        }
-        this.limbAnimator.updateLimbs(f, 0.2F);
     }
 
     @Override
@@ -101,21 +88,20 @@ public class MushlingEntity extends TameableEntity {
         super.tick();
         if (this.getWorld().isClient()) {
             this.setupAnimationStates();
+            return;
         }
 
-        if (!this.getWorld().isClient() && this.isInSittingPose() && this.age % 80 == 0) {
-            this.getWorld().playSound(
-                    null,
-                    this.getBlockPos(),
-                    SoundEvents.ENTITY_FOX_SLEEP,
-                    this.getSoundCategory(),
-                    0.5f,
-                    1.0f
-            );
+        if (this.isInSittingPose() && this.age % 120 == 0) {
+            this.getWorld().playSound(null, this.getBlockPos(),
+                    SoundEvents.ENTITY_FOX_SLEEP, this.getSoundCategory(), 0.5f, 1.0f);
         }
 
-        if (!this.getWorld().isClient() && this.age % 5 == 0) {
+        if (this.isTamed() && this.age % 5 == 0) {
             updateTamedNightLight();
+        }
+
+        if (this.getWorld().getDimension().ultrawarm() && this.getY() > 200) {
+            this.discard();
         }
     }
 
@@ -137,23 +123,17 @@ public class MushlingEntity extends TameableEntity {
         MushlingEntity baby = ModEntities.MUSHLING.create(world);
         if (baby != null) {
             if (entity instanceof MushlingEntity other) {
-                if (this.getVariant() == other.getVariant()) {
-                    baby.setVariant(this.getVariant());
-                } else {
-                    baby.setVariant(Util.getRandom(MushlingVariant.values(), this.random));
-                }
-            } else {
-                baby.setVariant(this.getVariant());
-            }
+                baby.setVariant(this.getVariant() == other.getVariant()
+                        ? this.getVariant()
+                        : Util.getRandom(MushlingVariant.values(), this.random));
+            } else baby.setVariant(this.getVariant());
         }
         return baby;
     }
 
-    // --- Ambient Sounds ---
-    @Override
-    protected @Nullable SoundEvent getAmbientSound() {
-        int choice = this.random.nextInt(4); // 0-3
-        return switch (choice) {
+    // --- Sounds ---
+    @Override protected @Nullable SoundEvent getAmbientSound() {
+        return switch (this.random.nextInt(4)) {
             case 0 -> ModSounds.MUSHLING_IDLE_1;
             case 1 -> ModSounds.MUSHLING_IDLE_2;
             case 2 -> ModSounds.MUSHLING_IDLE_3;
@@ -161,53 +141,38 @@ public class MushlingEntity extends TameableEntity {
         };
     }
 
-    @Override
-    public int getMinAmbientSoundDelay() {
-        return 200;
-    }
+    @Override public int getMinAmbientSoundDelay() { return 200; }
+    @Override protected @Nullable SoundEvent getHurtSound(DamageSource source) { return SoundEvents.ENTITY_PANDA_HURT; }
+    @Override protected @Nullable SoundEvent getDeathSound() { return SoundEvents.ENTITY_PANDA_DEATH; }
 
-    @Override
-    protected @Nullable SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.ENTITY_PANDA_HURT;
-    }
-
-    @Override
-    protected @Nullable SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_PANDA_DEATH;
-    }
-
+    // --- Interaction ---
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        ItemStack itemStack = player.getStackInHand(hand);
-        Item item = itemStack.getItem();
-        Item itemForTaming = ModItems.COZY_CRUMBS;
+        ItemStack stack = player.getStackInHand(hand);
+        Item item = stack.getItem();
 
-        if (item == itemForTaming && !this.isTamed()) {
-            if (!player.getAbilities().creativeMode) {
-                itemStack.decrement(1);
-            }
-            if (!this.getWorld().isClient()) {
-                if (this.random.nextInt(3) == 0) {
-                    this.setOwner(player);
-                    this.navigation.recalculatePath();
-                    this.setTarget(null);
-                    this.getWorld().sendEntityStatus(this, (byte) 7);
-                } else {
-                    this.getWorld().sendEntityStatus(this, (byte) 6);
+        if (item == ModItems.COZY_CRUMBS) {
+            if (!player.getAbilities().creativeMode) stack.decrement(1);
+
+            if (!this.isTamed()) {
+                if (!this.getWorld().isClient()) {
+                    if (this.random.nextInt(3) == 0) {
+                        this.setOwner(player);
+                        this.navigation.recalculatePath();
+                        this.setTarget(null);
+                        this.getWorld().sendEntityStatus(this, (byte) 7);
+                    } else this.getWorld().sendEntityStatus(this, (byte) 6);
                 }
+                return ActionResult.SUCCESS;
             }
-            return ActionResult.SUCCESS;
+
+            if (this.isTamed() && this.getHealth() < this.getMaxHealth()) {
+                this.heal(2.0F);
+                return ActionResult.SUCCESS;
+            }
         }
 
-        if (this.isTamed() && item == itemForTaming && this.getHealth() < this.getMaxHealth()) {
-            if (!player.getAbilities().creativeMode) {
-                itemStack.decrement(1);
-            }
-            this.heal(2.0F);
-            return ActionResult.SUCCESS;
-        }
-
-        if (this.isTamed() && this.isOwner(player) && hand == Hand.MAIN_HAND && item != itemForTaming && !isBreedingItem(itemStack)) {
+        if (this.isTamed() && this.isOwner(player) && hand == Hand.MAIN_HAND && item != ModItems.COZY_CRUMBS) {
             boolean sitting = !this.isSitting();
             this.setSitting(sitting);
             this.setInSittingPose(sitting);
@@ -217,48 +182,42 @@ public class MushlingEntity extends TameableEntity {
         return super.interactMob(player, hand);
     }
 
-    @Override
-    public EntityView method_48926() {
-        return this.getWorld();
-    }
+    @Override public EntityView method_48926() { return this.getWorld(); }
+    @Override public boolean isBreedingItem(ItemStack stack) { return stack.isOf(ModItems.COZY_CRUMBS); }
 
-    @Override
-    public boolean isBreedingItem(ItemStack stack) {
-        return stack.isOf(ModItems.COZY_CRUMBS);
-    }
-
+    // --- Night Light System ---
     private void updateTamedNightLight() {
-        boolean shouldGlow = this.isAlive() && this.isTamed() && !this.getWorld().isDay();
-        if (!shouldGlow) {
+        if (!this.isAlive() || !this.isTamed() || this.getWorld().isDay()) {
             removeLastLightIfPresent();
             return;
         }
 
-        BlockPos feet = this.getBlockPos();
-        BlockPos targetPos = isAirOrLight(feet) ? feet : feet.up();
-        if (this.lastLightPos != null && !this.lastLightPos.equals(targetPos)) {
+        BlockPos target = this.getBlockPos();
+        if (!isAirOrLight(target)) target = target.up();
+
+        if (this.lastLightPos != null && !this.lastLightPos.equals(target)) {
             removeLastLightIfPresent();
         }
-        if (isAirOrLight(targetPos)) {
+
+        if (isAirOrLight(target)) {
             var desired = Blocks.LIGHT.getDefaultState().with(LightBlock.LEVEL_15, NIGHT_GLOW_LEVEL);
-            var current = this.getWorld().getBlockState(targetPos);
+            var current = this.getWorld().getBlockState(target);
             if (!current.isOf(Blocks.LIGHT) || current.get(LightBlock.LEVEL_15) != NIGHT_GLOW_LEVEL) {
-                this.getWorld().setBlockState(targetPos, desired, 3);
+                this.getWorld().setBlockState(target, desired, 2);
             }
-            this.lastLightPos = targetPos;
+            this.lastLightPos = target;
         } else {
             this.lastLightPos = null;
         }
     }
 
     private void removeLastLightIfPresent() {
-        if (this.lastLightPos != null) {
-            var state = this.getWorld().getBlockState(this.lastLightPos);
-            if (state.isOf(Blocks.LIGHT)) {
-                this.getWorld().setBlockState(this.lastLightPos, Blocks.AIR.getDefaultState(), 3);
-            }
-            this.lastLightPos = null;
+        if (this.lastLightPos == null) return;
+        var state = this.getWorld().getBlockState(this.lastLightPos);
+        if (state.isOf(Blocks.LIGHT)) {
+            this.getWorld().setBlockState(this.lastLightPos, Blocks.AIR.getDefaultState(), 2);
         }
+        this.lastLightPos = null;
     }
 
     private boolean isAirOrLight(BlockPos pos) {
@@ -268,29 +227,18 @@ public class MushlingEntity extends TameableEntity {
 
     @Override
     public void remove(RemovalReason reason) {
-        if (!this.getWorld().isClient()) {
-            removeLastLightIfPresent();
-        }
+        if (!this.getWorld().isClient()) removeLastLightIfPresent();
         super.remove(reason);
     }
 
-    // --- Variant logic with persistence ---
-    public MushlingVariant getVariant() {
-        return MushlingVariant.byId(this.getTypeVariant() & 255);
-    }
-
-    private int getTypeVariant() {
-        return this.dataTracker.get(DATA_ID_TYPE_VARIANT);
-    }
-
-    public void setVariant(MushlingVariant variant) {
-        this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
-    }
+    // --- Variants ---
+    public MushlingVariant getVariant() { return MushlingVariant.byId(this.dataTracker.get(DATA_ID_TYPE_VARIANT) & 255); }
+    public void setVariant(MushlingVariant variant) { this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255); }
 
     @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
-        nbt.putInt("Variant", this.getTypeVariant());
+        nbt.putInt("Variant", this.dataTracker.get(DATA_ID_TYPE_VARIANT));
     }
 
     @Override
@@ -300,14 +248,11 @@ public class MushlingEntity extends TameableEntity {
     }
 
     @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,
-                                 @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
-        // choose variant from biome
-        MushlingVariant chosen = ModEntitySpawns
-                .pickVariantForBiome(world, this.getBlockPos())
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason reason,
+                                 @Nullable EntityData data, @Nullable NbtCompound nbt) {
+        MushlingVariant chosen = ModEntitySpawns.pickVariantForBiome(world, this.getBlockPos())
                 .orElse(Util.getRandom(MushlingVariant.values(), this.random));
         setVariant(chosen);
-
-        return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+        return super.initialize(world, difficulty, reason, data, nbt);
     }
 }

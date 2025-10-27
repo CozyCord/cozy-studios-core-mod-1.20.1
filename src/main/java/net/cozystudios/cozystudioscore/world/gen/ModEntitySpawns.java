@@ -141,8 +141,8 @@ public class ModEntitySpawns {
         // --- MUSHLING spawn restriction ---
         SpawnRestriction.register(
                 ModEntities.MUSHLING,
-                SpawnRestriction.Location.NO_RESTRICTIONS,
-                Heightmap.Type.WORLD_SURFACE,
+                SpawnRestriction.Location.ON_GROUND,
+                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
                 (type, world, reason, pos, random) -> {
                     RegistryEntry<Biome> entry = world.getBiome(pos);
 
