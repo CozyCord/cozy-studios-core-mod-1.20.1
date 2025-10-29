@@ -21,6 +21,13 @@ public class ModConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public int tranquilLanternRadius = 35;
 
+    @ConfigEntry.Category("general")
+    @ConfigEntry.Gui.Tooltip
+    public boolean tranquilLanternBump = true;
+    @ConfigEntry.Category("general")
+    @ConfigEntry.Gui.Tooltip
+    public boolean tranquilLanternBurn = false;
+
     // ======================
     // Kiln
     // ======================
@@ -94,6 +101,8 @@ public class ModConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public double fernlingBonemealChance = 0.15; // 15%
 
+
+
     // ======================
     // Helpers
     // ======================
@@ -103,5 +112,9 @@ public class ModConfig implements ConfigData {
 
     public static ModConfig get() {
         return AutoConfig.getConfigHolder(ModConfig.class).getConfig();
+    }
+
+    public static void reload() {
+        AutoConfig.getConfigHolder(ModConfig.class).load();
     }
 }

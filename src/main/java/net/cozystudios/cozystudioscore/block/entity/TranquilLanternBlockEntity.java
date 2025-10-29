@@ -1,5 +1,6 @@
 package net.cozystudios.cozystudioscore.block.entity;
 
+import net.cozystudios.cozystudioscore.block.entity.ModBlockEntities;
 import net.cozystudios.cozystudioscore.config.ModConfig;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -17,16 +18,21 @@ public class TranquilLanternBlockEntity extends BlockEntity {
     public TranquilLanternBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.TRANQUIL_LANTERN, pos, state);
     }
+
     @SuppressWarnings("unused")
     public static void tick(World world, BlockPos pos, BlockState state, TranquilLanternBlockEntity _be) {
         if (world.isClient) return;
 
-        int RADIUS = ModConfig.get().tranquilLanternRadius;
+        int radius = ModConfig.get().tranquilLanternRadius;
+        boolean bump = ModConfig.get().tranquilLanternBump;
+        boolean burn = ModConfig.get().tranquilLanternBurn;
+
         double cx = pos.getX() + 0.5;
         double cy = pos.getY() + 0.5;
         double cz = pos.getZ() + 0.5;
-        double r2 = RADIUS * RADIUS;
+        double r2 = radius * radius;
 
+        // Player regen effect
         for (PlayerEntity player : world.getPlayers()) {
             if (player.squaredDistanceTo(cx, cy, cz) <= r2) {
                 if (!player.hasStatusEffect(StatusEffects.REGENERATION) ||
@@ -42,22 +48,29 @@ public class TranquilLanternBlockEntity extends BlockEntity {
             }
         }
 
-        Box box = new Box(cx - RADIUS, cy - RADIUS, cz - RADIUS,
-                cx + RADIUS, cy + RADIUS, cz + RADIUS);
+        // Mob suppression logic
+        if (bump || burn) {
+            Box box = new Box(cx - radius, cy - radius, cz - radius,
+                    cx + radius, cy + radius, cz + radius);
 
-        for (HostileEntity mob : world.getEntitiesByClass(HostileEntity.class, box, Entity::isAlive)) {
-            double dx = mob.getX() - cx;
-            double dy = mob.getY() - cy;
-            double dz = mob.getZ() - cz;
-            double d2 = dx * dx + dy * dy + dz * dz;
+            for (HostileEntity mob : world.getEntitiesByClass(HostileEntity.class, box, Entity::isAlive)) {
+                double dx = mob.getX() - cx;
+                double dy = mob.getY() - cy;
+                double dz = mob.getZ() - cz;
+                double d2 = dx * dx + dy * dy + dz * dz;
 
-            if (d2 <= r2 && d2 > 0.25) {
-                double d = Math.sqrt(d2);
-                double normalized = Math.max(0.0, 1.0 - (d / RADIUS));
-                double strength = 0.25 * Math.pow(normalized, 2.0);
+                if (bump && d2 <= r2 && d2 > 0.25) {
+                    double d = Math.sqrt(d2);
+                    double normalized = Math.max(0.0, 1.0 - (d / radius));
+                    double strength = 0.25 * Math.pow(normalized, 2.0);
 
-                mob.addVelocity((dx / d) * strength, 0, (dz / d) * strength);
-                mob.velocityModified = true;
+                    mob.addVelocity((dx / d) * strength, 0, (dz / d) * strength);
+                    mob.velocityModified = true;
+                }
+
+                if (burn && d2 <= r2) {
+                    mob.setOnFireFor(5);
+                }
             }
         }
     }

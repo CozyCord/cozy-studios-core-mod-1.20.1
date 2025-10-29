@@ -1,14 +1,18 @@
 package net.cozystudios.cozystudioscore.world;
 
 import net.cozystudios.cozystudioscore.block.ModBlocks;
+import net.cozystudios.cozystudioscore.block.entity.ModBlockEntities;
 import net.cozystudios.cozystudioscore.config.ModConfig;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.mob.*;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import net.minecraft.world.chunk.WorldChunk;
 
 import java.util.*;
 
@@ -19,6 +23,11 @@ public class TranquilLanternSpawnBlocker {
 
     public static void register() {
         ServerTickEvents.END_SERVER_TICK.register(TranquilLanternSpawnBlocker::tick);
+
+        ServerLifecycleEvents.END_DATA_PACK_RELOAD.register((server, resourceManager, success) -> {
+            ModConfig.reload();
+            refreshAllLanterns(server);
+        });
     }
 
     private static void tick(MinecraftServer server) {
@@ -71,6 +80,7 @@ public class TranquilLanternSpawnBlocker {
                         }
                     }
 
+                    // Push other mobs away
                     if (distSq < radiusSq && distSq > 0.001) {
                         double dist = Math.sqrt(distSq);
                         double pushStrength = 0.25 * (1.0 - (dist / radius));
@@ -93,6 +103,7 @@ public class TranquilLanternSpawnBlocker {
         }
     }
 
+
     private static boolean isHostileMob(MobEntity mob) {
         return mob instanceof HostileEntity
                 || mob instanceof SlimeEntity
@@ -100,12 +111,47 @@ public class TranquilLanternSpawnBlocker {
                 || mob instanceof PhantomEntity;
     }
 
+
     public static void addLantern(ServerWorld world, BlockPos pos) {
         ACTIVE_LANTERNS.computeIfAbsent(world, k -> new HashSet<>()).add(pos.toImmutable());
     }
 
+
     public static void removeLantern(ServerWorld world, BlockPos pos) {
         Set<BlockPos> set = ACTIVE_LANTERNS.get(world);
         if (set != null) set.remove(pos.toImmutable());
+    }
+
+    public static void refreshAllLanterns(MinecraftServer server) {
+        ACTIVE_LANTERNS.clear();
+
+        for (ServerWorld world : server.getWorlds()) {
+            Set<BlockPos> lanterns = new HashSet<>();
+
+            world.getPlayers().forEach(player -> {
+                BlockPos playerPos = player.getBlockPos();
+                int scanRadius = 8;
+
+                int chunkX = playerPos.getX() >> 4;
+                int chunkZ = playerPos.getZ() >> 4;
+
+                for (int dx = -scanRadius; dx <= scanRadius; dx++) {
+                    for (int dz = -scanRadius; dz <= scanRadius; dz++) {
+                        if (world.isChunkLoaded(chunkX + dx, chunkZ + dz)) {
+                            var chunk = world.getChunk(chunkX + dx, chunkZ + dz);
+                            for (BlockEntity be : chunk.getBlockEntities().values()) {
+                                if (be.getType() == ModBlockEntities.TRANQUIL_LANTERN) {
+                                    lanterns.add(be.getPos().toImmutable());
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            if (!lanterns.isEmpty()) {
+                ACTIVE_LANTERNS.put(world, lanterns);
+            }
+        }
     }
 }

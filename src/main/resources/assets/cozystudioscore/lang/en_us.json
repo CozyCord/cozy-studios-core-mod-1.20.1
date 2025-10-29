@@ -61,6 +61,10 @@
   "-- General Options --": "",
   "text.autoconfig.cozystudioscore.option.tranquilLanternRadius": "Tranquil Lantern Radius",
   "text.autoconfig.cozystudioscore.option.tranquilLanternRadius.@Tooltip": "Blocks around the lantern that repel hostile mobs.",
+  "text.autoconfig.cozystudioscore.option.tranquilLanternBump": "Tranquil Lantern Bump",
+  "text.autoconfig.cozystudioscore.option.tranquilLanternBump.@Tooltip": "Enable Tranquil Lantern Bump, which will bump the mobs to the outer edge of the radius.",
+  "text.autoconfig.cozystudioscore.option.tranquilLanternBurn": "Tranquil Lantern Burn",
+  "text.autoconfig.cozystudioscore.option.tranquilLanternBurn.@Tooltip": "Enable Tranquil Lantern Burn, which will burn mobs instead of bumping them.",
 
   "-- Kiln Options --": "",
   "text.autoconfig.cozystudioscore.option.extraKilnRecipes": "Extra Kiln Recipes",
