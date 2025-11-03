@@ -54,10 +54,12 @@ public class CozyStudiosCore implements ModInitializer {
         ModLootInjector.register();
 
         // === Extra: configurable stack sizes ===
+        ServerLifecycleEvents.SERVER_STARTING.register(server -> {
         var config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
         if (config.maxStackSizeOverride >= 16 && config.maxStackSizeOverride <= 64) {
             fixStackSizes(config.maxStackSizeOverride);
         }
+    });
 
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             ServerPlayerEntity player = handler.getPlayer();
@@ -77,16 +79,18 @@ public class CozyStudiosCore implements ModInitializer {
     }
 
     private void fixStackSizes(int newMax) {
+        int changed = 0;
         for (Item item : Registries.ITEM) {
-            if (item.getMaxCount() == 16) {
-                try {
+            try {
+                if (item.getMaxCount() == 16) {
                     Field field = Item.class.getDeclaredField("maxCount");
                     field.setAccessible(true);
                     field.set(item, newMax);
-                } catch (Exception e) {
-                    LOGGER.error("Could not change max stack-size of {}: {}",
-                            Registries.ITEM.getId(item), e.toString());
+                    changed++;
                 }
+            } catch (Exception e) {
+                LOGGER.error("Failed to update stack size for {}: {}",
+                        Registries.ITEM.getId(item), e.toString());
             }
         }
     }

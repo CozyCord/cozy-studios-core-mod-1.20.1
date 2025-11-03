@@ -2,13 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "group": "arborist_table",
   "pattern": [
-    "SSS",
-    "SBS",
-    "SSS"
+    "OHO",
+    "SCS",
+    "BBB"
   ],
   "key": {
-    "S": { "tag": "minecraft:saplings" },
-    "B": { "item": "minecraft:barrel" }
+    "O": { "item": "minecraft:orange_wool" },
+    "H": { "item": "minecraft:iron_shovel" },
+    "C": { "item": "minecraft:crafting_table" },
+    "B": { "item": "minecraft:birch_planks" },
+    "S": { "tag": "minecraft:saplings" }
   },
   "result": {
     "item": "cozystudioscore:arborist_table"

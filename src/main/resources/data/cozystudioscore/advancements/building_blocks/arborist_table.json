@@ -1,0 +1,23 @@
+{
+  "parent": "cozystudioscore:cozystudioscore/root",
+  "display": {
+    "icon": { "item": "cozystudioscore:arborist_table" },
+    "title": { "translate": "advancements.cozystudioscore.arborist_table.title" },
+    "description": { "translate": "advancements.cozystudioscore.arborist_table.description" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "crafted_arborist_table": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipe_id": "cozystudioscore:arborist_table"
+      }
+    }
+  },
+  "requirements": [
+    ["crafted_arborist_table"]
+  ]
+}

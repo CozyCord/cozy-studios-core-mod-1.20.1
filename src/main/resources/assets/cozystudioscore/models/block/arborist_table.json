@@ -1,12 +1,26 @@
 {
-  "parent": "block/cube",
+  "parent": "block/block",
   "textures": {
-    "particle": "cozystudioscore:block/arborist_table_side",
-    "north": "cozystudioscore:block/arborist_table_side",
-    "south": "cozystudioscore:block/arborist_table_side",
-    "east":  "cozystudioscore:block/arborist_table_side",
-    "west":  "cozystudioscore:block/arborist_table_side",
-    "up":    "cozystudioscore:block/arborist_table_top",
-    "down":  "cozystudioscore:block/arborist_table_bottom"
-  }
+    "particle": "cozystudioscore:block/arborist_table_south",
+    "north": "cozystudioscore:block/arborist_table_north",
+    "south": "cozystudioscore:block/arborist_table_south",
+    "east": "cozystudioscore:block/arborist_table_east",
+    "west": "cozystudioscore:block/arborist_table_west",
+    "up": "cozystudioscore:block/arborist_table_top",
+    "down": "cozystudioscore:block/arborist_table_bottom"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "north": { "texture": "#north" },
+        "south": { "texture": "#south" },
+        "east":  { "texture": "#east" },
+        "west":  { "texture": "#west" },
+        "up":    { "texture": "#up", "rotation": 180 },
+        "down":  { "texture": "#down" }
+      }
+    }
+  ]
 }

@@ -1,0 +1,29 @@
+{
+  "parent": "cozystudioscore:building_blocks/arborist_table",
+  "display": {
+    "icon": { "item": "minecraft:oak_sapling" },
+    "title": { "text": "Tree Whisperer" },
+    "description": { "text": "The trees trust you now... and so do their caretakers." },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "trade_with_arborist": {
+      "trigger": "minecraft:villager_trade",
+      "conditions": {
+        "villager": {
+          "type_specific": {
+            "type": "villager",
+            "profession": "cozystudioscore:arborist",
+            "variant": "plains"
+          }
+        }
+      }
+    }
+  },
+  "requirements": [
+    ["trade_with_arborist"]
+  ]
+}

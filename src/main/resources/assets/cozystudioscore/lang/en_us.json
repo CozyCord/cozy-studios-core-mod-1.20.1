@@ -46,6 +46,10 @@
   "advancements.cozystudioscore.kiln.description": "Craft a Kiln to refine your building materials.",
   "advancements.cozystudioscore.root.title": "Cozy Studios Core",
   "advancements.cozystudioscore.root.description": "Unlock the power of Cozy Studios.",
+  "advancements.cozystudioscore.arborist_table.title": "Certified Arborist",
+  "advancements.cozystudioscore.arborist_table.description": "You’ve stopped planting trees... now you study them.",
+  "advancements.cozystudioscore.tree_whisperer.title": "Tree Whisperer",
+  "advancements.cozystudioscore.tree_whisperer.description": "The trees trust you now... and so do their caretakers.",
 
   "-- SOUNDS --": "",
   "sounds.cozystudioscore.golden_leaf_use": "The Power of the Leaf Surrounds You",

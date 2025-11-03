@@ -59,7 +59,7 @@ public class ModConfig implements ConfigData {
 
     @ConfigEntry.Category("gameplay")
     @ConfigEntry.Gui.Tooltip
-    @ConfigEntry.BoundedDiscrete(min = 16, max = 64) // makes it a slider
+    @ConfigEntry.BoundedDiscrete(min = 16, max = 64)
     public int maxStackSizeOverride = 64;
 
     // ======================

@@ -1,6 +1,7 @@
 package net.cozystudios.cozystudioscore.block;
 
 import net.cozystudios.cozystudioscore.CozyStudiosCore;
+import net.cozystudios.cozystudioscore.block.custom.ArboristTableBlock;
 import net.cozystudios.cozystudioscore.block.custom.KilnBlock;
 import net.cozystudios.cozystudioscore.block.custom.TranquilLanternBlock;
 import net.cozystudios.cozystudioscore.item.custom.TranquilLanternItem;
@@ -31,7 +32,7 @@ public class ModBlocks {
     );
 
     public static final Block ARBORIST_TABLE = registerBlock("arborist_table",
-            new Block(Block.Settings.copy(Blocks.COMPOSTER))
+            new ArboristTableBlock(Block.Settings.copy(Blocks.COMPOSTER))
     );
 
 
