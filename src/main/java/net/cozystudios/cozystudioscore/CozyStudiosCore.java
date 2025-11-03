@@ -55,11 +55,11 @@ public class CozyStudiosCore implements ModInitializer {
 
         // === Extra: configurable stack sizes ===
         ServerLifecycleEvents.SERVER_STARTING.register(server -> {
-        var config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
-        if (config.maxStackSizeOverride >= 16 && config.maxStackSizeOverride <= 64) {
-            fixStackSizes(config.maxStackSizeOverride);
-        }
-    });
+            var config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
+            if (config.maxStackSizeOverride >= 16 && config.maxStackSizeOverride <= 64) {
+                fixStackSizes(config.maxStackSizeOverride);
+            }
+        });
 
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             ServerPlayerEntity player = handler.getPlayer();
@@ -81,16 +81,33 @@ public class CozyStudiosCore implements ModInitializer {
     private void fixStackSizes(int newMax) {
         int changed = 0;
         for (Item item : Registries.ITEM) {
-            try {
-                if (item.getMaxCount() == 16) {
-                    Field field = Item.class.getDeclaredField("maxCount");
+            if (item.getMaxCount() == 16) {
+                try {
+                    Field field = null;
+                    Class<?> cls = item.getClass();
+
+                    while (cls != null && field == null) {
+                        for (Field f : cls.getDeclaredFields()) {
+                            if (f.getName().equals("maxCount") || f.getName().equals("field_8013")) {
+                                field = f;
+                                break;
+                            }
+                        }
+                        cls = cls.getSuperclass();
+                    }
+
+                    if (field == null) {
+                        throw new NoSuchFieldException("maxCount not found in hierarchy");
+                    }
+
                     field.setAccessible(true);
                     field.set(item, newMax);
                     changed++;
+
+                } catch (Exception e) {
+                    LOGGER.error("Failed to update stack size for {}: {}",
+                            Registries.ITEM.getId(item), e.toString());
                 }
-            } catch (Exception e) {
-                LOGGER.error("Failed to update stack size for {}: {}",
-                        Registries.ITEM.getId(item), e.toString());
             }
         }
     }
