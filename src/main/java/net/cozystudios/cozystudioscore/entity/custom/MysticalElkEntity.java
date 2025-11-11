@@ -34,13 +34,16 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import java.util.Objects;
 import net.minecraft.block.BlockState;
+import java.util.Objects;
 
 public class MysticalElkEntity extends TameableEntity implements Mount, JumpingMount {
 
+    // === Animation states ===
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState runningAnimationState = new AnimationState();
+
+    private int idleAnimationTimeout = 0;
 
     // Saddled flag
     private static final TrackedData<Boolean> SADDLED =
@@ -71,28 +74,41 @@ public class MysticalElkEntity extends TameableEntity implements Mount, JumpingM
         this.setSaddled(nbt.getBoolean("Saddled"));
     }
 
+    // === Animation setup ===
+    private void setupAnimationStates() {
+        float moveSpeed = this.limbAnimator.getSpeed();
+
+        if (moveSpeed < 0.05F) {
+            if (this.idleAnimationTimeout <= 0) {
+                this.idleAnimationTimeout = this.random.nextInt(40) + 80;
+                this.idleAnimationState.start(this.age);
+            } else {
+                --this.idleAnimationTimeout;
+            }
+            this.runningAnimationState.stop();
+        }
+        else if (this.isSprinting()) {
+            this.idleAnimationState.stop();
+            this.runningAnimationState.startIfNotRunning(this.age);
+        }
+        else {
+            this.idleAnimationState.stop();
+            this.runningAnimationState.stop();
+        }
+    }
+
     @Override
     public void tick() {
         super.tick();
-        if (this.getWorld().isClient()) {
-            if (this.limbAnimator.getSpeed() < 0.15F && !this.idleAnimationState.isRunning()) {
-                this.idleAnimationState.start(this.age);
-            } else if (this.limbAnimator.getSpeed() >= 0.15F) {
-                this.idleAnimationState.stop();
-            }
 
-            if (this.isSprinting()) {
-                this.runningAnimationState.startIfNotRunning(this.age);
-            } else {
-                this.runningAnimationState.stop();
-            }
+        if (this.getWorld().isClient()) {
+            this.setupAnimationStates();
         }
     }
 
     @Override
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
-        // REMOVED FollowOwnerGoal so they don’t teleport to owner
         this.goalSelector.add(1, new FollowParentGoal(this, 1.1D));
         this.goalSelector.add(2, new AnimalMateGoal(this, 1.15D));
         this.goalSelector.add(3, new TemptGoal(this, 1.25D, Ingredient.ofItems(ModItems.MYSTICAL_BERRIES), false));
@@ -151,7 +167,7 @@ public class MysticalElkEntity extends TameableEntity implements Mount, JumpingM
                     this.setTarget(null);
                     this.getWorld().sendEntityStatus(this, (byte)7);
                 } else {
-                    this.getWorld().sendEntityStatus(this, (byte) 6);
+                    this.getWorld().sendEntityStatus(this, (byte)6);
                 }
             }
             return ActionResult.SUCCESS;
@@ -179,7 +195,7 @@ public class MysticalElkEntity extends TameableEntity implements Mount, JumpingM
             return ActionResult.SUCCESS;
         }
 
-        // Mount (disallow babies)
+        // Mount
         if (isTamed() && this.isSaddled() && !this.hasPassengers() && !this.isBaby()) {
             if (!this.getWorld().isClient()) {
                 player.startRiding(this);
@@ -272,7 +288,6 @@ public class MysticalElkEntity extends TameableEntity implements Mount, JumpingM
 
     @Override
     public void stopJumping() {
-        // reset handled in travel
     }
 
     @Override
@@ -315,10 +330,9 @@ public class MysticalElkEntity extends TameableEntity implements Mount, JumpingM
                                  @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
         EntityData data = super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 
-        // Randomize like horses
-        double health = 15.0D + (this.random.nextDouble() * 15.0D);   // 15–30 HP
-        double speed = 0.18D + (this.random.nextDouble() * 0.12D);   // ~0.18–0.3
-        double jump = 0.4D + (this.random.nextDouble() * 1.2D);      // 0.4-1.2
+        double health = 15.0D + (this.random.nextDouble() * 15.0D);
+        double speed = 0.18D + (this.random.nextDouble() * 0.12D);
+        double jump = 0.5D + (this.random.nextDouble() * 0.7D);
 
         Objects.requireNonNull(this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)).setBaseValue(health);
         this.setHealth((float)health);
@@ -328,7 +342,6 @@ public class MysticalElkEntity extends TameableEntity implements Mount, JumpingM
         return data;
     }
 
-    // --- Lead support like horses ---
     @Override
     public boolean canBeLeashedBy(PlayerEntity player) {
         return true;
@@ -344,17 +357,14 @@ public class MysticalElkEntity extends TameableEntity implements Mount, JumpingM
         return new Vec3d(0.0D, this.getStandingEyeHeight() * 0.6D, this.getWidth() * 0.2D);
     }
 
-    // --- Fix nameplate height ---
     @Override
     public float getNameLabelHeight() {
-        // Lowered so it’s closer to the head, not way above
         return (float) (this.getHeight() - 0.5D);
     }
 
-    // --- No fall damage ---
     @Override
     public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
-        return false; // completely ignore fall damage
+        return false;
     }
 
     @Override

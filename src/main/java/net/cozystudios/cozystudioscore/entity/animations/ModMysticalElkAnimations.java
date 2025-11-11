@@ -7,7 +7,7 @@ import net.minecraft.client.render.entity.animation.Transformation;
 
 public class ModMysticalElkAnimations {
 
-    public static final Animation MYSTICAL_ELK_IDLE = Animation.Builder.create(7f)
+    public static final Animation MYSTICAL_ELK_IDLE = Animation.Builder.create(7f).looping()
             .addBoneAnimation("Chest",
                     new Transformation(Transformation.Targets.TRANSLATE,
                             new Keyframe(3f, AnimationHelper.createTranslationalVector(0f, -1f, 0f),
