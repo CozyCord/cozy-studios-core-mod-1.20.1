@@ -15,7 +15,7 @@ public final class ModTradersSpawner {
     private static final Random RAND = new Random();
     private static int cooldown = 20 * 60 * 5;
     private static final int DESPAWN_TIME = 20 * 60 * 10;
-    private static final double SPAWN_CHANCE = 0.25;
+    private static final double SPAWN_CHANCE = 0.20;
 
     public static void register() {
         ServerTickEvents.END_SERVER_TICK.register(ModTradersSpawner::tick);
@@ -23,7 +23,7 @@ public final class ModTradersSpawner {
 
     private static void tick(MinecraftServer server) {
         if (--cooldown > 0) return;
-        cooldown = 20 * 60 * 5;
+        cooldown = 20 * 60 * 30;
 
         for (ServerWorld world : server.getWorlds()) {
 
