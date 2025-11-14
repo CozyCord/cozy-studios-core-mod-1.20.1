@@ -32,6 +32,9 @@
   "text.autoconfig.cozystudioscore.option.fernlingBonemealChance": "Bonemeal Chance",
   "text.autoconfig.cozystudioscore.option.fernlingBonemealChance.@Tooltip": "Chance (0.0–1.0) for a Fernling to bonemeal when cooldown ends.",
 
+  "-- KEYBINDS --": "",
+  "key.cozystudioscore.toggle_tranquil_lantern_radius": "Toggle Tranquil Lantern Visual Radius",
+
   "-- BLOCKS --": "",
   "block.cozystudioscore.tranquil_lantern": "Tranquil Lantern",
   "block.cozystudioscore.kiln": "Kiln",
@@ -61,6 +64,7 @@
   "text.autoconfig.cozystudioscore.category.general": "General",
   "text.autoconfig.cozystudioscore.category.kiln": "Kiln",
   "text.autoconfig.cozystudioscore.category.gameplay": "Gameplay",
+  "category.cozystudioscore": "CozyStudios Core",
 
   "-- General Options --": "",
   "text.autoconfig.cozystudioscore.option.tranquilLanternRadius": "Tranquil Lantern Radius",

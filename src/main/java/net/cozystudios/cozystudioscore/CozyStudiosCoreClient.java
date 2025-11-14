@@ -1,10 +1,15 @@
 package net.cozystudios.cozystudioscore;
 
+import net.cozystudios.cozystudioscore.client.ModKeybinds;
+import net.cozystudios.cozystudioscore.client.TranquilLanternClientState;
+import net.cozystudios.cozystudioscore.client.render.TranquilLanternRadiusRenderer;
 import net.cozystudios.cozystudioscore.entity.ModEntities;
 import net.cozystudios.cozystudioscore.entity.client.*;
 import net.cozystudios.cozystudioscore.entity.layer.ModModelLayers;
+import net.cozystudios.cozystudioscore.network.ModNetworking;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.RenderLayer;
@@ -12,7 +17,10 @@ import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.cozystudios.cozystudioscore.block.ModBlocks;
 import net.cozystudios.cozystudioscore.screen.KilnScreen;
 import net.cozystudios.cozystudioscore.screen.ModScreenHandlers;
-import net.minecraft.client.render.entity.WanderingTraderEntityRenderer;
+import net.minecraft.util.math.BlockPos;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class CozyStudiosCoreClient implements ClientModInitializer {
     @Override
@@ -31,5 +39,8 @@ public class CozyStudiosCoreClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.MYSTICAL_ELK, MysticalElkRenderer::new);
         EntityRendererRegistry.register(ModEntities.MYSTICAL_TRADER,
                 MysticalTraderRenderer::new);
+
+        TranquilLanternRadiusRenderer.register();
+        ModKeybinds.register();
     }
 }
