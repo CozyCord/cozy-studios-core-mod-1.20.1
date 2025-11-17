@@ -3,7 +3,10 @@ package net.cozystudios.cozystudioscore.mixin;
 import net.cozystudios.cozystudioscore.block.entity.TranquilLanternBlockEntity;
 import net.cozystudios.cozystudioscore.config.ModConfig;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.*;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
@@ -23,6 +26,7 @@ public class MobEntityTranquilSpawnMixin {
 
     @Unique
     private static Integer RADIUS = null;
+
     @Unique
     private static int getRadius() {
         if (RADIUS == null) {
@@ -32,20 +36,32 @@ public class MobEntityTranquilSpawnMixin {
     }
 
     @Inject(method = "canSpawn", at = @At("HEAD"), cancellable = true)
-    private static void onCanSpawn(EntityType<?> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random, CallbackInfoReturnable<Boolean> cir) {
-        if (type.getSpawnGroup().isPeaceful() || spawnReason != SpawnReason.NATURAL) {
-            cir.setReturnValue(true);
+    private static void onCanSpawn(EntityType<?> type,
+                                   ServerWorldAccess world,
+                                   SpawnReason spawnReason,
+                                   BlockPos pos,
+                                   Random random,
+                                   CallbackInfoReturnable<Boolean> cir) {
+
+        if (spawnReason != SpawnReason.NATURAL) {
+            return;
+        }
+
+        SpawnGroup group = type.getSpawnGroup();
+        if (group != SpawnGroup.MONSTER) {
+            return;
+        }
+
+        if (!(world instanceof ServerWorld serverWorld)) {
             return;
         }
 
         int radius = getRadius();
+        int radiusSq = radius * radius;
 
-        for (BlockEntity be : getLanternsNearby((ServerWorld) world, pos, radius)) {
+        for (TranquilLanternBlockEntity be : getLanternsNearby(serverWorld, pos, radius)) {
             double distSq = be.getPos().getSquaredDistance(pos);
-            if (distSq <= radius * radius) {
-                // Lantern in radius
-                // System.out.println("Lantern found in range");
-                // set spawn to false to prevent entity to spawn
+            if (distSq <= radiusSq) {
                 cir.setReturnValue(false);
                 return;
             }
@@ -53,7 +69,9 @@ public class MobEntityTranquilSpawnMixin {
     }
 
     @Unique
-    private static List<TranquilLanternBlockEntity> getLanternsNearby(ServerWorld world, BlockPos center, int range) {
+    private static List<TranquilLanternBlockEntity> getLanternsNearby(ServerWorld world,
+                                                                      BlockPos center,
+                                                                      int range) {
         List<TranquilLanternBlockEntity> lanterns = new ArrayList<>();
         int chunkRadius = (range >> 4) + 1;
 
@@ -64,8 +82,8 @@ public class MobEntityTranquilSpawnMixin {
             for (int dz = -chunkRadius; dz <= chunkRadius; dz++) {
                 WorldChunk chunk = world.getChunk(chunkX + dx, chunkZ + dz);
                 for (BlockEntity be : chunk.getBlockEntities().values()) {
-                    if (be instanceof TranquilLanternBlockEntity) {
-                        lanterns.add((TranquilLanternBlockEntity) be);
+                    if (be instanceof TranquilLanternBlockEntity tl) {
+                        lanterns.add(tl);
                     }
                 }
             }
@@ -73,6 +91,4 @@ public class MobEntityTranquilSpawnMixin {
 
         return lanterns;
     }
-
-
 }
