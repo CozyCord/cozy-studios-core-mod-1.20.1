@@ -11,18 +11,18 @@ import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.village.TradeOffer;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.village.TradeOffer;
 import net.minecraft.village.VillagerProfession;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
-import java.util.UUID;
 
 public class ModRegistries {
+
     public static void registerModStuffs() {
         registerAttributes();
         registerCustomTrades();
@@ -45,8 +45,6 @@ public class ModRegistries {
     private static final int JOURNEYMAN_COUNT = 2;
     private static final int EXPERT_COUNT = 2;
     private static final int MASTER_COUNT = 2;
-
-    private static final long SHUFFLE_SALT = 0xC0FFEEBEEFL;
 
     private static void registerCustomTrades() {
         registerSaplingLevel(ModVillagers.ARBORIST, 1, NOVICE_COUNT);
@@ -78,7 +76,8 @@ public class ModRegistries {
                     }
 
                     int baseOffset = cumulativeOffsetForLevel(level);
-                    Item chosen = pickStableUnique(entries, entity.getUuid(), baseOffset + indexWithinLevel);
+
+                    Item chosen = pickStableUnique(entries, random, baseOffset + indexWithinLevel);
                     if (chosen == null) {
                         return null;
                     }
@@ -105,15 +104,22 @@ public class ModRegistries {
         };
     }
 
-    private static Item pickStableUnique(List<RegistryEntry<Item>> entries, UUID villagerUuid, int globalIndex) {
+    private static Item pickStableUnique(List<RegistryEntry<Item>> entries,
+                                         Random random,
+                                         int globalIndex) {
+
         int size = entries.size();
-        if (globalIndex >= size) return null;
+        if (size == 0 || globalIndex >= size) {
+            return null;
+        }
 
         List<Integer> order = new ArrayList<>(size);
-        for (int i = 0; i < size; i++) order.add(i);
+        for (int i = 0; i < size; i++) {
+            order.add(i);
+        }
 
-        long seed = villagerUuid.getMostSignificantBits() ^ villagerUuid.getLeastSignificantBits() ^ SHUFFLE_SALT;
-        Collections.shuffle(order, new Random(seed));
+        java.util.Random shuffleRandom = new java.util.Random(random.nextLong());
+        Collections.shuffle(order, shuffleRandom);
 
         int pickedIdx = order.get(globalIndex);
         return entries.get(pickedIdx).value();
