@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.*;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
@@ -22,6 +23,8 @@ import java.util.*;
 public class TranquilLanternSpawnBlocker {
 
     private static final Map<ServerWorld, Set<BlockPos>> ACTIVE_LANTERNS = new HashMap<>();
+
+    private static final Set<UUID> PHANTOM_DEATH_MEMORY = new HashSet<>();
 
     private static final int LINGER_TICKS_THRESHOLD = 60;
     private static final int TICK_INTERVAL = 10;
@@ -81,8 +84,8 @@ public class TranquilLanternSpawnBlocker {
                         lanternPos.getX() + radius, lanternPos.getY() + radius, lanternPos.getZ() + radius
                 );
 
-                List<MobEntity> mobs = world.getEntitiesByClass(MobEntity.class, box, mob ->
-                        mob != null && !mob.isRemoved() && isHostileMob(mob)
+                List<MobEntity> mobs = world.getEntitiesByClass(MobEntity.class, box,
+                        mob -> mob != null && !mob.isRemoved() && isHostileMob(mob)
                 );
 
                 if (mobs.isEmpty()) continue;
@@ -101,11 +104,16 @@ public class TranquilLanternSpawnBlocker {
 
                     double distSq2 = dx * dx + dy * dy + dz * dz;
 
-                    if (mob instanceof PhantomEntity && distSq2 <= radiusSq) {
-                        mob.kill();
-                        linger.remove(id);
-                        TranquilLingerState.get(world).markDirty();
-                        continue;
+                    if (mob instanceof PhantomEntity phantom) {
+
+                        boolean insideCube =
+                                Math.abs(phantom.getX() - cx) <= radius &&
+                                        Math.abs(phantom.getY() - cy) <= radius &&
+                                        Math.abs(phantom.getZ() - cz) <= radius;
+
+                        if (insideCube) {
+                            PHANTOM_DEATH_MEMORY.add(id);
+                        }
                     }
 
                     boolean insideRadius = distSq2 <= radiusSq;
@@ -142,6 +150,18 @@ public class TranquilLanternSpawnBlocker {
                         }
                     }
                 }
+            }
+
+            Iterator<UUID> it = PHANTOM_DEATH_MEMORY.iterator();
+            while (it.hasNext()) {
+                UUID id = it.next();
+                Entity e = world.getEntity(id);
+
+                if (e instanceof PhantomEntity phantom && phantom.isAlive()) {
+                    phantom.kill();
+                }
+
+                it.remove();
             }
         }
     }
