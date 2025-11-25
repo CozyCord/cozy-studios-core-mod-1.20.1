@@ -12,6 +12,7 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -195,6 +196,19 @@ public class MysticalElkEntity extends TameableEntity implements Mount, JumpingM
             return ActionResult.SUCCESS;
         }
 
+        // Unsaddle (Shift + Empty Hand)
+        if (isTamed() && this.isSaddled() && itemstack.isEmpty() && player.isSneaking()) {
+            this.setSaddled(false);
+
+            // Give saddle back
+            if (!player.getAbilities().creativeMode) {
+                this.dropItem(Items.SADDLE);
+            }
+
+            this.playSound(SoundEvents.ENTITY_HORSE_SADDLE, 1.0F, 0.7F);
+            return ActionResult.SUCCESS;
+        }
+
         // Mount
         if (isTamed() && this.isSaddled() && !this.hasPassengers() && !this.isBaby()) {
             if (!this.getWorld().isClient()) {
@@ -233,6 +247,13 @@ public class MysticalElkEntity extends TameableEntity implements Mount, JumpingM
     @Override
     public double getMountedHeightOffset() {
         return super.getMountedHeightOffset() - 0.35D;
+    }
+
+    @Override
+    public boolean canBreedWith(AnimalEntity other) {
+        if (other == this) return false;
+        if (!(other instanceof MysticalElkEntity elk)) return false;
+        return this.isInLove() && elk.isInLove();
     }
 
     @Override
