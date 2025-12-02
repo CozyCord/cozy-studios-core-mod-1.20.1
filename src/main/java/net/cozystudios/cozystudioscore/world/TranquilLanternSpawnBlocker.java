@@ -10,7 +10,11 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.mob.*;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.MagmaCubeEntity;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PhantomEntity;
+import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -24,7 +28,7 @@ public class TranquilLanternSpawnBlocker {
 
     private static final Map<ServerWorld, Set<BlockPos>> ACTIVE_LANTERNS = new HashMap<>();
 
-    private static final Set<UUID> PHANTOM_DEATH_MEMORY = new HashSet<>();
+    private static final Map<ServerWorld, Set<UUID>> PHANTOM_DEATH_MEMORY = new HashMap<>();
 
     private static final int LINGER_TICKS_THRESHOLD = 60;
     private static final int TICK_INTERVAL = 10;
@@ -32,13 +36,13 @@ public class TranquilLanternSpawnBlocker {
     private static int tickTimer = 0;
 
     public static void register() {
-
         ServerTickEvents.END_SERVER_TICK.register(TranquilLanternSpawnBlocker::tick);
 
         ServerLifecycleEvents.END_DATA_PACK_RELOAD.register((server, resourceManager, success) -> {
             refreshAllLanterns(server);
-            for (ServerPlayerEntity p : server.getPlayerManager().getPlayerList())
+            for (ServerPlayerEntity p : server.getPlayerManager().getPlayerList()) {
                 syncLanternsToPlayer(p);
+            }
         });
 
         ServerLifecycleEvents.SERVER_STARTED.register(TranquilLanternSpawnBlocker::refreshAllLanterns);
@@ -61,6 +65,7 @@ public class TranquilLanternSpawnBlocker {
                 getLingerMap(w).clear();
                 TranquilLingerState.get(w).markDirty();
             }
+            PHANTOM_DEATH_MEMORY.clear();
             return;
         }
 
@@ -72,19 +77,21 @@ public class TranquilLanternSpawnBlocker {
             Set<BlockPos> lanterns = ACTIVE_LANTERNS.get(world);
             if (lanterns == null || lanterns.isEmpty()) continue;
 
-            lanterns.removeIf(pos -> !world.isChunkLoaded(pos));
-            if (lanterns.isEmpty()) continue;
-
             Map<UUID, Integer> linger = getLingerMap(world);
+            Set<UUID> phantomMemory = PHANTOM_DEATH_MEMORY.computeIfAbsent(world, w -> new HashSet<>());
 
             for (BlockPos lanternPos : lanterns) {
+
+                if (!world.isChunkLoaded(lanternPos)) continue;
 
                 Box box = new Box(
                         lanternPos.getX() - radius, lanternPos.getY() - radius, lanternPos.getZ() - radius,
                         lanternPos.getX() + radius, lanternPos.getY() + radius, lanternPos.getZ() + radius
                 );
 
-                List<MobEntity> mobs = world.getEntitiesByClass(MobEntity.class, box,
+                List<MobEntity> mobs = world.getEntitiesByClass(
+                        MobEntity.class,
+                        box,
                         mob -> mob != null && !mob.isRemoved() && isHostileMob(mob)
                 );
 
@@ -105,14 +112,13 @@ public class TranquilLanternSpawnBlocker {
                     double distSq2 = dx * dx + dy * dy + dz * dz;
 
                     if (mob instanceof PhantomEntity phantom) {
-
                         boolean insideCube =
                                 Math.abs(phantom.getX() - cx) <= radius &&
                                         Math.abs(phantom.getY() - cy) <= radius &&
                                         Math.abs(phantom.getZ() - cz) <= radius;
 
                         if (insideCube) {
-                            PHANTOM_DEATH_MEMORY.add(id);
+                            phantomMemory.add(id);
                         }
                     }
 
@@ -152,7 +158,7 @@ public class TranquilLanternSpawnBlocker {
                 }
             }
 
-            Iterator<UUID> it = PHANTOM_DEATH_MEMORY.iterator();
+            Iterator<UUID> it = phantomMemory.iterator();
             while (it.hasNext()) {
                 UUID id = it.next();
                 Entity e = world.getEntity(id);
@@ -191,8 +197,9 @@ public class TranquilLanternSpawnBlocker {
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeBlockPos(pos);
 
-        for (ServerPlayerEntity p : world.getPlayers())
+        for (ServerPlayerEntity p : world.getPlayers()) {
             ServerPlayNetworking.send(p, ModNetworking.TRANQUIL_LANTERN_ADD, buf);
+        }
     }
 
     public static void removeLantern(ServerWorld world, BlockPos pos) {
@@ -206,21 +213,25 @@ public class TranquilLanternSpawnBlocker {
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeBlockPos(pos);
 
-        for (ServerPlayerEntity p : world.getPlayers())
+        for (ServerPlayerEntity p : world.getPlayers()) {
             ServerPlayNetworking.send(p, ModNetworking.TRANQUIL_LANTERN_REMOVE, buf);
+        }
     }
 
     public static void refreshAllLanterns(MinecraftServer server) {
         ACTIVE_LANTERNS.clear();
+        PHANTOM_DEATH_MEMORY.clear();
 
         for (ServerWorld world : server.getWorlds()) {
             TranquilLanternState state = getState(world);
-            if (!state.lanterns.isEmpty())
+            if (!state.lanterns.isEmpty()) {
                 ACTIVE_LANTERNS.put(world, new HashSet<>(state.lanterns));
+            }
         }
 
-        for (ServerPlayerEntity p : server.getPlayerManager().getPlayerList())
+        for (ServerPlayerEntity p : server.getPlayerManager().getPlayerList()) {
             syncLanternsToPlayer(p);
+        }
     }
 
     private static void syncLanternsToPlayer(ServerPlayerEntity player) {
@@ -229,7 +240,9 @@ public class TranquilLanternSpawnBlocker {
 
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeInt(lanterns.size());
-        for (BlockPos pos : lanterns) buf.writeBlockPos(pos);
+        for (BlockPos pos : lanterns) {
+            buf.writeBlockPos(pos);
+        }
 
         ServerPlayNetworking.send(player, ModNetworking.TRANQUIL_LANTERN_SYNC, buf);
     }
