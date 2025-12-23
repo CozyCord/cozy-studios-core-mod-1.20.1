@@ -54,6 +54,5 @@ public class ModItems {
     }
 
     public static void registerModItems() {
-        CozyStudiosCore.LOGGER.info("Registering ModItems for " + CozyStudiosCore.MOD_ID);
     }
 }

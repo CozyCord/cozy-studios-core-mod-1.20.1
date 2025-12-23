@@ -20,7 +20,6 @@ public class ModLootInjector {
                         .with(ItemEntry.builder(ModItems.JUNGLE_HORN).weight(5));
 
                 tableBuilder.pool(pool.build());
-                CozyStudiosCore.LOGGER.info("Added Jungle Horn to jungle temple loot!");
             }
         });
     }

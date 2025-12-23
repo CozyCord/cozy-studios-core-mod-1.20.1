@@ -23,6 +23,5 @@ public class ModSounds {
     }
 
 public static void registerSounds() {
-    CozyStudiosCore.LOGGER.info("Registering Mod Sounds for " + CozyStudiosCore.MOD_ID);
     }
 }

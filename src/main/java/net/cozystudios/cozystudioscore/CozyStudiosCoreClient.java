@@ -9,6 +9,7 @@ import net.cozystudios.cozystudioscore.entity.layer.ModModelLayers;
 import net.cozystudios.cozystudioscore.network.ModNetworking;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
@@ -42,5 +43,7 @@ public class CozyStudiosCoreClient implements ClientModInitializer {
 
         TranquilLanternRadiusRenderer.register();
         ModKeybinds.register();
+
+        ModNetworking.initClient();
     }
 }

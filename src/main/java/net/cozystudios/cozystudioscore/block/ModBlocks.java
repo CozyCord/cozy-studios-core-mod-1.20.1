@@ -56,6 +56,5 @@ public class ModBlocks {
 
 
     public static void registerModBlocks() {
-        CozyStudiosCore.LOGGER.info("Registering ModBlocks for " + CozyStudiosCore.MOD_ID);
     }
 }

@@ -47,8 +47,5 @@ public class ModVillagers {
     }
 
     public static void registerVillagers() {
-        CozyStudiosCore.LOGGER.info("Registering Villagers for {}", CozyStudiosCore.MOD_ID);
-        CozyStudiosCore.LOGGER.info("POI id = {}", Registries.POINT_OF_INTEREST_TYPE.getId(SAPLING_POI));
-        CozyStudiosCore.LOGGER.info("Profession id = {}", Registries.VILLAGER_PROFESSION.getId(ARBORIST));
     }
 }

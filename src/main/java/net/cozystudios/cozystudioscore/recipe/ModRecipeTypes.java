@@ -32,7 +32,5 @@ public class ModRecipeTypes {
                         100
                 )
         );
-
-        CozyStudiosCore.LOGGER.info("Registered Kiln recipe type & serializer");
     }
 }

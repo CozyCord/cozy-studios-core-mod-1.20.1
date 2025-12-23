@@ -44,7 +44,6 @@ public class ModEntities {
     );
 
     public static void registerModEntities() {
-        CozyStudiosCore.LOGGER.info("Registering Mod Entities for " + CozyStudiosCore.MOD_ID);
 
         FabricDefaultAttributeRegistry.register(MYSTICAL_TRADER, MysticalTraderEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(MUSHLING, MushlingEntity.createMushlingAttributes());

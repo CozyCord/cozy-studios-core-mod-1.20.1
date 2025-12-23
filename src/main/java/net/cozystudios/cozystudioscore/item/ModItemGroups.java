@@ -37,6 +37,5 @@ public class ModItemGroups {
                     }).build());
 
     public static void registerItemGroups() {
-        CozyStudiosCore.LOGGER.info("Registering Item Groups for" + CozyStudiosCore.MOD_ID);
     }
 }

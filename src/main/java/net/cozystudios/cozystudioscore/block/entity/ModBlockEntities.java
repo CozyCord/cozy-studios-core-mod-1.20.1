@@ -30,6 +30,5 @@ public class ModBlockEntities {
                 ).build(null)
         );
 
-        CozyStudiosCore.LOGGER.info("Registering Block Entities for " + CozyStudiosCore.MOD_ID);
     }
 }

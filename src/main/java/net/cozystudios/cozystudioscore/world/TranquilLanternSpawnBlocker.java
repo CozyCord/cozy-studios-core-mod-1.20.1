@@ -1,5 +1,7 @@
 package net.cozystudios.cozystudioscore.world;
 
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.cozystudios.cozystudioscore.config.ModConfig;
 import net.cozystudios.cozystudioscore.network.ModNetworking;
 
@@ -10,25 +12,21 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.MagmaCubeEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.PhantomEntity;
-import net.minecraft.entity.mob.SlimeEntity;
+import net.minecraft.entity.mob.*;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.ChunkPos;
 
 import java.util.*;
 
 public class TranquilLanternSpawnBlocker {
 
     private static final Map<ServerWorld, Set<BlockPos>> ACTIVE_LANTERNS = new HashMap<>();
-
-    private static final Map<ServerWorld, Set<UUID>> PHANTOM_DEATH_MEMORY = new HashMap<>();
+    private static final Map<ServerWorld, Long2ObjectOpenHashMap<ObjectOpenHashSet<BlockPos>>> LANTERNS_BY_CHUNK = new HashMap<>();
 
     private static final int LINGER_TICKS_THRESHOLD = 60;
     private static final int TICK_INTERVAL = 10;
@@ -52,6 +50,44 @@ public class TranquilLanternSpawnBlocker {
         );
     }
 
+
+    public static boolean hasAnyLanterns(ServerWorld world) {
+        Set<BlockPos> set = ACTIVE_LANTERNS.get(world);
+        return set != null && !set.isEmpty();
+    }
+
+    public static boolean isSpawnBlocked(ServerWorld world, BlockPos spawnPos) {
+        if (!hasAnyLanterns(world)) return false;
+
+        int radius = ModConfig.get().tranquilLanternRadius;
+        int radiusSq = radius * radius;
+
+        Long2ObjectOpenHashMap<ObjectOpenHashSet<BlockPos>> index = LANTERNS_BY_CHUNK.get(world);
+        if (index == null || index.isEmpty()) return false;
+
+        int chunkRadius = (radius >> 4) + 1;
+
+        int cx = spawnPos.getX() >> 4;
+        int cz = spawnPos.getZ() >> 4;
+
+        for (int dx = -chunkRadius; dx <= chunkRadius; dx++) {
+            for (int dz = -chunkRadius; dz <= chunkRadius; dz++) {
+                long key = ChunkPos.toLong(cx + dx, cz + dz);
+                ObjectOpenHashSet<BlockPos> inChunk = index.get(key);
+                if (inChunk == null || inChunk.isEmpty()) continue;
+
+                for (BlockPos lanternPos : inChunk) {
+                    if (lanternPos.getSquaredDistance(spawnPos) <= radiusSq) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+
     private static Map<UUID, Integer> getLingerMap(ServerWorld world) {
         return TranquilLingerState.get(world).lingerTicks;
     }
@@ -60,17 +96,9 @@ public class TranquilLanternSpawnBlocker {
         if (++tickTimer < TICK_INTERVAL) return;
         tickTimer = 0;
 
-        if (ACTIVE_LANTERNS.isEmpty()) {
-            for (ServerWorld w : server.getWorlds()) {
-                getLingerMap(w).clear();
-                TranquilLingerState.get(w).markDirty();
-            }
-            PHANTOM_DEATH_MEMORY.clear();
-            return;
-        }
+        if (ACTIVE_LANTERNS.isEmpty()) return;
 
         int radius = ModConfig.get().tranquilLanternRadius;
-        double radiusSq = radius * radius;
 
         for (ServerWorld world : server.getWorlds()) {
 
@@ -78,20 +106,22 @@ public class TranquilLanternSpawnBlocker {
             if (lanterns == null || lanterns.isEmpty()) continue;
 
             Map<UUID, Integer> linger = getLingerMap(world);
-            Set<UUID> phantomMemory = PHANTOM_DEATH_MEMORY.computeIfAbsent(world, w -> new HashSet<>());
+
+            ObjectOpenHashSet<UUID> seen = new ObjectOpenHashSet<>();
+            boolean lingerChanged = false;
 
             for (BlockPos lanternPos : lanterns) {
 
                 if (!world.isChunkLoaded(lanternPos)) continue;
 
-                Box box = new Box(
+                Box cube = new Box(
                         lanternPos.getX() - radius, lanternPos.getY() - radius, lanternPos.getZ() - radius,
                         lanternPos.getX() + radius, lanternPos.getY() + radius, lanternPos.getZ() + radius
                 );
 
                 List<MobEntity> mobs = world.getEntitiesByClass(
                         MobEntity.class,
-                        box,
+                        cube,
                         mob -> mob != null && !mob.isRemoved() && isHostileMob(mob)
                 );
 
@@ -102,72 +132,65 @@ public class TranquilLanternSpawnBlocker {
                 double cz = lanternPos.getZ() + 0.5;
 
                 for (MobEntity mob : mobs) {
-
                     UUID id = mob.getUuid();
+                    seen.add(id);
+
+                    if (mob instanceof PhantomEntity phantom) {
+                        phantom.kill();
+                        if (linger.remove(id) != null) lingerChanged = true;
+                        continue;
+                    }
+
+                    int current = linger.getOrDefault(id, 0) + TICK_INTERVAL;
+                    if (current >= LINGER_TICKS_THRESHOLD) {
+                        mob.kill();
+                        if (linger.remove(id) != null) lingerChanged = true;
+                        continue;
+                    } else {
+                        linger.put(id, current);
+                        lingerChanged = true;
+                    }
 
                     double dx = mob.getX() - cx;
                     double dy = mob.getY() - cy;
                     double dz = mob.getZ() - cz;
+                    double d2 = dx * dx + dy * dy + dz * dz;
 
-                    double distSq2 = dx * dx + dy * dy + dz * dz;
+                    if (d2 > 0.001) {
+                        double d = Math.sqrt(d2);
+                        double push = 0.15;
 
-                    if (mob instanceof PhantomEntity phantom) {
-                        boolean insideCube =
-                                Math.abs(phantom.getX() - cx) <= radius &&
-                                        Math.abs(phantom.getY() - cy) <= radius &&
-                                        Math.abs(phantom.getZ() - cz) <= radius;
-
-                        if (insideCube) {
-                            phantomMemory.add(id);
-                        }
-                    }
-
-                    boolean insideRadius = distSq2 <= radiusSq;
-
-                    if (insideRadius) {
-
-                        int current = linger.getOrDefault(id, 0) + TICK_INTERVAL;
-
-                        if (current >= LINGER_TICKS_THRESHOLD) {
-                            mob.kill();
-                            linger.remove(id);
-                            TranquilLingerState.get(world).markDirty();
-                            continue;
-                        } else {
-                            linger.put(id, current);
-                            TranquilLingerState.get(world).markDirty();
-                        }
-
-                        if (distSq2 > 0.001) {
-                            double dist = Math.sqrt(distSq2);
-                            double push = 0.15;
-
-                            mob.addVelocity(
-                                    (dx / dist) * push,
-                                    0.12,
-                                    (dz / dist) * push
-                            );
-                            mob.velocityModified = true;
-                        }
-
-                    } else {
-                        if (linger.remove(id) != null) {
-                            TranquilLingerState.get(world).markDirty();
-                        }
+                        mob.addVelocity(
+                                (dx / d) * push,
+                                0.12,
+                                (dz / d) * push
+                        );
+                        mob.velocityModified = true;
                     }
                 }
             }
 
-            Iterator<UUID> it = phantomMemory.iterator();
-            while (it.hasNext()) {
-                UUID id = it.next();
-                Entity e = world.getEntity(id);
+            if (!linger.isEmpty()) {
+                Iterator<UUID> it = linger.keySet().iterator();
+                while (it.hasNext()) {
+                    UUID id = it.next();
 
-                if (e instanceof PhantomEntity phantom && phantom.isAlive()) {
-                    phantom.kill();
+                    if (!seen.contains(id)) {
+                        it.remove();
+                        lingerChanged = true;
+                        continue;
+                    }
+
+                    Entity e = world.getEntity(id);
+                    if (e == null || e.isRemoved()) {
+                        it.remove();
+                        lingerChanged = true;
+                    }
                 }
+            }
 
-                it.remove();
+            if (lingerChanged) {
+                TranquilLingerState.get(world).markDirty();
             }
         }
     }
@@ -179,6 +202,7 @@ public class TranquilLanternSpawnBlocker {
                 || mob instanceof PhantomEntity;
     }
 
+
     private static TranquilLanternState getState(ServerWorld world) {
         return world.getPersistentStateManager().getOrCreate(
                 TranquilLanternState::readNbt,
@@ -187,45 +211,81 @@ public class TranquilLanternSpawnBlocker {
         );
     }
 
+    private static void indexAdd(ServerWorld world, BlockPos pos) {
+        LANTERNS_BY_CHUNK
+                .computeIfAbsent(world, w -> new Long2ObjectOpenHashMap<>())
+                .computeIfAbsent(new ChunkPos(pos).toLong(), k -> new ObjectOpenHashSet<>())
+                .add(pos);
+    }
+
+    private static void indexRemove(ServerWorld world, BlockPos pos) {
+        Long2ObjectOpenHashMap<ObjectOpenHashSet<BlockPos>> map = LANTERNS_BY_CHUNK.get(world);
+        if (map == null) return;
+
+        long key = new ChunkPos(pos).toLong();
+        ObjectOpenHashSet<BlockPos> set = map.get(key);
+        if (set == null) return;
+
+        set.remove(pos);
+        if (set.isEmpty()) map.remove(key);
+    }
+
     public static void addLantern(ServerWorld world, BlockPos pos) {
-        ACTIVE_LANTERNS.computeIfAbsent(world, w -> new HashSet<>()).add(pos.toImmutable());
+        BlockPos p = pos.toImmutable();
+
+        ACTIVE_LANTERNS.computeIfAbsent(world, w -> new HashSet<>()).add(p);
+        indexAdd(world, p);
 
         TranquilLanternState state = getState(world);
-        state.lanterns.add(pos.toImmutable());
+        state.lanterns.add(p);
         state.markDirty();
 
         PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeBlockPos(pos);
+        buf.writeBlockPos(p);
 
-        for (ServerPlayerEntity p : world.getPlayers()) {
-            ServerPlayNetworking.send(p, ModNetworking.TRANQUIL_LANTERN_ADD, buf);
+        for (ServerPlayerEntity player : world.getPlayers()) {
+            ServerPlayNetworking.send(player, ModNetworking.TRANQUIL_LANTERN_ADD, buf);
         }
     }
 
     public static void removeLantern(ServerWorld world, BlockPos pos) {
+        BlockPos p = pos.toImmutable();
+
         Set<BlockPos> set = ACTIVE_LANTERNS.get(world);
-        if (set != null) set.remove(pos.toImmutable());
+        if (set != null) set.remove(p);
+        indexRemove(world, p);
 
         TranquilLanternState state = getState(world);
-        state.lanterns.remove(pos.toImmutable());
+        state.lanterns.remove(p);
         state.markDirty();
 
         PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeBlockPos(pos);
+        buf.writeBlockPos(p);
 
-        for (ServerPlayerEntity p : world.getPlayers()) {
-            ServerPlayNetworking.send(p, ModNetworking.TRANQUIL_LANTERN_REMOVE, buf);
+        for (ServerPlayerEntity player : world.getPlayers()) {
+            ServerPlayNetworking.send(player, ModNetworking.TRANQUIL_LANTERN_REMOVE, buf);
         }
     }
 
     public static void refreshAllLanterns(MinecraftServer server) {
         ACTIVE_LANTERNS.clear();
-        PHANTOM_DEATH_MEMORY.clear();
+        LANTERNS_BY_CHUNK.clear();
 
         for (ServerWorld world : server.getWorlds()) {
             TranquilLanternState state = getState(world);
             if (!state.lanterns.isEmpty()) {
-                ACTIVE_LANTERNS.put(world, new HashSet<>(state.lanterns));
+                HashSet<BlockPos> set = new HashSet<>(state.lanterns);
+                ACTIVE_LANTERNS.put(world, set);
+
+                for (BlockPos p : set) {
+                    indexAdd(world, p);
+                }
+            } else {
+                Map<UUID, Integer> linger = getLingerMap(world);
+                if (!linger.isEmpty()) {
+                    linger.clear();
+                    TranquilLingerState.get(world).markDirty();
+                }
             }
         }
 
@@ -235,8 +295,7 @@ public class TranquilLanternSpawnBlocker {
     }
 
     private static void syncLanternsToPlayer(ServerPlayerEntity player) {
-        Set<BlockPos> lanterns =
-                ACTIVE_LANTERNS.getOrDefault(player.getServerWorld(), Collections.emptySet());
+        Set<BlockPos> lanterns = ACTIVE_LANTERNS.getOrDefault(player.getServerWorld(), Collections.emptySet());
 
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeInt(lanterns.size());

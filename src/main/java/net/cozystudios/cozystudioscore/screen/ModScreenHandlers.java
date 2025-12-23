@@ -17,6 +17,5 @@ public class ModScreenHandlers {
                 new ScreenHandlerType<>(KilnScreenHandler::new, FeatureFlags.VANILLA_FEATURES)
         );
 
-        CozyStudiosCore.LOGGER.info("Registering Screen Handlers for " + CozyStudiosCore.MOD_ID);
     }
 }

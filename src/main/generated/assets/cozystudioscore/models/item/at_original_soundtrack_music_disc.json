@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "cozystudioscore:item/at_original_soundtrack_music_disc"
-  }
-}
