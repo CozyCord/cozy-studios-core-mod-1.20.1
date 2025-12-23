@@ -11,7 +11,6 @@ import net.minecraft.util.Identifier;
 public class ModLootInjector {
 
     public static void register() {
-        CozyStudiosCore.LOGGER.info("Registering loot table injections for " + CozyStudiosCore.MOD_ID);
 
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if (id.equals(new Identifier("minecraft", "chests/jungle_temple"))) {
