@@ -24,9 +24,14 @@ public class ModConfig implements ConfigData {
     @ConfigEntry.Category("general")
     @ConfigEntry.Gui.Tooltip
     public boolean tranquilLanternBump = true;
+
     @ConfigEntry.Category("general")
     @ConfigEntry.Gui.Tooltip
     public boolean tranquilLanternBurn = false;
+
+    @ConfigEntry.Category("general")
+    @ConfigEntry.Gui.Tooltip
+    public boolean showTitleScreenCredits = true;
 
     // ======================
     // Kiln

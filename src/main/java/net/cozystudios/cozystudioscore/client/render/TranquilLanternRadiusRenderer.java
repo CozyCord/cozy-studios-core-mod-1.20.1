@@ -8,13 +8,13 @@ import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
 
 public class TranquilLanternRadiusRenderer {
 
     public static boolean SHOW_RADIUS = false;
 
     public static void register() {
-
         WorldRenderEvents.AFTER_ENTITIES.register(context -> {
             if (!SHOW_RADIUS) return;
 
@@ -38,13 +38,11 @@ public class TranquilLanternRadiusRenderer {
 
         int radius = ModConfig.get().tranquilLanternRadius;
 
-        double camX = camera.getPos().x;
-        double camY = camera.getPos().y;
-        double camZ = camera.getPos().z;
+        Vec3d cam = camera.getPos();
 
-        double x = pos.getX() + 0.5 - camX;
-        double y = pos.getY() + 0.5 - camY;
-        double z = pos.getZ() + 0.5 - camZ;
+        double x = pos.getX() + 0.5 - cam.x;
+        double y = pos.getY() + 0.5 - cam.y;
+        double z = pos.getZ() + 0.5 - cam.z;
 
         Box box = new Box(
                 x - radius, y - radius, z - radius,

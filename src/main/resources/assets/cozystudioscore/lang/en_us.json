@@ -73,6 +73,8 @@
   "text.autoconfig.cozystudioscore.option.tranquilLanternBump.@Tooltip": "Enable Tranquil Lantern Bump, which will bump the mobs to the outer edge of the radius.",
   "text.autoconfig.cozystudioscore.option.tranquilLanternBurn": "Tranquil Lantern Burn",
   "text.autoconfig.cozystudioscore.option.tranquilLanternBurn.@Tooltip": "Enable Tranquil Lantern Burn, which will burn mobs instead of bumping them.",
+  "text.autoconfig.cozystudioscore.option.showTitleScreenCredits": "Main Menu Credits",
+  "text.autoconfig.cozystudioscore.option.showTitleScreenCredits.@Tooltip": "Enable the Main Menu Credits text.",
 
   "-- Kiln Options --": "",
   "text.autoconfig.cozystudioscore.option.extraKilnRecipes": "Extra Kiln Recipes",

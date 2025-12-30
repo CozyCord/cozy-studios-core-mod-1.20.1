@@ -7,9 +7,10 @@
     "MobEntityTranquilSpawnMixin"
   ],
   "client": [
-    "TitleScreenMixin",
+    "HungerManagerMixin",
     "PlayerEntityMixin",
-    "HungerManagerMixin"
+    "TitleScreenMixin",
+    "client.WorldRendererOutlineMixin"
   ],
   "injectors": {
     "defaultRequire": 1

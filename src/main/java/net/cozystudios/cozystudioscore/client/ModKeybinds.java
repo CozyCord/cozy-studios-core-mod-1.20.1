@@ -1,6 +1,8 @@
 package net.cozystudios.cozystudioscore.client;
 
+import net.cozystudios.cozystudioscore.client.render.TranquilLanternOutlineRenderer;
 import net.cozystudios.cozystudioscore.client.render.TranquilLanternRadiusRenderer;
+import net.cozystudios.cozystudioscore.network.ModNetworking;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
@@ -29,10 +31,15 @@ public class ModKeybinds {
                 TranquilLanternRadiusRenderer.SHOW_RADIUS =
                         !TranquilLanternRadiusRenderer.SHOW_RADIUS;
 
+                TranquilLanternOutlineRenderer.SHOW_OUTLINE =
+                        TranquilLanternRadiusRenderer.SHOW_RADIUS;
+
                 if (TranquilLanternRadiusRenderer.SHOW_RADIUS) {
-                    TranquilLanternClientState.rescanAroundPlayer(MinecraftClient.getInstance());
-                } else {
-                    TranquilLanternClientState.clear();
+                    ModNetworking.requestLanternSyncFromServer();
+
+                    if (TranquilLanternClientState.getLanterns().isEmpty()) {
+                        TranquilLanternClientState.rescanAroundPlayer(MinecraftClient.getInstance());
+                    }
                 }
 
                 if (client.player != null) {

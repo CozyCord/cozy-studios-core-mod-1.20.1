@@ -1,5 +1,7 @@
 package net.cozystudios.cozystudioscore.client;
 
+import net.cozystudios.cozystudioscore.block.ModBlocks;
+import net.cozystudios.cozystudioscore.config.ModConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.BlockPos;
 
@@ -32,8 +34,21 @@ public class TranquilLanternClientState {
         CLIENT_LANTERNS.clear();
     }
 
-    @Deprecated
     public static void rescanAroundPlayer(MinecraftClient client) {
         CLIENT_LANTERNS.clear();
+
+        if (client.world == null || client.player == null) return;
+
+        int radius = ModConfig.get().tranquilLanternRadius;
+
+        BlockPos center = client.player.getBlockPos();
+        BlockPos min = center.add(-radius, -radius, -radius);
+        BlockPos max = center.add(radius, radius, radius);
+
+        BlockPos.iterate(min, max).forEach(pos -> {
+            if (client.world.getBlockState(pos).isOf(ModBlocks.TRANQUIL_LANTERN)) {
+                CLIENT_LANTERNS.add(pos.toImmutable());
+            }
+        });
     }
 }

@@ -1,5 +1,6 @@
 package net.cozystudios.cozystudioscore.mixin;
 
+import net.cozystudios.cozystudioscore.config.ModConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.TitleScreen;
@@ -18,8 +19,19 @@ public class TitleScreenMixin {
 
     @Unique private int cozyX, cozyY, cozyW, cozyH;
 
+    @Unique
+    private static boolean cozystudios$showCredits() {
+        try {
+            return ModConfig.get().showTitleScreenCredits;
+        } catch (Throwable t) {
+            return true;
+        }
+    }
+
     @Inject(method = "render", at = @At("TAIL"))
     private void cozystudios$renderCredits(DrawContext ctx, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+        if (!cozystudios$showCredits()) return;
+
         MinecraftClient mc = MinecraftClient.getInstance();
         Text text = Text.literal("Mod Made By Cozy Studios").formatted(Formatting.UNDERLINE);
 
@@ -28,7 +40,6 @@ public class TitleScreenMixin {
         cozyW = mc.textRenderer.getWidth(text);
         cozyH = mc.textRenderer.fontHeight;
         cozyX = sw - cozyW - 4;
-
         cozyY = sh - mc.textRenderer.fontHeight - 12;
 
         boolean hovering = mouseX >= cozyX && mouseX <= cozyX + cozyW &&
@@ -40,9 +51,11 @@ public class TitleScreenMixin {
 
     @Inject(method = "mouseClicked", at = @At("HEAD"), cancellable = true)
     private void cozystudios$click(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
+        if (!cozystudios$showCredits()) return;
         if (button != 0) return;
+
         if (mouseX >= cozyX && mouseX <= cozyX + cozyW && mouseY >= cozyY && mouseY <= cozyY + cozyH) {
-            Util.getOperatingSystem().open("https://modrinth.com/organization/cozystudios"); //update with website once done
+            Util.getOperatingSystem().open("https://modrinth.com/organization/cozystudios");
             cir.setReturnValue(true);
         }
     }

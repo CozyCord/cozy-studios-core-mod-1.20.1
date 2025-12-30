@@ -44,7 +44,6 @@ public class ModEntities {
     );
 
     public static void registerModEntities() {
-
         FabricDefaultAttributeRegistry.register(MYSTICAL_TRADER, MysticalTraderEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(MUSHLING, MushlingEntity.createMushlingAttributes());
         FabricDefaultAttributeRegistry.register(FERNLING, FernlingEntity.createFernlingAttributes());
