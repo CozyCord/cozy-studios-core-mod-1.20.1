@@ -6,6 +6,8 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryWrapper;
@@ -58,7 +60,36 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         key(Blocks.WET_SPONGE),
                         key(Blocks.COBBLED_DEEPSLATE),
                         key(Blocks.BLACKSTONE),
-                        key(Blocks.SMOOTH_BASALT)
+                        key(Blocks.SMOOTH_BASALT),
+                        key(Blocks.CACTUS),
+                        key(Blocks.COAL_ORE),
+                        key(Blocks.COPPER_ORE),
+                        key(Blocks.DEEPSLATE_COAL_ORE),
+                        key(Blocks.DEEPSLATE_COPPER_ORE),
+                        key(Blocks.DEEPSLATE_DIAMOND_ORE),
+                        key(Blocks.DEEPSLATE_EMERALD_ORE),
+                        key(Blocks.DEEPSLATE_GOLD_ORE),
+                        key(Blocks.DEEPSLATE_IRON_ORE),
+                        key(Blocks.DEEPSLATE_LAPIS_ORE),
+                        key(Blocks.DEEPSLATE_REDSTONE_ORE),
+                        key(Blocks.DIAMOND_ORE),
+                        key(Blocks.EMERALD_ORE),
+                        key(Blocks.GOLD_ORE),
+                        key(Blocks.IRON_ORE),
+                        key(Blocks.LAPIS_ORE),
+                        key(Blocks.REDSTONE_ORE),
+                        key(Blocks.NETHER_GOLD_ORE),
+                        key(Blocks.NETHER_QUARTZ_ORE),
+                        key(Blocks.KELP),
+                        key(Blocks.DEEPSLATE_BRICKS),
+                        key(Blocks.DEEPSLATE_TILES),
+                        key(Blocks.SANDSTONE),
+                        key(Blocks.RED_SANDSTONE),
+                        key(Blocks.NETHER_BRICKS),
+                        key(Blocks.BASALT),
+                        key(Blocks.POLISHED_BLACKSTONE_BRICKS),
+                        key(Blocks.QUARTZ_BLOCK),
+                        key(Blocks.SEA_PICKLE)
                 );
 
         // --- Pickaxe Mineable ---
