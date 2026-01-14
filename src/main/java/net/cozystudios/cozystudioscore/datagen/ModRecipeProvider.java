@@ -85,6 +85,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
         // Banner recolor recipes
         generateBannerRecolorRecipes(exporter);
+
+        // Peaceful Mob Drops
+        generatePeacefulMobDropRecipes(exporter);
     }
 
     private void generateTranquilLanternRecipes(Consumer<RecipeJsonProvider> exporter) {
@@ -460,5 +463,344 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         SingleItemRecipeJsonBuilder.createStonecutting(Ingredient.ofItems(input), category, output, count)
                 .criterion(hasItem(input), conditionsFromItem(input))
                 .offerTo(exporter, new Identifier("cozystudioscore", recipeName));
+    }
+
+    private void generatePeacefulMobDropRecipes(Consumer<RecipeJsonProvider> exporter) {
+        // Beef
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Items.BEEF, 1)
+                .pattern("###")
+                .pattern("## ")
+                .pattern("###")
+                .input('#', Items.WHEAT)
+                .criterion(hasItem(Items.WHEAT), conditionsFromItem(Items.WHEAT))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/beef"));
+
+        // Blaze Rod
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.BLAZE_ROD, 2)
+                .pattern("# #")
+                .pattern("#R#")
+                .pattern("# #")
+                .input('#', Items.QUARTZ)
+                .input('R', Items.LAVA_BUCKET)
+                .criterion(hasItem(Items.QUARTZ), conditionsFromItem(Items.QUARTZ))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/blaze_rod"));
+
+        // Bone from Bonemeal
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.BONE, 1)
+                .pattern("###")
+                .input('#', Items.BONE_MEAL)
+                .criterion(hasItem(Items.BONE_MEAL), conditionsFromItem(Items.BONE_MEAL))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/bone_from_bonemeal"));
+
+        // Chicken
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Items.CHICKEN, 1)
+                .pattern("###")
+                .pattern("#  ")
+                .pattern("###")
+                .input('#', Items.WHEAT_SEEDS)
+                .criterion(hasItem(Items.WHEAT_SEEDS), conditionsFromItem(Items.WHEAT_SEEDS))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/chicken"));
+
+        // Cod
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Items.COD, 1)
+                .pattern("###")
+                .pattern("#R#")
+                .pattern("###")
+                .input('#', Items.KELP)
+                .input('R', Items.WHITE_DYE)
+                .criterion(hasItem(Items.KELP), conditionsFromItem(Items.KELP))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/cod"));
+
+        // Creeper Head
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, Items.CREEPER_HEAD, 1)
+                .pattern("#R#")
+                .pattern("RLR")
+                .pattern("#R#")
+                .input('#', Items.GUNPOWDER)
+                .input('R', Items.LIME_DYE)
+                .input('L', Items.JACK_O_LANTERN)
+                .criterion(hasItem(Items.GUNPOWDER), conditionsFromItem(Items.GUNPOWDER))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/creeper_head"));
+
+        // Dragon Egg
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, Items.DRAGON_EGG, 1)
+                .pattern("#R#")
+                .pattern("RLR")
+                .pattern("#R#")
+                .input('#', Items.CHORUS_FRUIT)
+                .input('R', Items.BLACK_DYE)
+                .input('L', Items.DIAMOND_BLOCK)
+                .criterion(hasItem(Items.CHORUS_FRUIT), conditionsFromItem(Items.CHORUS_FRUIT))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/dragon_egg"));
+
+        // Dragon Head
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, Items.DRAGON_HEAD, 1)
+                .pattern("#R#")
+                .pattern("RLR")
+                .pattern("#R#")
+                .input('#', Items.CHORUS_FRUIT)
+                .input('R', Items.BLACK_DYE)
+                .input('L', Items.JACK_O_LANTERN)
+                .criterion(hasItem(Items.CHORUS_FRUIT), conditionsFromItem(Items.CHORUS_FRUIT))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/dragon_head"));
+
+        // Ender Pearl
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.ENDER_PEARL, 1)
+                .pattern("###")
+                .pattern("#R#")
+                .pattern("###")
+                .input('#', Items.OBSIDIAN)
+                .input('R', Items.GOLD_INGOT)
+                .criterion(hasItem(Items.OBSIDIAN), conditionsFromItem(Items.OBSIDIAN))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/ender_pearl"));
+
+        // Ghast Tear
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.GHAST_TEAR, 1)
+                .pattern("###")
+                .pattern("#R#")
+                .pattern("###")
+                .input('#', Items.QUARTZ)
+                .input('R', Items.WATER_BUCKET)
+                .criterion(hasItem(Items.QUARTZ), conditionsFromItem(Items.QUARTZ))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/ghast_tear"));
+
+        // Ink Sac
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.INK_SAC, 1)
+                .pattern("#R ")
+                .input('#', Items.COAL)
+                .input('R', Items.WATER_BUCKET)
+                .criterion(hasItem(Items.COAL), conditionsFromItem(Items.COAL))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/ink_sac"));
+
+        // Mutton
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Items.MUTTON, 1)
+                .pattern("# #")
+                .pattern("###")
+                .pattern("# #")
+                .input('#', Items.WHEAT)
+                .criterion(hasItem(Items.WHEAT), conditionsFromItem(Items.WHEAT))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/mutton"));
+
+        // Nether Star
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.NETHER_STAR, 1)
+                .pattern("###")
+                .pattern("###")
+                .pattern("###")
+                .input('#', Items.WITHER_SKELETON_SKULL)
+                .criterion(hasItem(Items.WITHER_SKELETON_SKULL), conditionsFromItem(Items.WITHER_SKELETON_SKULL))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/nether_star"));
+
+        // Porkchop
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Items.PORKCHOP, 1)
+                .pattern("#RL")
+                .pattern("#RL")
+                .pattern("#RL")
+                .input('#', Items.BEETROOT)
+                .input('R', Items.CARROT)
+                .input('L', Items.POTATO)
+                .criterion(hasItem(Items.BEETROOT), conditionsFromItem(Items.BEETROOT))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/porkchop"));
+
+        // Prismarine Crystals
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.PRISMARINE_CRYSTALS, 1)
+                .pattern("#R#")
+                .input('#', Items.GLASS)
+                .input('R', Items.KELP)
+                .criterion(hasItem(Items.GLASS), conditionsFromItem(Items.GLASS))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/prismarine_crystals"));
+
+        // Prismarine Shard
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.PRISMARINE_SHARD, 1)
+                .pattern("#R#")
+                .input('#', Items.GRAVEL)
+                .input('R', Items.KELP)
+                .criterion(hasItem(Items.GRAVEL), conditionsFromItem(Items.GRAVEL))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/prismarine_shard"));
+
+        // Rabbit
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Items.RABBIT, 1)
+                .pattern("###")
+                .pattern("## ")
+                .pattern("# #")
+                .input('#', Items.CARROT)
+                .criterion(hasItem(Items.CARROT), conditionsFromItem(Items.CARROT))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/rabbit"));
+
+        // Rabbit Foot
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.RABBIT_FOOT, 1)
+                .pattern("#R#")
+                .pattern("RLR")
+                .pattern("#R#")
+                .input('#', Items.CARROT)
+                .input('R', Items.RABBIT_HIDE)
+                .input('L', Items.RABBIT)
+                .criterion(hasItem(Items.RABBIT), conditionsFromItem(Items.RABBIT))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/rabbit_foot"));
+
+        // Salmon
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Items.SALMON, 1)
+                .pattern("###")
+                .pattern("#R#")
+                .pattern("###")
+                .input('#', Items.KELP)
+                .input('R', Items.RED_DYE)
+                .criterion(hasItem(Items.KELP), conditionsFromItem(Items.KELP))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/salmon"));
+
+        // Shulker Shell
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.SHULKER_SHELL, 1)
+                .pattern("###")
+                .pattern("#R#")
+                .pattern("###")
+                .input('#', Items.END_STONE)
+                .input('R', Items.CHORUS_FLOWER)
+                .criterion(hasItem(Items.END_STONE), conditionsFromItem(Items.END_STONE))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/shulker_shell"));
+
+        // Skeleton Skull
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, Items.SKELETON_SKULL, 1)
+                .pattern("#R#")
+                .pattern("RLR")
+                .pattern("#R#")
+                .input('#', Items.BONE)
+                .input('R', Items.WHITE_DYE)
+                .input('L', Items.JACK_O_LANTERN)
+                .criterion(hasItem(Items.BONE), conditionsFromItem(Items.BONE))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/skeleton_skull"));
+
+        // Slime Ball
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.SLIME_BALL, 1)
+                .pattern("#R#")
+                .pattern("RLR")
+                .pattern("#R#")
+                .input('#', Items.LILY_PAD)
+                .input('R', Items.CACTUS)
+                .input('L', Items.WATER_BUCKET)
+                .criterion(hasItem(Items.LILY_PAD), conditionsFromItem(Items.LILY_PAD))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/slime"));
+
+        // Spider Eye
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Items.SPIDER_EYE, 1)
+                .pattern("#R")
+                .pattern("R#")
+                .input('#', Items.BROWN_MUSHROOM)
+                .input('R', Items.RED_MUSHROOM)
+                .criterion(hasItem(Items.BROWN_MUSHROOM), conditionsFromItem(Items.BROWN_MUSHROOM))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/spider_eye"));
+
+        // Sponge
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, Items.SPONGE, 1)
+                .pattern("###")
+                .pattern("# #")
+                .pattern("###")
+                .input('#', Items.YELLOW_WOOL)
+                .criterion(hasItem(Items.YELLOW_WOOL), conditionsFromItem(Items.YELLOW_WOOL))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/sponge"));
+
+        // Trident
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Items.TRIDENT, 1)
+                .pattern("###")
+                .pattern("RLR")
+                .pattern("RLR")
+                .input('#', Items.DIAMOND)
+                .input('R', Items.PRISMARINE_SHARD)
+                .input('L', Items.PRISMARINE_CRYSTALS)
+                .criterion(hasItem(Items.DIAMOND), conditionsFromItem(Items.DIAMOND))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/trident"));
+
+        // Tropical Fish
+        ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Items.TROPICAL_FISH, 1)
+                .pattern("###")
+                .pattern("#R#")
+                .pattern("###")
+                .input('#', Items.KELP)
+                .input('R', Items.ORANGE_DYE)
+                .criterion(hasItem(Items.KELP), conditionsFromItem(Items.KELP))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/tropical_fish"));
+
+        // Wither Skeleton Skull
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, Items.WITHER_SKELETON_SKULL, 1)
+                .pattern("#R#")
+                .pattern("RLR")
+                .pattern("#R#")
+                .input('#', Items.CRYING_OBSIDIAN)
+                .input('R', Items.GILDED_BLACKSTONE)
+                .input('L', Items.DIAMOND)
+                .criterion(hasItem(Items.CRYING_OBSIDIAN), conditionsFromItem(Items.CRYING_OBSIDIAN))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/wither_skeleton_skull"));
+
+        // Zombie Head
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, Items.ZOMBIE_HEAD, 1)
+                .pattern("#R#")
+                .pattern("RLR")
+                .pattern("#R#")
+                .input('#', Items.ROTTEN_FLESH)
+                .input('R', Items.GREEN_DYE)
+                .input('L', Items.JACK_O_LANTERN)
+                .criterion(hasItem(Items.ROTTEN_FLESH), conditionsFromItem(Items.ROTTEN_FLESH))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/zombie_head"));
+
+        // Shapeless Recipes
+
+        // Feather from Egg
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.FEATHER, 1)
+                .input(Items.EGG)
+                .criterion(hasItem(Items.EGG), conditionsFromItem(Items.EGG))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/feather_from_egg"));
+
+        // Gunpowder
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.GUNPOWDER, 1)
+                .input(Items.FLINT)
+                .criterion(hasItem(Items.FLINT), conditionsFromItem(Items.FLINT))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/gunpowder"));
+
+        // Rabbit Hide
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.RABBIT_HIDE, 4)
+                .input(Items.LEATHER)
+                .criterion(hasItem(Items.LEATHER), conditionsFromItem(Items.LEATHER))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/rabbit_hide"));
+
+        // Rotten Flesh from Beef
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.ROTTEN_FLESH, 1)
+                .input(Items.BEEF)
+                .criterion(hasItem(Items.BEEF), conditionsFromItem(Items.BEEF))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/rotten_flesh_from_beef"));
+
+        // Rotten Flesh from Chicken
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.ROTTEN_FLESH, 1)
+                .input(Items.CHICKEN)
+                .criterion(hasItem(Items.CHICKEN), conditionsFromItem(Items.CHICKEN))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/rotten_flesh_from_chicken"));
+
+        // Rotten Flesh from Cod
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.ROTTEN_FLESH, 1)
+                .input(Items.COD)
+                .criterion(hasItem(Items.COD), conditionsFromItem(Items.COD))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/rotten_flesh_from_cod"));
+
+        // Rotten Flesh from Mutton
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.ROTTEN_FLESH, 1)
+                .input(Items.MUTTON)
+                .criterion(hasItem(Items.MUTTON), conditionsFromItem(Items.MUTTON))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/rotten_flesh_from_mutton"));
+
+        // Rotten Flesh from Porkchop
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.ROTTEN_FLESH, 1)
+                .input(Items.PORKCHOP)
+                .criterion(hasItem(Items.PORKCHOP), conditionsFromItem(Items.PORKCHOP))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/rotten_flesh_from_porkchop"));
+
+        // Rotten Flesh from Rabbit
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.ROTTEN_FLESH, 1)
+                .input(Items.RABBIT)
+                .criterion(hasItem(Items.RABBIT), conditionsFromItem(Items.RABBIT))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/rotten_flesh_from_rabbit"));
+
+        // Rotten Flesh from Salmon
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.ROTTEN_FLESH, 1)
+                .input(Items.SALMON)
+                .criterion(hasItem(Items.SALMON), conditionsFromItem(Items.SALMON))
+                .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/rotten_flesh_from_salmon"));
+
     }
 }

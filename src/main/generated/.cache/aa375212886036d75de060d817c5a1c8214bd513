@@ -1,10 +1,12 @@
-// 1.20.1	2026-01-13T21:51:28.2401837	Cozy Studios Core/Model Definitions
+// 1.20.1	2026-01-14T11:39:15.1206457	Cozy Studios Core/Model Definitions
 3b0b9cd105936aac63b05d36fe8513e42c5eea46 assets\cozystudioscore\models\item\mystical_berries.json
 07379b4d3822a2fab05cc40401fe99d3a438fc5e assets\cozystudioscore\models\item\golden_leaf_bite3.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets\cozystudioscore\models\item\fernling_spawn_egg.json
+bae45fee82747f468d0fa892ac5297712b5c4b23 assets\cozystudioscore\models\item\windswept_music_disc.json
 75e4da76a15c7c8759d79288294153b5a4843e94 assets\cozystudioscore\models\item\at_original_soundtrack_music_disc.json
 edb861186fcac282d5388c52c42630f2b5293974 assets\cozystudioscore\models\item\golden_leaf_bite1.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets\cozystudioscore\models\item\mystical_trader_spawn_egg.json
+e1a3bef8c169e126c29beac111e65395e286f719 assets\cozystudioscore\models\item\homeward_music_disc.json
 ca4c94ed3bea57f6c3de5926363e6ec53334087d assets\cozystudioscore\models\item\cozy_crumbs.json
 609f46c51ef9ddb6bded77d1c34344ba60b456e8 assets\cozystudioscore\models\item\dayspring_music_disc.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets\cozystudioscore\models\item\mystical_elk_spawn_egg.json

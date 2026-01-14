@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "minecraft:diamond"
+    },
+    "L": {
+      "item": "minecraft:prismarine_crystals"
+    },
+    "R": {
+      "item": "minecraft:prismarine_shard"
+    }
+  },
+  "pattern": [
+    "###",
+    "RLR",
+    "RLR"
+  ],
+  "result": {
+    "item": "minecraft:trident"
+  },
+  "show_notification": true
+}

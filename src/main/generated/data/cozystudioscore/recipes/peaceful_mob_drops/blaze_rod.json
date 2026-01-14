@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:quartz"
+    },
+    "R": {
+      "item": "minecraft:lava_bucket"
+    }
+  },
+  "pattern": [
+    "# #",
+    "#R#",
+    "# #"
+  ],
+  "result": {
+    "count": 2,
+    "item": "minecraft:blaze_rod"
+  },
+  "show_notification": true
+}

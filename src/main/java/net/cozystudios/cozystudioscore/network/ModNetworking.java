@@ -24,9 +24,24 @@ public class ModNetworking {
     public static final Identifier TRANQUIL_LANTERN_REQUEST_SYNC =
             new Identifier(CozyStudiosCore.MOD_ID, "tranquil_lantern_request_sync");
 
+    public static final Identifier TRANQUIL_LANTERN_CONFIG_SYNC =
+            new Identifier(CozyStudiosCore.MOD_ID, "tranquil_lantern_config_sync");
+
     public static void init() {}
 
     public static void initClient() {
+
+        // Receive config sync from server
+        ClientPlayNetworking.registerGlobalReceiver(TRANQUIL_LANTERN_CONFIG_SYNC, (client, handler, buf, responseSender) -> {
+            int tranquilRadius = buf.readInt();
+            int goldenRadius = buf.readInt();
+            int diamondRadius = buf.readInt();
+            int netheriteRadius = buf.readInt();
+
+            client.execute(() -> {
+                TranquilLanternClientState.setServerRadiusValues(tranquilRadius, goldenRadius, diamondRadius, netheriteRadius);
+            });
+        });
 
         ClientPlayNetworking.registerGlobalReceiver(TRANQUIL_LANTERN_SYNC, (client, handler, buf, responseSender) -> {
             int size = buf.readInt();

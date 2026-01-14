@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:bone"
+    },
+    "L": {
+      "item": "minecraft:jack_o_lantern"
+    },
+    "R": {
+      "item": "minecraft:white_dye"
+    }
+  },
+  "pattern": [
+    "#R#",
+    "RLR",
+    "#R#"
+  ],
+  "result": {
+    "item": "minecraft:skeleton_skull"
+  },
+  "show_notification": true
+}

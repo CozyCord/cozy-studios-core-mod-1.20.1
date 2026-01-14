@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:carrot"
+    },
+    "L": {
+      "item": "minecraft:rabbit"
+    },
+    "R": {
+      "item": "minecraft:rabbit_hide"
+    }
+  },
+  "pattern": [
+    "#R#",
+    "RLR",
+    "#R#"
+  ],
+  "result": {
+    "item": "minecraft:rabbit_foot"
+  },
+  "show_notification": true
+}

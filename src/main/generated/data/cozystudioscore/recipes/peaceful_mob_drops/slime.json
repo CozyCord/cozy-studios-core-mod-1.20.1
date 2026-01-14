@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:lily_pad"
+    },
+    "L": {
+      "item": "minecraft:water_bucket"
+    },
+    "R": {
+      "item": "minecraft:cactus"
+    }
+  },
+  "pattern": [
+    "#R#",
+    "RLR",
+    "#R#"
+  ],
+  "result": {
+    "item": "minecraft:slime_ball"
+  },
+  "show_notification": true
+}

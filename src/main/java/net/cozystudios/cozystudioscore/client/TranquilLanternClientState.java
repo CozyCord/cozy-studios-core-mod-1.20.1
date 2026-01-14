@@ -15,6 +15,12 @@ public class TranquilLanternClientState {
 
     private static final Map<BlockPos, BlockState> CLIENT_LANTERNS = new HashMap<>();
 
+    // Server-side config values (null = not connected to server / use local config)
+    private static Integer serverTranquilRadius = null;
+    private static Integer serverGoldenRadius = null;
+    private static Integer serverDiamondRadius = null;
+    private static Integer serverNetheriteRadius = null;
+
     public static Set<BlockPos> getLanterns() {
         return Collections.unmodifiableSet(CLIENT_LANTERNS.keySet());
     }
@@ -52,6 +58,38 @@ public class TranquilLanternClientState {
         CLIENT_LANTERNS.clear();
     }
 
+    // Server config sync methods
+    public static void setServerRadiusValues(int tranquil, int golden, int diamond, int netherite) {
+        serverTranquilRadius = tranquil;
+        serverGoldenRadius = golden;
+        serverDiamondRadius = diamond;
+        serverNetheriteRadius = netherite;
+    }
+
+    public static void clearServerRadiusValues() {
+        serverTranquilRadius = null;
+        serverGoldenRadius = null;
+        serverDiamondRadius = null;
+        serverNetheriteRadius = null;
+    }
+
+    // Get radius methods that prefer server values if available
+    public static int getTranquilLanternRadius() {
+        return serverTranquilRadius != null ? serverTranquilRadius : ModConfig.get().getTranquilLanternRadius();
+    }
+
+    public static int getGoldenTranquilLanternRadius() {
+        return serverGoldenRadius != null ? serverGoldenRadius : ModConfig.get().getGoldenTranquilLanternRadius();
+    }
+
+    public static int getDiamondTranquilLanternRadius() {
+        return serverDiamondRadius != null ? serverDiamondRadius : ModConfig.get().getDiamondTranquilLanternRadius();
+    }
+
+    public static int getNetheriteTranquilLanternRadius() {
+        return serverNetheriteRadius != null ? serverNetheriteRadius : ModConfig.get().getNetheriteTranquilLanternRadius();
+    }
+
     public static void rescanAroundPlayer(MinecraftClient client) {
         CLIENT_LANTERNS.clear();
 
@@ -59,8 +97,8 @@ public class TranquilLanternClientState {
 
         // Use the largest radius to ensure we find all lanterns
         int maxRadius = Math.max(
-            Math.max(ModConfig.get().getTranquilLanternRadius(), ModConfig.get().getGoldenTranquilLanternRadius()),
-            Math.max(ModConfig.get().getDiamondTranquilLanternRadius(), ModConfig.get().getNetheriteTranquilLanternRadius())
+            Math.max(getTranquilLanternRadius(), getGoldenTranquilLanternRadius()),
+            Math.max(getDiamondTranquilLanternRadius(), getNetheriteTranquilLanternRadius())
         );
 
         BlockPos center = client.player.getBlockPos();

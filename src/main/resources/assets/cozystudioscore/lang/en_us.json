@@ -15,6 +15,10 @@
   "item.cozystudioscore.at_original_soundtrack_music_disc.desc": "Tokimi - AT Original Soundtrack",
   "item.cozystudioscore.dayspring_music_disc": "Dayspring Music Disc",
   "item.cozystudioscore.dayspring_music_disc.desc": "Duskfox - Dayspring",
+  "item.cozystudioscore.windswept_music_disc": "Windswept Music Disc",
+  "item.cozystudioscore.windswept_music_disc.desc": "Tokimi & storm8976 - Windswept",
+  "item.cozystudioscore.homeward_music_disc": "Homeward Music Disc",
+  "item.cozystudioscore.homeward_music_disc.desc": "Tokimi & storm8976 - Homeward",
 
   "-- ENTITIES --": "",
   "entity.minecraft.villager.arborist": "Arborist",

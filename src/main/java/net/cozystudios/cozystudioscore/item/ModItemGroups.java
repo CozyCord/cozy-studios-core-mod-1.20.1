@@ -21,6 +21,9 @@ public class ModItemGroups {
                         entries.add(ModItems.JUNGLE_HORN);
 
                         entries.add(ModBlocks.TRANQUIL_LANTERN);
+                        entries.add(ModBlocks.GOLDEN_TRANQUIL_LANTERN);
+                        entries.add(ModBlocks.DIAMOND_TRANQUIL_LANTERN);
+                        entries.add(ModBlocks.NETHERITE_TRANQUIL_LANTERN);
                         entries.add(ModBlocks.KILN);
                         entries.add(ModBlocks.ARBORIST_TABLE);
 
@@ -30,6 +33,8 @@ public class ModItemGroups {
                         entries.add(ModItems.MYSTICAL_TRADER_SPAWN_EGG);
                         entries.add(ModItems.AT_ORIGINAL_SOUNDTRACK_MUSIC_DISC);
                         entries.add(ModItems.DAYSPRING_MUSIC_DISC);
+                        entries.add(ModItems.HOMEWARD_MUSIC_DISC);
+                        entries.add(ModItems.WINDSWEPT_MUSIC_DISC);
 
 
 

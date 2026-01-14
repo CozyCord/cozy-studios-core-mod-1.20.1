@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "cozystudioscore:dayspring_music_disc",
-    "cozystudioscore:at_original_soundtrack_music_disc"
+    "cozystudioscore:at_original_soundtrack_music_disc",
+    "cozystudioscore:windswept_music_disc",
+    "cozystudioscore:homeward_music_disc"
   ]
 }

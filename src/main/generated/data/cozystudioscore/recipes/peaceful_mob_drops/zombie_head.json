@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:rotten_flesh"
+    },
+    "L": {
+      "item": "minecraft:jack_o_lantern"
+    },
+    "R": {
+      "item": "minecraft:green_dye"
+    }
+  },
+  "pattern": [
+    "#R#",
+    "RLR",
+    "#R#"
+  ],
+  "result": {
+    "item": "minecraft:zombie_head"
+  },
+  "show_notification": true
+}

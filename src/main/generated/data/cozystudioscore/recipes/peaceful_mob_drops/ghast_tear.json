@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:quartz"
+    },
+    "R": {
+      "item": "minecraft:water_bucket"
+    }
+  },
+  "pattern": [
+    "###",
+    "#R#",
+    "###"
+  ],
+  "result": {
+    "item": "minecraft:ghast_tear"
+  },
+  "show_notification": true
+}

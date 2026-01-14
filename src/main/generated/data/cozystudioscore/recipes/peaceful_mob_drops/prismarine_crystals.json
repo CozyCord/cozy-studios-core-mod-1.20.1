@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:glass"
+    },
+    "R": {
+      "item": "minecraft:kelp"
+    }
+  },
+  "pattern": [
+    "#R#"
+  ],
+  "result": {
+    "item": "minecraft:prismarine_crystals"
+  },
+  "show_notification": true
+}

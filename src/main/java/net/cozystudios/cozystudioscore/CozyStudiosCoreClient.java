@@ -43,6 +43,7 @@ public class CozyStudiosCoreClient implements ClientModInitializer {
 
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
             TranquilLanternClientState.clear();
+            TranquilLanternClientState.clearServerRadiusValues();
         });
     }
 }

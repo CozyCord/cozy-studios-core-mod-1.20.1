@@ -45,6 +45,12 @@ public class ModItems {
     public static final Item DAYSPRING_MUSIC_DISC = registerItem("dayspring_music_disc",
             new MusicDiscItem(9, ModSounds.DAYSPRING, new FabricItemSettings().maxCount(1), 270));
 
+    public static final Item WINDSWEPT_MUSIC_DISC = registerItem("windswept_music_disc",
+            new MusicDiscItem(9, ModSounds.WINDSWEPT, new FabricItemSettings().maxCount(1), 180));
+
+    public static final Item HOMEWARD_MUSIC_DISC = registerItem("homeward_music_disc",
+            new MusicDiscItem(9, ModSounds.HOMEWARD, new FabricItemSettings().maxCount(1), 157));
+
     public static final Item JUNGLE_HORN = registerItem("jungle_horn",
             new JungleHornItem(new FabricItemSettings().maxCount(1)));
 

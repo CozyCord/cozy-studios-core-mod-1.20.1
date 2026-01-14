@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:chorus_fruit"
+    },
+    "L": {
+      "item": "minecraft:diamond_block"
+    },
+    "R": {
+      "item": "minecraft:black_dye"
+    }
+  },
+  "pattern": [
+    "#R#",
+    "RLR",
+    "#R#"
+  ],
+  "result": {
+    "item": "minecraft:dragon_egg"
+  },
+  "show_notification": true
+}

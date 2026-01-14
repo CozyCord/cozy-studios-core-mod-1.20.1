@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:kelp"
+    },
+    "R": {
+      "item": "minecraft:orange_dye"
+    }
+  },
+  "pattern": [
+    "###",
+    "#R#",
+    "###"
+  ],
+  "result": {
+    "item": "minecraft:tropical_fish"
+  },
+  "show_notification": true
+}

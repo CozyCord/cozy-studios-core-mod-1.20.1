@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:beetroot"
+    },
+    "L": {
+      "item": "minecraft:potato"
+    },
+    "R": {
+      "item": "minecraft:carrot"
+    }
+  },
+  "pattern": [
+    "#RL",
+    "#RL",
+    "#RL"
+  ],
+  "result": {
+    "item": "minecraft:porkchop"
+  },
+  "show_notification": true
+}

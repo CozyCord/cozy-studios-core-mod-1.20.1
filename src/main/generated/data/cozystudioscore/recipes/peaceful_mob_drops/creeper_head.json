@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:gunpowder"
+    },
+    "L": {
+      "item": "minecraft:jack_o_lantern"
+    },
+    "R": {
+      "item": "minecraft:lime_dye"
+    }
+  },
+  "pattern": [
+    "#R#",
+    "RLR",
+    "#R#"
+  ],
+  "result": {
+    "item": "minecraft:creeper_head"
+  },
+  "show_notification": true
+}

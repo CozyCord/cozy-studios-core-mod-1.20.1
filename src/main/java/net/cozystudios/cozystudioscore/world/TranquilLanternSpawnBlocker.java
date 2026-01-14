@@ -40,14 +40,16 @@ public class TranquilLanternSpawnBlocker {
             refreshAllLanterns(server);
             for (ServerPlayerEntity p : server.getPlayerManager().getPlayerList()) {
                 syncLanternsToPlayer(p);
+                syncConfigToPlayer(p);
             }
         });
 
         ServerLifecycleEvents.SERVER_STARTED.register(TranquilLanternSpawnBlocker::refreshAllLanterns);
 
-        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) ->
-                syncLanternsToPlayer(handler.player)
-        );
+        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+            syncLanternsToPlayer(handler.player);
+            syncConfigToPlayer(handler.player);
+        });
 
         // Register server-side receiver for sync requests
         ServerPlayNetworking.registerGlobalReceiver(ModNetworking.TRANQUIL_LANTERN_REQUEST_SYNC, (server, player, handler, buf, responseSender) -> {
@@ -332,5 +334,15 @@ public class TranquilLanternSpawnBlocker {
         }
 
         ServerPlayNetworking.send(player, ModNetworking.TRANQUIL_LANTERN_SYNC, buf);
+    }
+
+    private static void syncConfigToPlayer(ServerPlayerEntity player) {
+        PacketByteBuf buf = PacketByteBufs.create();
+        buf.writeInt(ModConfig.get().getTranquilLanternRadius());
+        buf.writeInt(ModConfig.get().getGoldenTranquilLanternRadius());
+        buf.writeInt(ModConfig.get().getDiamondTranquilLanternRadius());
+        buf.writeInt(ModConfig.get().getNetheriteTranquilLanternRadius());
+
+        ServerPlayNetworking.send(player, ModNetworking.TRANQUIL_LANTERN_CONFIG_SYNC, buf);
     }
 }

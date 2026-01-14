@@ -21,6 +21,22 @@
       }
     ]
   },
+  "windswept": {
+    "sounds": [
+      {
+        "name": "cozystudioscore:windswept",
+        "stream": true
+      }
+    ]
+  },
+  "homeward": {
+    "sounds": [
+      {
+        "name": "cozystudioscore:homeward",
+        "stream": true
+      }
+    ]
+  },
   "fernling_idle": {
     "sounds": [
       {

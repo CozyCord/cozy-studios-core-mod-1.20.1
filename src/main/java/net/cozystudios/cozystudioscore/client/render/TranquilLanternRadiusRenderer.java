@@ -71,13 +71,13 @@ public class TranquilLanternRadiusRenderer {
 
     private static int getRadiusForLantern(BlockState state) {
         if (state.isOf(ModBlocks.NETHERITE_TRANQUIL_LANTERN)) {
-            return ModConfig.get().getNetheriteTranquilLanternRadius();
+            return TranquilLanternClientState.getNetheriteTranquilLanternRadius();
         } else if (state.isOf(ModBlocks.DIAMOND_TRANQUIL_LANTERN)) {
-            return ModConfig.get().getDiamondTranquilLanternRadius();
+            return TranquilLanternClientState.getDiamondTranquilLanternRadius();
         } else if (state.isOf(ModBlocks.GOLDEN_TRANQUIL_LANTERN)) {
-            return ModConfig.get().getGoldenTranquilLanternRadius();
+            return TranquilLanternClientState.getGoldenTranquilLanternRadius();
         } else {
-            return ModConfig.get().getTranquilLanternRadius();
+            return TranquilLanternClientState.getTranquilLanternRadius();
         }
     }
 

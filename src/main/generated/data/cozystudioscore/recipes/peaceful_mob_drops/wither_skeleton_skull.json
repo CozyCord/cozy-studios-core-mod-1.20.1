@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:crying_obsidian"
+    },
+    "L": {
+      "item": "minecraft:diamond"
+    },
+    "R": {
+      "item": "minecraft:gilded_blackstone"
+    }
+  },
+  "pattern": [
+    "#R#",
+    "RLR",
+    "#R#"
+  ],
+  "result": {
+    "item": "minecraft:wither_skeleton_skull"
+  },
+  "show_notification": true
+}

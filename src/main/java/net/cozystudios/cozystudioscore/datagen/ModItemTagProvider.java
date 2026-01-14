@@ -29,14 +29,18 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ItemTags.MUSIC_DISCS)
                 .add(
                         key(ModItems.AT_ORIGINAL_SOUNDTRACK_MUSIC_DISC),
-                        key(ModItems.DAYSPRING_MUSIC_DISC)
+                        key(ModItems.DAYSPRING_MUSIC_DISC),
+                        key(ModItems.WINDSWEPT_MUSIC_DISC),
+                        key(ModItems.HOMEWARD_MUSIC_DISC)
                 );
 
         // --- Creeper-Drop Discs ---
         getOrCreateTagBuilder(ItemTags.CREEPER_DROP_MUSIC_DISCS)
                 .add(
                         key(ModItems.DAYSPRING_MUSIC_DISC),
-                        key(ModItems.AT_ORIGINAL_SOUNDTRACK_MUSIC_DISC)
+                        key(ModItems.AT_ORIGINAL_SOUNDTRACK_MUSIC_DISC),
+                        key(ModItems.WINDSWEPT_MUSIC_DISC),
+                        key(ModItems.HOMEWARD_MUSIC_DISC)
                 );
     }
 }
