@@ -1,6 +1,8 @@
 package net.cozystudios.cozystudioscore.client.render;
 
+import net.cozystudios.cozystudioscore.block.ModBlocks;
 import net.cozystudios.cozystudioscore.client.TranquilLanternClientState;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
@@ -35,20 +37,25 @@ public final class TranquilLanternOutlineRenderer {
         VertexConsumerProvider consumers = client.getBufferBuilders().getOutlineVertexConsumers();
         if (!(consumers instanceof OutlineVertexConsumerProvider outlineConsumers)) return;
 
-        outlineConsumers.setColor(255, 255, 255, 255);
-
         Vec3d cam = camera.getPos();
         MatrixStack.Entry entry = matrices.peek();
         Matrix4f posMat = entry.getPositionMatrix();
         Matrix3f normalMat = entry.getNormalMatrix();
 
         RenderLayer layer = RenderLayer.getOutline(OUTLINE_TEX);
-        VertexConsumer vc = outlineConsumers.getBuffer(layer);
 
         for (BlockPos pos : TranquilLanternClientState.getLanterns()) {
-            VoxelShape shape = client.world.getBlockState(pos)
-                    .getOutlineShape(client.world, pos, ShapeContext.absent());
+            BlockState state = TranquilLanternClientState.getLanternState(pos);
+            if (state == null || client.world == null) continue;
+
+            VoxelShape shape = state.getOutlineShape(client.world, pos, ShapeContext.absent());
             if (shape.isEmpty()) continue;
+
+            // Determine color based on lantern type
+            int[] color = getColorForLantern(state);
+            outlineConsumers.setColor(color[0], color[1], color[2], color[3]);
+
+            VertexConsumer vc = outlineConsumers.getBuffer(layer);
 
             final double baseX = pos.getX() - cam.x;
             final double baseY = pos.getY() - cam.y;
@@ -56,6 +63,27 @@ public final class TranquilLanternOutlineRenderer {
 
             renderOuterFacesFromUnion(shape, vc, posMat, normalMat, baseX, baseY, baseZ);
         }
+    }
+
+    private static int[] getColorForLantern(BlockState state) {
+        // Base Tranquil Lantern - White (255, 255, 255)
+        if (state.isOf(ModBlocks.TRANQUIL_LANTERN)) {
+            return new int[]{255, 255, 255, 255};
+        }
+        // Golden Tranquil Lantern - Gold (255, 215, 0)
+        else if (state.isOf(ModBlocks.GOLDEN_TRANQUIL_LANTERN)) {
+            return new int[]{255, 215, 0, 255};
+        }
+        // Diamond Tranquil Lantern - Light Blue (173, 216, 230)
+        else if (state.isOf(ModBlocks.DIAMOND_TRANQUIL_LANTERN)) {
+            return new int[]{173, 216, 230, 255};
+        }
+        // Netherite Tranquil Lantern - Dark Gray (64, 64, 64)
+        else if (state.isOf(ModBlocks.NETHERITE_TRANQUIL_LANTERN)) {
+            return new int[]{64, 64, 64, 255};
+        }
+        // Default to white
+        return new int[]{255, 255, 255, 255};
     }
 
     private enum Face { NEG_X, POS_X, NEG_Y, POS_Y, NEG_Z, POS_Z }

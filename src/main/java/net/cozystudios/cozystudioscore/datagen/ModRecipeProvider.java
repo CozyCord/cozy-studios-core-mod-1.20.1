@@ -1,19 +1,22 @@
 package net.cozystudios.cozystudioscore.datagen;
 
+import java.util.function.Consumer;
+
 import net.cozystudios.cozystudioscore.block.ModBlocks;
 import net.cozystudios.cozystudioscore.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.data.server.recipe.*;
+import net.minecraft.data.server.recipe.CookingRecipeJsonBuilder;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
+import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
+import net.minecraft.data.server.recipe.SingleItemRecipeJsonBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
-import net.minecraft.recipe.book.CraftingRecipeCategory;
-
-import java.util.function.Consumer;
 
 public class ModRecipeProvider extends FabricRecipeProvider {
     public ModRecipeProvider(FabricDataOutput output) {
@@ -82,8 +85,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
         // Banner recolor recipes
         generateBannerRecolorRecipes(exporter);
-
-        // Kiln recipes are handled by custom recipe type, not datagen
     }
 
     private void generateTranquilLanternRecipes(Consumer<RecipeJsonProvider> exporter) {
@@ -97,24 +98,24 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(ModBlocks.TRANQUIL_LANTERN), conditionsFromItem(ModBlocks.TRANQUIL_LANTERN))
                 .offerTo(exporter, new Identifier("cozystudioscore", "golden_tranquil_lantern"));
 
-        // Diamond Tranquil Lantern - Tranquil Lantern surrounded by Diamond Blocks
+        // Diamond Tranquil Lantern - Golden Tranquil Lantern surrounded by Diamond Blocks
         ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.DIAMOND_TRANQUIL_LANTERN, 1)
                 .pattern("DDD")
                 .pattern("DTD")
                 .pattern("DDD")
                 .input('D', Items.DIAMOND_BLOCK)
-                .input('T', ModBlocks.TRANQUIL_LANTERN)
-                .criterion(hasItem(ModBlocks.TRANQUIL_LANTERN), conditionsFromItem(ModBlocks.TRANQUIL_LANTERN))
+                .input('T', ModBlocks.GOLDEN_TRANQUIL_LANTERN)
+                .criterion(hasItem(ModBlocks.GOLDEN_TRANQUIL_LANTERN), conditionsFromItem(ModBlocks.GOLDEN_TRANQUIL_LANTERN))
                 .offerTo(exporter, new Identifier("cozystudioscore", "diamond_tranquil_lantern"));
 
-        // Netherite Tranquil Lantern - Tranquil Lantern surrounded by Netherite Ingots
+        // Netherite Tranquil Lantern - Diamond Tranquil Lantern surrounded by Netherite Ingots
         ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.NETHERITE_TRANQUIL_LANTERN, 1)
                 .pattern("NNN")
                 .pattern("NTN")
                 .pattern("NNN")
                 .input('N', Items.NETHERITE_INGOT)
-                .input('T', ModBlocks.TRANQUIL_LANTERN)
-                .criterion(hasItem(ModBlocks.TRANQUIL_LANTERN), conditionsFromItem(ModBlocks.TRANQUIL_LANTERN))
+                .input('T', ModBlocks.DIAMOND_TRANQUIL_LANTERN)
+                .criterion(hasItem(ModBlocks.DIAMOND_TRANQUIL_LANTERN), conditionsFromItem(ModBlocks.DIAMOND_TRANQUIL_LANTERN))
                 .offerTo(exporter, new Identifier("cozystudioscore", "netherite_tranquil_lantern"));
     }
 

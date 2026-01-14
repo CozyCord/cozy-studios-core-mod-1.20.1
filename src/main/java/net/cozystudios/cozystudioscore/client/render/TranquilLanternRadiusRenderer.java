@@ -82,18 +82,23 @@ public class TranquilLanternRadiusRenderer {
     }
 
     private static float[] getColorForLantern(BlockState state) {
-        if (state.isOf(ModBlocks.NETHERITE_TRANQUIL_LANTERN)) {
-            // Dark grey for netherite
-            return new float[]{0.25f, 0.25f, 0.25f};
-        } else if (state.isOf(ModBlocks.DIAMOND_TRANQUIL_LANTERN)) {
-            // Light blue/cyan for diamond
-            return new float[]{0.3f, 0.8f, 1.0f};
-        } else if (state.isOf(ModBlocks.GOLDEN_TRANQUIL_LANTERN)) {
-            // Gold/yellow for golden
-            return new float[]{1.0f, 0.84f, 0.0f};
-        } else {
-            // White for base tranquil lantern
+        // Base Tranquil Lantern - White (255, 255, 255)
+        if (state.isOf(ModBlocks.TRANQUIL_LANTERN)) {
             return new float[]{1.0f, 1.0f, 1.0f};
         }
+        // Golden Tranquil Lantern - Gold (255, 215, 0)
+        else if (state.isOf(ModBlocks.GOLDEN_TRANQUIL_LANTERN)) {
+            return new float[]{1.0f, 215f/255f, 0.0f};
+        }
+        // Diamond Tranquil Lantern - Light Blue (173, 216, 230)
+        else if (state.isOf(ModBlocks.DIAMOND_TRANQUIL_LANTERN)) {
+            return new float[]{173f/255f, 216f/255f, 230f/255f};
+        }
+        // Netherite Tranquil Lantern - Dark Gray (64, 64, 64)
+        else if (state.isOf(ModBlocks.NETHERITE_TRANQUIL_LANTERN)) {
+            return new float[]{64f/255f, 64f/255f, 64f/255f};
+        }
+        // Default to white
+        return new float[]{1.0f, 1.0f, 1.0f};
     }
 }

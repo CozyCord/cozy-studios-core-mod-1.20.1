@@ -48,6 +48,11 @@ public class TranquilLanternSpawnBlocker {
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) ->
                 syncLanternsToPlayer(handler.player)
         );
+
+        // Register server-side receiver for sync requests
+        ServerPlayNetworking.registerGlobalReceiver(ModNetworking.TRANQUIL_LANTERN_REQUEST_SYNC, (server, player, handler, buf, responseSender) -> {
+            server.execute(() -> syncLanternsToPlayer(player));
+        });
     }
 
 
