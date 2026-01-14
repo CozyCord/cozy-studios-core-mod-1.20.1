@@ -17,9 +17,9 @@ public class ModConfig implements ConfigData {
     // ======================
 
     @ConfigEntry.Category("general")
-    @ConfigEntry.BoundedDiscrete(min = 5, max = 100)
+    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
     @ConfigEntry.Gui.Tooltip
-    public int tranquilLanternRadius = 35;
+    public int tranquilLanternRadiusPercent = 0;
 
     @ConfigEntry.Category("general")
     @ConfigEntry.Gui.Tooltip
@@ -28,6 +28,45 @@ public class ModConfig implements ConfigData {
     @ConfigEntry.Category("general")
     @ConfigEntry.Gui.Tooltip
     public boolean tranquilLanternBurn = false;
+
+    @ConfigEntry.Category("general")
+    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+    @ConfigEntry.Gui.Tooltip
+    public int goldenTranquilLanternRadiusPercent = 0;
+
+    @ConfigEntry.Category("general")
+    @ConfigEntry.Gui.Tooltip
+    public boolean goldenTranquilLanternBump = true;
+
+    @ConfigEntry.Category("general")
+    @ConfigEntry.Gui.Tooltip
+    public boolean goldenTranquilLanternBurn = false;
+
+    @ConfigEntry.Category("general")
+    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+    @ConfigEntry.Gui.Tooltip
+    public int diamondTranquilLanternRadiusPercent = 0;
+
+    @ConfigEntry.Category("general")
+    @ConfigEntry.Gui.Tooltip
+    public boolean diamondTranquilLanternBump = true;
+
+    @ConfigEntry.Category("general")
+    @ConfigEntry.Gui.Tooltip
+    public boolean diamondTranquilLanternBurn = false;
+
+    @ConfigEntry.Category("general")
+    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+    @ConfigEntry.Gui.Tooltip
+    public int netheriteTranquilLanternRadiusPercent = 0;
+
+    @ConfigEntry.Category("general")
+    @ConfigEntry.Gui.Tooltip
+    public boolean netheriteTranquilLanternBump = true;
+
+    @ConfigEntry.Category("general")
+    @ConfigEntry.Gui.Tooltip
+    public boolean netheriteTranquilLanternBurn = false;
 
     @ConfigEntry.Category("general")
     @ConfigEntry.Gui.Tooltip
@@ -121,5 +160,38 @@ public class ModConfig implements ConfigData {
 
     public static void reload() {
         AutoConfig.getConfigHolder(ModConfig.class).load();
+    }
+
+    // ======================
+    // Tranquil Lantern Radius Calculation
+    // ======================
+    // Base radius values (constants - not exposed to config)
+    @ConfigEntry.Gui.Excluded
+    private static final int BASE_TRANQUIL_LANTERN_RADIUS = 13;
+
+    @ConfigEntry.Gui.Excluded
+    private static final int BASE_GOLDEN_TRANQUIL_LANTERN_RADIUS = 25;
+
+    @ConfigEntry.Gui.Excluded
+    private static final int BASE_DIAMOND_TRANQUIL_LANTERN_RADIUS = 50;
+
+    @ConfigEntry.Gui.Excluded
+    private static final int BASE_NETHERITE_TRANQUIL_LANTERN_RADIUS = 100;
+
+    // Helper methods to calculate actual radius based on percentage
+    public int getTranquilLanternRadius() {
+        return BASE_TRANQUIL_LANTERN_RADIUS + (int)(BASE_TRANQUIL_LANTERN_RADIUS * (tranquilLanternRadiusPercent / 100.0));
+    }
+
+    public int getGoldenTranquilLanternRadius() {
+        return BASE_GOLDEN_TRANQUIL_LANTERN_RADIUS + (int)(BASE_GOLDEN_TRANQUIL_LANTERN_RADIUS * (goldenTranquilLanternRadiusPercent / 100.0));
+    }
+
+    public int getDiamondTranquilLanternRadius() {
+        return BASE_DIAMOND_TRANQUIL_LANTERN_RADIUS + (int)(BASE_DIAMOND_TRANQUIL_LANTERN_RADIUS * (diamondTranquilLanternRadiusPercent / 100.0));
+    }
+
+    public int getNetheriteTranquilLanternRadius() {
+        return BASE_NETHERITE_TRANQUIL_LANTERN_RADIUS + (int)(BASE_NETHERITE_TRANQUIL_LANTERN_RADIUS * (netheriteTranquilLanternRadiusPercent / 100.0));
     }
 }

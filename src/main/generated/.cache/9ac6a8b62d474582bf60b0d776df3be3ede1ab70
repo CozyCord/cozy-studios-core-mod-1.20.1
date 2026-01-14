@@ -1,4 +1,7 @@
-// 1.20.1	2025-12-30T10:21:16.9737153	Cozy Studios Core/Block Loot Tables
+// 1.20.1	2026-01-13T20:55:46.0986667	Cozy Studios Core/Block Loot Tables
+0342725786310f034f9ca89f525c041ae63126fc data\cozystudioscore\loot_tables\blocks\golden_tranquil_lantern.json
 e95dd615e0e1384f86466eda0320ca2be6534815 data\cozystudioscore\loot_tables\blocks\kiln.json
+29e043d94f41832d29a993dcb605d4cdb135a463 data\cozystudioscore\loot_tables\blocks\diamond_tranquil_lantern.json
+12be7bca18e8a201d8dcc9795912664fe152b4ca data\cozystudioscore\loot_tables\blocks\netherite_tranquil_lantern.json
 167abf329d7b05e1f4411dc285e391b50ccb25b4 data\cozystudioscore\loot_tables\blocks\arborist_table.json
 9da078caef6d57487d1944cc4a60e69854bdf51d data\cozystudioscore\loot_tables\blocks\tranquil_lantern.json

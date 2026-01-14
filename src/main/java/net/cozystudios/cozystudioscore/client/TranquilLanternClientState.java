@@ -2,28 +2,46 @@ package net.cozystudios.cozystudioscore.client;
 
 import net.cozystudios.cozystudioscore.block.ModBlocks;
 import net.cozystudios.cozystudioscore.config.ModConfig;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class TranquilLanternClientState {
 
-    private static final Set<BlockPos> CLIENT_LANTERNS = new HashSet<>();
+    private static final Map<BlockPos, BlockState> CLIENT_LANTERNS = new HashMap<>();
 
     public static Set<BlockPos> getLanterns() {
-        return Collections.unmodifiableSet(CLIENT_LANTERNS);
+        return Collections.unmodifiableSet(CLIENT_LANTERNS.keySet());
+    }
+
+    public static BlockState getLanternState(BlockPos pos) {
+        return CLIENT_LANTERNS.get(pos);
     }
 
     public static void setAll(Set<BlockPos> positions) {
         CLIENT_LANTERNS.clear();
-        for (BlockPos p : positions) CLIENT_LANTERNS.add(p.toImmutable());
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (client.world != null) {
+            for (BlockPos p : positions) {
+                BlockState state = client.world.getBlockState(p);
+                CLIENT_LANTERNS.put(p.toImmutable(), state);
+            }
+        }
     }
 
     public static void add(BlockPos pos) {
-        if (pos != null) CLIENT_LANTERNS.add(pos.toImmutable());
+        if (pos != null) {
+            MinecraftClient client = MinecraftClient.getInstance();
+            if (client.world != null) {
+                BlockState state = client.world.getBlockState(pos);
+                CLIENT_LANTERNS.put(pos.toImmutable(), state);
+            }
+        }
     }
 
     public static void remove(BlockPos pos) {
@@ -39,15 +57,23 @@ public class TranquilLanternClientState {
 
         if (client.world == null || client.player == null) return;
 
-        int radius = ModConfig.get().tranquilLanternRadius;
+        // Use the largest radius to ensure we find all lanterns
+        int maxRadius = Math.max(
+            Math.max(ModConfig.get().getTranquilLanternRadius(), ModConfig.get().getGoldenTranquilLanternRadius()),
+            Math.max(ModConfig.get().getDiamondTranquilLanternRadius(), ModConfig.get().getNetheriteTranquilLanternRadius())
+        );
 
         BlockPos center = client.player.getBlockPos();
-        BlockPos min = center.add(-radius, -radius, -radius);
-        BlockPos max = center.add(radius, radius, radius);
+        BlockPos min = center.add(-maxRadius, -maxRadius, -maxRadius);
+        BlockPos max = center.add(maxRadius, maxRadius, maxRadius);
 
         BlockPos.iterate(min, max).forEach(pos -> {
-            if (client.world.getBlockState(pos).isOf(ModBlocks.TRANQUIL_LANTERN)) {
-                CLIENT_LANTERNS.add(pos.toImmutable());
+            BlockState state = client.world.getBlockState(pos);
+            if (state.isOf(ModBlocks.TRANQUIL_LANTERN) ||
+                state.isOf(ModBlocks.GOLDEN_TRANQUIL_LANTERN) ||
+                state.isOf(ModBlocks.DIAMOND_TRANQUIL_LANTERN) ||
+                state.isOf(ModBlocks.NETHERITE_TRANQUIL_LANTERN)) {
+                CLIENT_LANTERNS.put(pos.toImmutable(), state);
             }
         });
     }

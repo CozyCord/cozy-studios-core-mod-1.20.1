@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "tranquil_lantern",
+  "key": {
+    "G": {
+      "item": "cozystudioscore:golden_leaf"
+    },
+    "L": {
+      "item": "minecraft:lantern"
+    }
+  },
+  "pattern": [
+    "LLL",
+    "LGL",
+    "LLL"
+  ],
+  "result": {
+    "item": "cozystudioscore:tranquil_lantern"
+  },
+  "show_notification": true
+}

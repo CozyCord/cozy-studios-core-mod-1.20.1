@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "kiln",
+  "key": {
+    "B": {
+      "item": "minecraft:mud_bricks"
+    },
+    "C": {
+      "item": "minecraft:cobblestone"
+    },
+    "F": {
+      "item": "minecraft:blast_furnace"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "BFB",
+    "CCC"
+  ],
+  "result": {
+    "item": "cozystudioscore:kiln"
+  },
+  "show_notification": true
+}

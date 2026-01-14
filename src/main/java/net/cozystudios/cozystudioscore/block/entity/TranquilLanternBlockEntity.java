@@ -23,7 +23,7 @@ public class TranquilLanternBlockEntity extends BlockEntity {
     public static void tick(World world, BlockPos pos, BlockState state, TranquilLanternBlockEntity _be) {
         if (world.isClient) return;
 
-        int radius = ModConfig.get().tranquilLanternRadius;
+        int radius = ModConfig.get().getTranquilLanternRadius();
         boolean bump = ModConfig.get().tranquilLanternBump;
         boolean burn = ModConfig.get().tranquilLanternBurn;
 

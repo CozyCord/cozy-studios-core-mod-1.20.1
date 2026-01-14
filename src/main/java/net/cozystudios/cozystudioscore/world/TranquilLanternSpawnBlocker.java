@@ -59,13 +59,16 @@ public class TranquilLanternSpawnBlocker {
     public static boolean isSpawnBlocked(ServerWorld world, BlockPos spawnPos) {
         if (!hasAnyLanterns(world)) return false;
 
-        int radius = ModConfig.get().tranquilLanternRadius;
-        int radiusSq = radius * radius;
+        // Use the maximum possible radius to check all chunks
+        int maxRadius = Math.max(
+            Math.max(ModConfig.get().getTranquilLanternRadius(), ModConfig.get().getGoldenTranquilLanternRadius()),
+            Math.max(ModConfig.get().getDiamondTranquilLanternRadius(), ModConfig.get().getNetheriteTranquilLanternRadius())
+        );
 
         Long2ObjectOpenHashMap<ObjectOpenHashSet<BlockPos>> index = LANTERNS_BY_CHUNK.get(world);
         if (index == null || index.isEmpty()) return false;
 
-        int chunkRadius = (radius >> 4) + 1;
+        int chunkRadius = (maxRadius >> 4) + 1;
 
         int cx = spawnPos.getX() >> 4;
         int cz = spawnPos.getZ() >> 4;
@@ -77,6 +80,10 @@ public class TranquilLanternSpawnBlocker {
                 if (inChunk == null || inChunk.isEmpty()) continue;
 
                 for (BlockPos lanternPos : inChunk) {
+                    // Get the actual radius for this specific lantern
+                    int radius = getRadiusForLantern(world, lanternPos);
+                    int radiusSq = radius * radius;
+
                     if (lanternPos.getSquaredDistance(spawnPos) <= radiusSq) {
                         return true;
                     }
@@ -85,6 +92,21 @@ public class TranquilLanternSpawnBlocker {
         }
 
         return false;
+    }
+
+    private static int getRadiusForLantern(ServerWorld world, BlockPos pos) {
+        if (!world.isChunkLoaded(pos)) return ModConfig.get().getTranquilLanternRadius();
+
+        net.minecraft.block.BlockState state = world.getBlockState(pos);
+        if (state.isOf(net.cozystudios.cozystudioscore.block.ModBlocks.NETHERITE_TRANQUIL_LANTERN)) {
+            return ModConfig.get().getNetheriteTranquilLanternRadius();
+        } else if (state.isOf(net.cozystudios.cozystudioscore.block.ModBlocks.DIAMOND_TRANQUIL_LANTERN)) {
+            return ModConfig.get().getDiamondTranquilLanternRadius();
+        } else if (state.isOf(net.cozystudios.cozystudioscore.block.ModBlocks.GOLDEN_TRANQUIL_LANTERN)) {
+            return ModConfig.get().getGoldenTranquilLanternRadius();
+        } else {
+            return ModConfig.get().getTranquilLanternRadius();
+        }
     }
 
 
@@ -97,8 +119,6 @@ public class TranquilLanternSpawnBlocker {
         tickTimer = 0;
 
         if (ACTIVE_LANTERNS.isEmpty()) return;
-
-        int radius = ModConfig.get().tranquilLanternRadius;
 
         for (ServerWorld world : server.getWorlds()) {
 
@@ -113,6 +133,9 @@ public class TranquilLanternSpawnBlocker {
             for (BlockPos lanternPos : lanterns) {
 
                 if (!world.isChunkLoaded(lanternPos)) continue;
+
+                // Get the radius for this specific lantern type
+                int radius = getRadiusForLantern(world, lanternPos);
 
                 Box cube = new Box(
                         lanternPos.getX() - radius, lanternPos.getY() - radius, lanternPos.getZ() - radius,

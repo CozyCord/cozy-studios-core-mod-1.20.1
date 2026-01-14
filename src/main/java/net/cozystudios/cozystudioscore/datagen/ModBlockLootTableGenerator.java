@@ -17,6 +17,9 @@ public class ModBlockLootTableGenerator extends FabricBlockLootTableProvider {
     public void generate() {
         addDrop(ModBlocks.KILN);
         addDrop(ModBlocks.TRANQUIL_LANTERN);
+        addDrop(ModBlocks.GOLDEN_TRANQUIL_LANTERN);
+        addDrop(ModBlocks.DIAMOND_TRANQUIL_LANTERN);
+        addDrop(ModBlocks.NETHERITE_TRANQUIL_LANTERN);
         addDrop(ModBlocks.ARBORIST_TABLE);
     }
 }

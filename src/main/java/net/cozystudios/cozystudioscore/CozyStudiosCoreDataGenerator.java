@@ -14,5 +14,6 @@ public class CozyStudiosCoreDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ModBlockLootTableGenerator::new);
         pack.addProvider(ModModelProvider::new);
         pack.addProvider(ModPOITagProvider::new);
+        pack.addProvider(ModRecipeProvider::new);
 	}
 }

@@ -17,6 +17,6 @@ public class TranquilLanternItem extends BlockItem {
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.literal("✨ Pushes hostile mobs away within 35 blocks").formatted(Formatting.GOLD));
+        tooltip.add(Text.literal("✨ Pushes hostile mobs away within 13 blocks").formatted(Formatting.GOLD));
     }
 }

@@ -2,6 +2,9 @@
   "replace": false,
   "values": [
     "cozystudioscore:kiln",
-    "cozystudioscore:tranquil_lantern"
+    "cozystudioscore:tranquil_lantern",
+    "cozystudioscore:golden_tranquil_lantern",
+    "cozystudioscore:diamond_tranquil_lantern",
+    "cozystudioscore:netherite_tranquil_lantern"
   ]
 }

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "cozystudioscore:netherite_tranquil_lantern"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_tranquil_lantern": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "cozystudioscore:tranquil_lantern"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_tranquil_lantern",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "cozystudioscore:netherite_tranquil_lantern"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./gradlew runDatagen:*)",
+      "Bash(ls:*)",
+      "Bash(./gradlew dependencies:*)",
+      "Bash(./gradlew compileJava:*)",
+      "Bash(find:*)",
+      "Bash(xargs cat:*)",
+      "Bash(./gradlew build:*)",
+      "Bash(jar:*)",
+      "Bash(./gradlew:*)",
+      "Bash(for file in shroomlight.json brown_mushroom_block.json red_mushroom_block.json mushroom_stem.json)",
+      "Bash(do echo \"=== $file ===\")",
+      "Bash(done)"
+    ]
+  }
+}

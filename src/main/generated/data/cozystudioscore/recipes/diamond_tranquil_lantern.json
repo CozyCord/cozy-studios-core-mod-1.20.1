@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "minecraft:diamond_block"
+    },
+    "T": {
+      "item": "cozystudioscore:tranquil_lantern"
+    }
+  },
+  "pattern": [
+    "DDD",
+    "DTD",
+    "DDD"
+  ],
+  "result": {
+    "item": "cozystudioscore:diamond_tranquil_lantern"
+  },
+  "show_notification": true
+}

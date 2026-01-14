@@ -96,13 +96,19 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
                 .add(
                         key(ModBlocks.KILN),
-                        key(ModBlocks.TRANQUIL_LANTERN));
+                        key(ModBlocks.TRANQUIL_LANTERN),
+                        key(ModBlocks.GOLDEN_TRANQUIL_LANTERN),
+                        key(ModBlocks.DIAMOND_TRANQUIL_LANTERN),
+                        key(ModBlocks.NETHERITE_TRANQUIL_LANTERN));
 
         // --- Needs Stone Tool ---
         getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
                 .add(
                         key(ModBlocks.KILN),
-                        key(ModBlocks.TRANQUIL_LANTERN)
+                        key(ModBlocks.TRANQUIL_LANTERN),
+                        key(ModBlocks.GOLDEN_TRANQUIL_LANTERN),
+                        key(ModBlocks.DIAMOND_TRANQUIL_LANTERN),
+                        key(ModBlocks.NETHERITE_TRANQUIL_LANTERN)
                 );
     }
 }

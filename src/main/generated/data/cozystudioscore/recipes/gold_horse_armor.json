@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    }
+  },
+  "pattern": [
+    "  G",
+    "GLG",
+    "G G"
+  ],
+  "result": {
+    "item": "minecraft:golden_horse_armor"
+  },
+  "show_notification": true
+}
