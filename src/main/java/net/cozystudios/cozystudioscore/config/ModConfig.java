@@ -17,60 +17,77 @@ public class ModConfig implements ConfigData {
     // ======================
 
     @ConfigEntry.Category("general")
+    @ConfigEntry.Gui.Tooltip
+    public boolean showTitleScreenCredits = true;
+
+    @ConfigEntry.Category("general")
+    @ConfigEntry.Gui.Tooltip
+    public boolean peacefulHunger = true;
+
+    @ConfigEntry.Category("general")
+    @ConfigEntry.Gui.Tooltip
+    public boolean enableMasonTrades = true;
+
+    @ConfigEntry.Category("general")
+    @ConfigEntry.Gui.Tooltip
+    @ConfigEntry.BoundedDiscrete(min = 16, max = 64)
+    public int maxStackSizeOverride = 64;
+
+    // ======================
+    // Tranquil Lanterns
+    // ======================
+
+    @ConfigEntry.Category("default")
     @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
     @ConfigEntry.Gui.Tooltip
     public int tranquilLanternRadiusPercent = 0;
 
-    @ConfigEntry.Category("general")
+    @ConfigEntry.Category("default")
     @ConfigEntry.Gui.Tooltip
     public boolean tranquilLanternBump = true;
 
-    @ConfigEntry.Category("general")
+    @ConfigEntry.Category("default")
     @ConfigEntry.Gui.Tooltip
     public boolean tranquilLanternBurn = false;
 
-    @ConfigEntry.Category("general")
+    @ConfigEntry.Category("default")
     @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
     @ConfigEntry.Gui.Tooltip
     public int goldenTranquilLanternRadiusPercent = 0;
 
-    @ConfigEntry.Category("general")
+    @ConfigEntry.Category("default")
     @ConfigEntry.Gui.Tooltip
     public boolean goldenTranquilLanternBump = true;
 
-    @ConfigEntry.Category("general")
+    @ConfigEntry.Category("default")
     @ConfigEntry.Gui.Tooltip
     public boolean goldenTranquilLanternBurn = false;
 
-    @ConfigEntry.Category("general")
+    @ConfigEntry.Category("default")
     @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
     @ConfigEntry.Gui.Tooltip
     public int diamondTranquilLanternRadiusPercent = 0;
 
-    @ConfigEntry.Category("general")
+    @ConfigEntry.Category("default")
     @ConfigEntry.Gui.Tooltip
     public boolean diamondTranquilLanternBump = true;
 
-    @ConfigEntry.Category("general")
+    @ConfigEntry.Category("default")
     @ConfigEntry.Gui.Tooltip
     public boolean diamondTranquilLanternBurn = false;
 
-    @ConfigEntry.Category("general")
+    @ConfigEntry.Category("default")
     @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
     @ConfigEntry.Gui.Tooltip
     public int netheriteTranquilLanternRadiusPercent = 0;
 
-    @ConfigEntry.Category("general")
+    @ConfigEntry.Category("default")
     @ConfigEntry.Gui.Tooltip
     public boolean netheriteTranquilLanternBump = true;
 
-    @ConfigEntry.Category("general")
+    @ConfigEntry.Category("default")
     @ConfigEntry.Gui.Tooltip
     public boolean netheriteTranquilLanternBurn = false;
-
-    @ConfigEntry.Category("general")
-    @ConfigEntry.Gui.Tooltip
-    public boolean showTitleScreenCredits = true;
 
     // ======================
     // Kiln
@@ -89,22 +106,6 @@ public class ModConfig implements ConfigData {
     @ConfigEntry.Category("kiln")
     @ConfigEntry.Gui.Tooltip
     public int kilnConfigDefaultTime = 100;
-
-    // ======================
-    // Gameplay
-    // ======================
-    @ConfigEntry.Category("gameplay")
-    @ConfigEntry.Gui.Tooltip
-    public boolean peacefulHunger = true;
-
-    @ConfigEntry.Category("gameplay")
-    @ConfigEntry.Gui.Tooltip
-    public boolean enableMasonTrades = true;
-
-    @ConfigEntry.Category("gameplay")
-    @ConfigEntry.Gui.Tooltip
-    @ConfigEntry.BoundedDiscrete(min = 16, max = 64)
-    public int maxStackSizeOverride = 64;
 
     // ======================
     // Recolor-on-use

@@ -74,9 +74,9 @@
   "text.autoconfig.cozystudioscore.title": "Cozy Studios Core",
 
   "-- Categories --": "",
+  "text.autoconfig.cozystudioscore.category.default": "Tranquil Lanterns",
   "text.autoconfig.cozystudioscore.category.general": "General",
   "text.autoconfig.cozystudioscore.category.kiln": "Kiln",
-  "text.autoconfig.cozystudioscore.category.gameplay": "Gameplay",
   "category.cozystudioscore": "CozyStudios Core",
 
   "-- General Options --": "",
