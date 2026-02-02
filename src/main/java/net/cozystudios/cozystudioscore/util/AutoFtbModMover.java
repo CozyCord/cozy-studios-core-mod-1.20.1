@@ -1,8 +1,8 @@
 package net.cozystudios.cozystudioscore.util;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
+import net.cozystudios.cozystudioscore.client.RestartRequiredScreen;
+import net.cozystudios.cozystudioscore.config.AutoFtbModsConfig;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,102 +11,173 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.*;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
-public class AutoFtbModMover implements PreLaunchEntrypoint {
-    private static final Logger LOGGER = LoggerFactory.getLogger("cozystudioscore - auto ftb mod mover");
-    private static final String CONFIG_FILE_NAME = "cozystudioscore/auto_ftb_mods.json";
+public final class AutoFtbModMover {
+    private static final Logger LOGGER = LoggerFactory.getLogger("CozyStudiosCore | AutoFtbModMover");
+    private static final String HASH_ALGORITHM = "SHA-1";
+    private static final int TICK_INTERVAL = 100;
 
-    @Override
-    public void onPreLaunch() {
-        Path configDir = FabricLoader.getInstance().getConfigDir();
-        Path configFile = configDir.resolve(CONFIG_FILE_NAME);
+    private static final AtomicBoolean RESTART_REQUIRED = new AtomicBoolean(false);
+    private static final AtomicBoolean ALL_MODS_PRESENT = new AtomicBoolean(false);
 
-        if (!Files.exists(configFile)) {
-            LOGGER.info("Config file not found, skipping auto FTB mod mover.");
-            return;
+    private static int tickCounter = 0;
+
+    private static final Map<String, String> MOD_NAMES = Map.of(
+            "ftbTeamsHash", "FTB Teams",
+            "ftbLibraryHash", "FTB Library",
+            "ftbEssentialsHash", "FTB Essentials",
+            "ftbFilterHash", "FTB Filter",
+            "ftbQuestsHash", "FTB Quests",
+            "ftbXmodHash", "FTB XMod",
+            "questAdditionsHash", "Quest Additions"
+    );
+
+    private AutoFtbModMover() {}
+
+    public static void registerClientTicker() {
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (ALL_MODS_PRESENT.get()) return;
+
+            if (RESTART_REQUIRED.get()) {
+                if (!(client.currentScreen instanceof RestartRequiredScreen)) {
+                    client.setScreen(new RestartRequiredScreen());
+                }
+            }
+
+            if (tickCounter++ >= TICK_INTERVAL) {
+                tickCounter = 0;
+                runBackgroundCheck();
+            }
+        });
+    }
+
+    private static void runBackgroundCheck() {
+        Thread checkThread = new Thread(() -> {
+            if (checkAndMoveMods()) {
+                RESTART_REQUIRED.set(true);
+            }
+        }, "AutoFtbModMover-Check-Thread");
+        checkThread.setDaemon(true);
+        checkThread.start();
+    }
+
+    private static boolean checkAndMoveMods() {
+        AutoFtbModsConfig config = AutoFtbModsConfig.get();
+        if (!config.enableAutoFtbMods) {
+            return false;
         }
 
-        Map<String, String> targetHashes = loadHashesFromConfig(configFile);
+        Map<String, String> targetHashes = getTargetHashes(config);
         if (targetHashes.isEmpty()) {
-            LOGGER.info("No FTB mod hashes configured, skipping.");
-            return;
+            return false;
         }
 
         Path gameDir = FabricLoader.getInstance().getGameDir();
         Path modsDir = gameDir.resolve("mods");
+
+        if (areAllModsPresent(modsDir, targetHashes)) {
+            ALL_MODS_PRESENT.set(true);
+            return false;
+        }
+
         Path downloadsDir = getUserDownloadsDir();
-
-        if (downloadsDir == null || !Files.exists(downloadsDir)) {
-            LOGGER.warn("Could not locate user Downloads directory, skipping.");
-            return;
+        if (downloadsDir == null) {
+            LOGGER.warn("Could not determine user Downloads directory.");
+            return false;
         }
 
-        LOGGER.info("Scanning Downloads folder for FTB mods...");
-        
-        try (Stream<Path> stream = Files.walk(downloadsDir, 1)) {
-            stream.filter(path -> path.toString().endsWith(".jar"))
-                  .forEach(jarPath -> processJar(jarPath, modsDir, targetHashes));
-        } catch (IOException e) {
-            LOGGER.error("Failed to scan Downloads directory", e);
-        }
+        return scanAndMoveMods(downloadsDir, modsDir, targetHashes);
     }
 
-    // gotta parse config ourselves since conf doesn't exist at prelaunch
-    private Map<String, String> loadHashesFromConfig(Path configFile) {
+    private static Map<String, String> getTargetHashes(AutoFtbModsConfig config) {
         Map<String, String> hashes = new HashMap<>();
-        try (InputStream is = Files.newInputStream(configFile)) {
-            Gson gson = new Gson();
-            String jsonString = new String(is.readAllBytes());
-            JsonObject root = gson.fromJson(jsonString, JsonObject.class);
-
-            if (root.has("enableAutoFtbMods") && !root.get("enableAutoFtbMods").getAsBoolean()) {
-                return hashes;
-            }
-
-            addHash(hashes, root, "ftbTeamsHash");
-            addHash(hashes, root, "ftbLibraryHash");
-            addHash(hashes, root, "ftbEssentialsHash");
-            addHash(hashes, root, "ftbFilterHash");
-            addHash(hashes, root, "ftbQuestsHash");
-            addHash(hashes, root, "ftbXmodHash");
-            addHash(hashes, root, "questAdditionsHash");
-        } catch (Exception e) {
-            LOGGER.error("Failed to load config for AutoFtbModMover", e);
-        }
+        addHashIfPresent(hashes, config.ftbTeamsHash, "ftbTeamsHash");
+        addHashIfPresent(hashes, config.ftbLibraryHash, "ftbLibraryHash");
+        addHashIfPresent(hashes, config.ftbEssentialsHash, "ftbEssentialsHash");
+        addHashIfPresent(hashes, config.ftbFilterHash, "ftbFilterHash");
+        addHashIfPresent(hashes, config.ftbQuestsHash, "ftbQuestsHash");
+        addHashIfPresent(hashes, config.ftbXmodHash, "ftbXmodHash");
+        addHashIfPresent(hashes, config.questAdditionsHash, "questAdditionsHash");
         return hashes;
     }
 
-    private void addHash(Map<String, String> map, JsonObject config, String key) {
-        if (config.has(key)) {
-            String hash = config.get(key).getAsString();
-            if (hash != null && !hash.isEmpty()) {
-                map.put(hash.toLowerCase(), key);
-            }
+    private static void addHashIfPresent(Map<String, String> map, String hash, String key) {
+        if (hash != null && !hash.isBlank()) {
+            map.put(hash.toLowerCase(), MOD_NAMES.getOrDefault(key, key));
         }
     }
 
-    private void processJar(Path jarPath, Path modsDir, Map<String, String> targetHashes) {
+    private static boolean scanAndMoveMods(Path sourceDir, Path targetDir, Map<String, String> targetHashes) {
+        boolean movedAny = false;
+        try (Stream<Path> stream = Files.walk(sourceDir, 1)) {
+            var jars = stream.filter(path -> path.toString().toLowerCase().endsWith(".jar")).toList();
+
+            for (Path jarPath : jars) {
+                if (processJar(jarPath, targetDir, targetHashes)) {
+                    movedAny = true;
+                }
+            }
+        } catch (IOException e) {
+            LOGGER.error("Failed to scan directory: {}", sourceDir, e);
+        }
+        return movedAny;
+    }
+
+    private static boolean areAllModsPresent(Path modsDir, Map<String, String> targetHashes) {
+        if (!Files.exists(modsDir)) return false;
+
+        try (Stream<Path> stream = Files.list(modsDir)) {
+            var modFiles = stream.filter(p -> p.toString().toLowerCase().endsWith(".jar")).toList();
+            Map<String, String> remainingHashes = new HashMap<>(targetHashes);
+
+            for (Path modFile : modFiles) {
+                try {
+                    String hash = calculateSha1(modFile);
+                    remainingHashes.remove(hash);
+                    if (remainingHashes.isEmpty()) return true;
+                } catch (IOException | NoSuchAlgorithmException ignored) {}
+            }
+            return remainingHashes.isEmpty();
+        } catch (IOException e) {
+            LOGGER.error("Failed to list mods directory: {}", modsDir, e);
+            return false;
+        }
+    }
+
+    private static boolean processJar(Path jarPath, Path modsDir, Map<String, String> targetHashes) {
         try {
             String fileHash = calculateSha1(jarPath);
             if (targetHashes.containsKey(fileHash)) {
-                String modKey = targetHashes.get(fileHash);
-                LOGGER.info("Found matching FTB mod: {} (Hash: {}). Moving to mods folder...", jarPath.getFileName(), modKey);
-                
+                String modName = targetHashes.get(fileHash);
+                LOGGER.info("Found matching mod: {} (Hash: {}). Preparing to move...", jarPath.getFileName(), modName);
+
                 Path targetPath = modsDir.resolve(jarPath.getFileName());
 
+                if (Files.exists(targetPath)) {
+                    String existingHash = calculateSha1(targetPath);
+                    if (existingHash.equals(fileHash)) {
+                        LOGGER.debug("Mod {} already exists in mods folder with matching hash. Skipping.", modName);
+                        return false;
+                    }
+                }
+
                 Files.move(jarPath, targetPath, StandardCopyOption.REPLACE_EXISTING);
-                LOGGER.info("Moved {} to {}", jarPath.getFileName(), targetPath);
+                LOGGER.info("Successfully moved {} to {}", jarPath.getFileName(), targetPath);
+                return true;
             }
         } catch (Exception e) {
-            LOGGER.error("Failed to process jar: " + jarPath, e);
+            LOGGER.error("Failed to process jar file: {}", jarPath, e);
         }
+        return false;
     }
 
-    private String calculateSha1(Path path) throws Exception {
-        MessageDigest digest = MessageDigest.getInstance("SHA-1");
+    private static String calculateSha1(Path path) throws IOException, NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance(HASH_ALGORITHM);
         try (InputStream fis = Files.newInputStream(path)) {
             byte[] buffer = new byte[8192];
             int n;
@@ -115,17 +186,21 @@ public class AutoFtbModMover implements PreLaunchEntrypoint {
             }
         }
         byte[] hashBytes = digest.digest();
+        return bytesToHex(hashBytes);
+    }
+
+    private static String bytesToHex(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
-        for (byte b : hashBytes) {
+        for (byte b : bytes) {
             sb.append(String.format("%02x", b));
         }
         return sb.toString();
     }
 
-    private Path getUserDownloadsDir() {
+    private static Path getUserDownloadsDir() {
         String userHome = System.getProperty("user.home");
         if (userHome == null) return null;
-        
+
         Path downloads = Paths.get(userHome, "Downloads");
         if (Files.exists(downloads) && Files.isDirectory(downloads)) {
             return downloads;

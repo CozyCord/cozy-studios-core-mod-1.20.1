@@ -10,25 +10,25 @@ public class AutoFtbModsConfig implements ConfigData {
     public boolean enableAutoFtbMods = true;
 
     @ConfigEntry.Gui.Tooltip
-    public String ftbTeamsHash = "";
+    public String ftbTeamsHash = "515a933d22c60d0f9c249a6eef02402afc2695ac";
 
     @ConfigEntry.Gui.Tooltip
-    public String ftbLibraryHash = "";
+    public String ftbLibraryHash = "c7813af51352624f56b4604f2e431684f1e2c563";
 
     @ConfigEntry.Gui.Tooltip
-    public String ftbEssentialsHash = "";
+    public String ftbEssentialsHash = "460ec092156d6b457bd91dc463ac1ee49e22442d";
 
     @ConfigEntry.Gui.Tooltip
-    public String ftbFilterHash = "";
+    public String ftbFilterHash = "6e96cdbc84065682eb9920a023313aaffa857dff";
 
     @ConfigEntry.Gui.Tooltip
-    public String ftbQuestsHash = "";
+    public String ftbQuestsHash = "4e960a89918056dd24d45393a8aec43e9e90d345";
 
     @ConfigEntry.Gui.Tooltip
-    public String ftbXmodHash = "";
+    public String ftbXmodHash = "20ff2644eb3580563e9b47758487fed2686682f3";
 
     @ConfigEntry.Gui.Tooltip
-    public String questAdditionsHash = "";
+    public String questAdditionsHash = "a15613625cccf31508230399cffa7674bdaaf74f";
 
     public static AutoFtbModsConfig get() {
         return ModConfig.get().autoFtbModsConfig;
