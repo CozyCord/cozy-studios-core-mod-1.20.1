@@ -3,6 +3,8 @@ package net.cozystudios.cozystudioscore;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.cozystudios.cozystudioscore.block.ModBlocks;
 import net.cozystudios.cozystudioscore.block.entity.ModBlockEntities;
+import net.cozystudios.cozystudioscore.config.GeneralConfig;
+import net.cozystudios.cozystudioscore.config.KilnConfig;
 import net.cozystudios.cozystudioscore.config.ModConfig;
 import net.cozystudios.cozystudioscore.entity.ModEntities;
 import net.cozystudios.cozystudioscore.item.ModItemGroups;
@@ -40,7 +42,7 @@ public class CozyStudiosCore implements ModInitializer {
         TranquilLanternSpawnBlocker.register();
         net.cozystudios.cozystudioscore.screen.ModScreenHandlers.registerScreenHandlers();
         ServerLifecycleEvents.SERVER_STARTING.register(server -> {
-            var config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
+            KilnConfig config = KilnConfig.get();
             ConfigKilnDataPack.writePackForServer(server, config);
         });
         net.cozystudios.cozystudioscore.util.ModMasonTrades.registerCustomTrades();
@@ -55,7 +57,7 @@ public class CozyStudiosCore implements ModInitializer {
 
         // === Extra: configurable stack sizes ===
         ServerLifecycleEvents.SERVER_STARTING.register(server -> {
-            var config = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
+            GeneralConfig config = GeneralConfig.get();
             if (config.maxStackSizeOverride >= 16 && config.maxStackSizeOverride <= 64) {
                 fixStackSizes(config.maxStackSizeOverride);
             }

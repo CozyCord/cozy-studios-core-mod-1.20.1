@@ -1,5 +1,6 @@
 package net.cozystudios.cozystudioscore.mixin;
 
+import net.cozystudios.cozystudioscore.config.GeneralConfig;
 import net.cozystudios.cozystudioscore.config.ModConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -22,7 +23,7 @@ public class TitleScreenMixin {
     @Unique
     private static boolean cozystudios$showCredits() {
         try {
-            return ModConfig.get().showTitleScreenCredits;
+            return GeneralConfig.get().showTitleScreenCredits;
         } catch (Throwable t) {
             return true;
         }

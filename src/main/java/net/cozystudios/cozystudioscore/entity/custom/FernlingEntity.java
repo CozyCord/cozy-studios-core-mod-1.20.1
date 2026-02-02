@@ -1,5 +1,6 @@
 package net.cozystudios.cozystudioscore.entity.custom;
 
+import net.cozystudios.cozystudioscore.config.FernlingConfig;
 import net.cozystudios.cozystudioscore.config.ModConfig;
 import net.cozystudios.cozystudioscore.entity.ModEntities;
 import net.cozystudios.cozystudioscore.entity.variant.FernlingVariant;
@@ -116,7 +117,7 @@ public class FernlingEntity extends TameableEntity {
             if (bonemealCooldown > 0) {
                 bonemealCooldown--;
             } else {
-                ModConfig cfg = ModConfig.get();
+                FernlingConfig cfg = FernlingConfig.get();
                 if (this.getRandom().nextFloat() < (float) cfg.fernlingBonemealChance) {
                     boolean didBonemeal = tryBonemealNearby(cfg.fernlingBonemealRadius);
                     bonemealCooldown = cfg.fernlingBonemealCooldownMin +
