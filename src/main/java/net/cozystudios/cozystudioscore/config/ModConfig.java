@@ -28,6 +28,10 @@ public class ModConfig extends PartitioningSerializer.GlobalData {
     @ConfigEntry.Gui.TransitiveObject
     FernlingConfig fernlingConfig = new FernlingConfig();
 
+    @ConfigEntry.Category("auto_ftb_mods")
+    @ConfigEntry.Gui.TransitiveObject
+    AutoFtbModsConfig autoFtbModsConfig = new AutoFtbModsConfig();
+
     // ======================
     // Helpers
     // ======================
