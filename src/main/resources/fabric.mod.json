@@ -19,6 +19,9 @@
   "icon": "assets/cozystudioscore/icon.png",
   "environment": "*",
   "entrypoints": {
+    "preLaunch": [
+      "net.cozystudios.cozystudioscore.util.AutoFtbModMover"
+    ],
     "main": [
       "net.cozystudios.cozystudioscore.CozyStudiosCore"
     ],
