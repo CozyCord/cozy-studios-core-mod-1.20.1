@@ -7,6 +7,7 @@ import net.cozystudios.cozystudioscore.entity.ModEntities;
 import net.cozystudios.cozystudioscore.entity.client.*;
 import net.cozystudios.cozystudioscore.entity.layer.ModModelLayers;
 import net.cozystudios.cozystudioscore.network.ModNetworking;
+import net.cozystudios.cozystudioscore.util.AutoFtbModMover;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
@@ -45,5 +46,7 @@ public class CozyStudiosCoreClient implements ClientModInitializer {
             TranquilLanternClientState.clear();
             TranquilLanternClientState.clearServerRadiusValues();
         });
+
+        AutoFtbModMover.registerClientTicker();
     }
 }

@@ -70,6 +70,7 @@
   "text.autoconfig.cozystudioscore.category.fernling": "Fernling",
   "text.autoconfig.cozystudioscore.category.kiln": "Kiln",
   "text.autoconfig.cozystudioscore.category.recolor_on_use": "Recolor",
+  "text.autoconfig.cozystudioscore.category.auto_ftb_mods": "Auto FTB Mover",
   "category.cozystudioscore": "CozyStudios Core",
 
 
@@ -138,5 +139,23 @@
   "text.autoconfig.cozystudioscore.option.recolorOnUseConfig.recolorBeds": "Recolor Beds",
   "text.autoconfig.cozystudioscore.option.recolorOnUseConfig.recolorBeds.@Tooltip": "Allow recoloring bed blocks directly with dyes.",
   "text.autoconfig.cozystudioscore.option.recolorOnUseConfig.recolorBanners": "Recolor Banners",
-  "text.autoconfig.cozystudioscore.option.recolorOnUseConfig.recolorBanners.@Tooltip": "Allow recoloring banner blocks directly with dyes, preserving patterns."
+  "text.autoconfig.cozystudioscore.option.recolorOnUseConfig.recolorBanners.@Tooltip": "Allow recoloring banner blocks directly with dyes, preserving patterns.",
+
+  "-- Auto FTB Mover Options --": "",
+  "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.enableAutoFtbMods": "Enable Auto FTB Mod Mover",
+  "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.enableAutoFtbMods.@Tooltip": "Automatically handles FTB mods and making sure you have it installed, basically a FTB mod manager for Modrinth packs.",
+  "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.ftbTeamsHash": "FTB Teams Hash",
+  "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.ftbTeamsHash.@Tooltip": "SHA-1 hash for the FTB Teams mod.",
+  "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.ftbLibraryHash": "FTB Library Hash",
+  "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.ftbLibraryHash.@Tooltip": "SHA-1 hash for the FTB Library mod.",
+  "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.ftbEssentialsHash": "FTB Essentials Hash",
+  "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.ftbEssentialsHash.@Tooltip": "SHA-1 hash for the FTB Essentials mod.",
+  "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.ftbFilterHash": "FTB Filter Hash",
+  "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.ftbFilterHash.@Tooltip": "SHA-1 hash for the FTB Filter mod.",
+  "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.ftbQuestsHash": "FTB Quests Hash",
+  "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.ftbQuestsHash.@Tooltip": "SHA-1 hash for the FTB Quests mod.",
+  "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.ftbXmodHash": "FTB XMod Hash",
+  "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.ftbXmodHash.@Tooltip": "SHA-1 hash for the FTB XMod mod.",
+  "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.questAdditionsHash": "Quest Additions Hash",
+  "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.questAdditionsHash.@Tooltip": "SHA-1 hash for the Quest Additions mod."
 }
