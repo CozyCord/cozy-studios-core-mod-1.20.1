@@ -1,10 +1,11 @@
 package net.cozystudios.cozystudioscore.config;
 
+import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 
 @Config(name = "auto_ftb_mods")
-public class AutoFtbModsConfig {
+public class AutoFtbModsConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean enableAutoFtbMods = true;
 
