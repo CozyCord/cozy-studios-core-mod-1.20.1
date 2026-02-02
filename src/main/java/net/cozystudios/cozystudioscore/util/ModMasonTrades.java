@@ -1,6 +1,6 @@
 package net.cozystudios.cozystudioscore.util;
 
-import net.cozystudios.cozystudioscore.config.ModConfig;
+import net.cozystudios.cozystudioscore.config.GeneralConfig;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
@@ -13,7 +13,7 @@ import net.minecraft.village.VillagerProfession;
 public class ModMasonTrades {
 
     public static void registerCustomTrades() {
-        if (!ModConfig.get().enableMasonTrades) return;
+        if (!GeneralConfig.get().enableMasonTrades) return;
 
         TradeOfferHelper.registerVillagerOffers(
                 VillagerProfession.MASON,

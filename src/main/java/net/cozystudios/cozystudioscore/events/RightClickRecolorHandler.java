@@ -1,6 +1,7 @@
 package net.cozystudios.cozystudioscore.events;
 
 import net.cozystudios.cozystudioscore.config.ModConfig;
+import net.cozystudios.cozystudioscore.config.RecolorOnUseConfig;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BannerBlockEntity;
@@ -28,7 +29,7 @@ public final class RightClickRecolorHandler {
     }
 
     private static ActionResult onUseBlock(PlayerEntity player, World world, Hand hand, BlockHitResult hit) {
-        ModConfig cfg = ModConfig.get();
+        RecolorOnUseConfig cfg = RecolorOnUseConfig.get();
         if (!cfg.enableRightClickRecolor) return ActionResult.PASS;
 
         ItemStack held = player.getStackInHand(hand);

@@ -1,5 +1,6 @@
 package net.cozystudios.cozystudioscore.mixin;
 
+import net.cozystudios.cozystudioscore.config.GeneralConfig;
 import net.cozystudios.cozystudioscore.config.ModConfig;
 import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,7 +21,7 @@ public class HungerManagerMixin {
             )
     )
     private Difficulty redirectGetDifficulty(World world, PlayerEntity player) {
-        if (ModConfig.get().peacefulHunger && world.getDifficulty() == Difficulty.PEACEFUL) {
+        if (GeneralConfig.get().peacefulHunger && world.getDifficulty() == Difficulty.PEACEFUL) {
             return Difficulty.NORMAL;
         }
         return world.getDifficulty();

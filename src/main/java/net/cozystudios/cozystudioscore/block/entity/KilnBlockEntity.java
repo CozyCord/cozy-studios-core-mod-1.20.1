@@ -1,5 +1,6 @@
 package net.cozystudios.cozystudioscore.block.entity;
 
+import net.cozystudios.cozystudioscore.config.KilnConfig;
 import net.cozystudios.cozystudioscore.config.ModConfig;
 import net.cozystudios.cozystudioscore.recipe.ModRecipeTypes;
 import net.cozystudios.cozystudioscore.screen.KilnScreenHandler;
@@ -27,7 +28,7 @@ public class KilnBlockEntity extends AbstractFurnaceBlockEntity {
                 return true;
             }
 
-            for (String recipe : ModConfig.get().extraKilnRecipes) {
+            for (String recipe : KilnConfig.get().extraKilnRecipes) {
                 String[] parts = recipe.split("->");
                 if (parts.length == 2) {
                     String inputId = parts[0].trim();

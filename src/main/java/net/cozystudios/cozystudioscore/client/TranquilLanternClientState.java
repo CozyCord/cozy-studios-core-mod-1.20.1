@@ -2,6 +2,7 @@ package net.cozystudios.cozystudioscore.client;
 
 import net.cozystudios.cozystudioscore.block.ModBlocks;
 import net.cozystudios.cozystudioscore.config.ModConfig;
+import net.cozystudios.cozystudioscore.config.TranquilLanternsConfig;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.BlockPos;
@@ -75,19 +76,19 @@ public class TranquilLanternClientState {
 
     // Get radius methods that prefer server values if available
     public static int getTranquilLanternRadius() {
-        return serverTranquilRadius != null ? serverTranquilRadius : ModConfig.get().getTranquilLanternRadius();
+        return serverTranquilRadius != null ? serverTranquilRadius : TranquilLanternsConfig.get().getTranquilLanternRadius();
     }
 
     public static int getGoldenTranquilLanternRadius() {
-        return serverGoldenRadius != null ? serverGoldenRadius : ModConfig.get().getGoldenTranquilLanternRadius();
+        return serverGoldenRadius != null ? serverGoldenRadius : TranquilLanternsConfig.get().getGoldenTranquilLanternRadius();
     }
 
     public static int getDiamondTranquilLanternRadius() {
-        return serverDiamondRadius != null ? serverDiamondRadius : ModConfig.get().getDiamondTranquilLanternRadius();
+        return serverDiamondRadius != null ? serverDiamondRadius : TranquilLanternsConfig.get().getDiamondTranquilLanternRadius();
     }
 
     public static int getNetheriteTranquilLanternRadius() {
-        return serverNetheriteRadius != null ? serverNetheriteRadius : ModConfig.get().getNetheriteTranquilLanternRadius();
+        return serverNetheriteRadius != null ? serverNetheriteRadius : TranquilLanternsConfig.get().getNetheriteTranquilLanternRadius();
     }
 
     public static void rescanAroundPlayer(MinecraftClient client) {

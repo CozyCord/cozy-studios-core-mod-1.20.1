@@ -2,6 +2,7 @@ package net.cozystudios.cozystudioscore.block.entity;
 
 import net.cozystudios.cozystudioscore.block.entity.ModBlockEntities;
 import net.cozystudios.cozystudioscore.config.ModConfig;
+import net.cozystudios.cozystudioscore.config.TranquilLanternsConfig;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
@@ -23,9 +24,9 @@ public class TranquilLanternBlockEntity extends BlockEntity {
     public static void tick(World world, BlockPos pos, BlockState state, TranquilLanternBlockEntity _be) {
         if (world.isClient) return;
 
-        int radius = ModConfig.get().getTranquilLanternRadius();
-        boolean bump = ModConfig.get().tranquilLanternBump;
-        boolean burn = ModConfig.get().tranquilLanternBurn;
+        int radius = TranquilLanternsConfig.get().getTranquilLanternRadius();
+        boolean bump = TranquilLanternsConfig.get().tranquilLanternBump;
+        boolean burn = TranquilLanternsConfig.get().tranquilLanternBurn;
 
         double cx = pos.getX() + 0.5;
         double cy = pos.getY() + 0.5;
