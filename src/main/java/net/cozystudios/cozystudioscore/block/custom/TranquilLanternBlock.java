@@ -88,9 +88,9 @@ public class TranquilLanternBlock extends BlockWithEntity {
     }
 
     @Override
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        super.onBreak(world, pos, state, player);
-        if (!world.isClient && world instanceof net.minecraft.server.world.ServerWorld serverWorld) {
+    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+        super.onStateReplaced(state, world, pos, newState, moved);
+        if (!world.isClient && world instanceof net.minecraft.server.world.ServerWorld serverWorld && !state.isOf(newState.getBlock())) {
             TranquilLanternSpawnBlocker.removeLantern(serverWorld, pos);
         }
     }
