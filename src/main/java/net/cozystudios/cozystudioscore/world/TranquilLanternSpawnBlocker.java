@@ -2,6 +2,7 @@ package net.cozystudios.cozystudioscore.world;
 
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import net.cozystudios.cozystudioscore.block.ModBlocks;
 import net.cozystudios.cozystudioscore.config.TranquilLanternsConfig;
 import net.cozystudios.cozystudioscore.network.ModNetworking;
 
@@ -307,6 +308,15 @@ public class TranquilLanternSpawnBlocker {
         for (ServerWorld world : server.getWorlds()) {
             TranquilLanternState state = getState(world);
             if (!state.lanterns.isEmpty()) {
+                if (state.lanterns.removeIf(pos ->
+                        !world.getBlockState(pos).isOf(ModBlocks.TRANQUIL_LANTERN) &&
+                        !world.getBlockState(pos).isOf(ModBlocks.GOLDEN_TRANQUIL_LANTERN) &&
+                        !world.getBlockState(pos).isOf(ModBlocks.DIAMOND_TRANQUIL_LANTERN) &&
+                        !world.getBlockState(pos).isOf(ModBlocks.NETHERITE_TRANQUIL_LANTERN)
+                )) {
+                    state.markDirty();
+                }
+
                 HashSet<BlockPos> set = new HashSet<>(state.lanterns);
                 ACTIVE_LANTERNS.put(world, set);
 
