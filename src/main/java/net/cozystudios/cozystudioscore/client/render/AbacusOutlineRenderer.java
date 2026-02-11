@@ -60,36 +60,22 @@ public class AbacusOutlineRenderer {
                                              Camera camera) {
         Vec3d cam = camera.getPos();
 
-        int dx = targetPos.getX() - boundPos.getX();
-        int dy = targetPos.getY() - boundPos.getY();
-        int dz = targetPos.getZ() - boundPos.getZ();
-
-        int stepX = dx > 0 ? 1 : -1;
-        int stepY = dy > 0 ? 1 : -1;
-        int stepZ = dz > 0 ? 1 : -1;
+        int minX = Math.min(boundPos.getX(), targetPos.getX());
+        int maxX = Math.max(boundPos.getX(), targetPos.getX());
+        int minY = Math.min(boundPos.getY(), targetPos.getY());
+        int maxY = Math.max(boundPos.getY(), targetPos.getY());
+        int minZ = Math.min(boundPos.getZ(), targetPos.getZ());
+        int maxZ = Math.max(boundPos.getZ(), targetPos.getZ());
 
         matrices.push();
         VertexConsumer buffer = provider.getBuffer(RenderLayer.getLines());
 
-        int x = boundPos.getX();
-        int y = boundPos.getY();
-        int z = boundPos.getZ();
-
-        renderBlockOutline(matrices, buffer, x, y, z, cam);
-
-        for (int i = 0; i < Math.abs(dx); i++) {
-            x += stepX;
-            renderBlockOutline(matrices, buffer, x, y, z, cam);
-        }
-
-        for (int i = 0; i < Math.abs(dy); i++) {
-            y += stepY;
-            renderBlockOutline(matrices, buffer, x, y, z, cam);
-        }
-
-        for (int i = 0; i < Math.abs(dz); i++) {
-            z += stepZ;
-            renderBlockOutline(matrices, buffer, x, y, z, cam);
+        for (int x = minX; x <= maxX; x++) {
+            for (int y = minY; y <= maxY; y++) {
+                for (int z = minZ; z <= maxZ; z++) {
+                    renderBlockOutline(matrices, buffer, x, y, z, cam);
+                }
+            }
         }
 
         matrices.pop();
