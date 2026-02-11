@@ -1,5 +1,6 @@
 package net.cozystudios.cozystudioscore.mixin;
 
+import net.cozystudios.cozystudioscore.config.GeneralConfig;
 import net.cozystudios.cozystudioscore.config.ModConfig;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.Difficulty;
@@ -20,7 +21,7 @@ public class PlayerEntityMixin {
             )
     )
     private Difficulty redirectStarvation(World world) {
-        if (!ModConfig.get().peacefulHunger) {
+        if (!GeneralConfig.get().peacefulHunger) {
             return world.getDifficulty();
         }
 

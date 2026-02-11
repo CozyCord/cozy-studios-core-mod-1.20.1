@@ -2,7 +2,7 @@ package net.cozystudios.cozystudioscore.world;
 
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
-import net.cozystudios.cozystudioscore.config.ModConfig;
+import net.cozystudios.cozystudioscore.config.TranquilLanternsConfig;
 import net.cozystudios.cozystudioscore.network.ModNetworking;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -66,10 +66,12 @@ public class TranquilLanternSpawnBlocker {
     public static boolean isSpawnBlocked(ServerWorld world, BlockPos spawnPos) {
         if (!hasAnyLanterns(world)) return false;
 
+        TranquilLanternsConfig config = TranquilLanternsConfig.get();
+
         // Use the maximum possible radius to check all chunks
         int maxRadius = Math.max(
-            Math.max(ModConfig.get().getTranquilLanternRadius(), ModConfig.get().getGoldenTranquilLanternRadius()),
-            Math.max(ModConfig.get().getDiamondTranquilLanternRadius(), ModConfig.get().getNetheriteTranquilLanternRadius())
+            Math.max(config.getTranquilLanternRadius(), config.getGoldenTranquilLanternRadius()),
+            Math.max(config.getDiamondTranquilLanternRadius(), config.getNetheriteTranquilLanternRadius())
         );
 
         Long2ObjectOpenHashMap<ObjectOpenHashSet<BlockPos>> index = LANTERNS_BY_CHUNK.get(world);
@@ -102,17 +104,18 @@ public class TranquilLanternSpawnBlocker {
     }
 
     private static int getRadiusForLantern(ServerWorld world, BlockPos pos) {
-        if (!world.isChunkLoaded(pos)) return ModConfig.get().getTranquilLanternRadius();
+        TranquilLanternsConfig config = TranquilLanternsConfig.get();
+        if (!world.isChunkLoaded(pos)) return config.getTranquilLanternRadius();
 
         net.minecraft.block.BlockState state = world.getBlockState(pos);
         if (state.isOf(net.cozystudios.cozystudioscore.block.ModBlocks.NETHERITE_TRANQUIL_LANTERN)) {
-            return ModConfig.get().getNetheriteTranquilLanternRadius();
+            return config.getNetheriteTranquilLanternRadius();
         } else if (state.isOf(net.cozystudios.cozystudioscore.block.ModBlocks.DIAMOND_TRANQUIL_LANTERN)) {
-            return ModConfig.get().getDiamondTranquilLanternRadius();
+            return config.getDiamondTranquilLanternRadius();
         } else if (state.isOf(net.cozystudios.cozystudioscore.block.ModBlocks.GOLDEN_TRANQUIL_LANTERN)) {
-            return ModConfig.get().getGoldenTranquilLanternRadius();
+            return config.getGoldenTranquilLanternRadius();
         } else {
-            return ModConfig.get().getTranquilLanternRadius();
+            return config.getTranquilLanternRadius();
         }
     }
 
@@ -337,11 +340,12 @@ public class TranquilLanternSpawnBlocker {
     }
 
     private static void syncConfigToPlayer(ServerPlayerEntity player) {
+        TranquilLanternsConfig config = TranquilLanternsConfig.get();
         PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeInt(ModConfig.get().getTranquilLanternRadius());
-        buf.writeInt(ModConfig.get().getGoldenTranquilLanternRadius());
-        buf.writeInt(ModConfig.get().getDiamondTranquilLanternRadius());
-        buf.writeInt(ModConfig.get().getNetheriteTranquilLanternRadius());
+        buf.writeInt(config.getTranquilLanternRadius());
+        buf.writeInt(config.getGoldenTranquilLanternRadius());
+        buf.writeInt(config.getDiamondTranquilLanternRadius());
+        buf.writeInt(config.getNetheriteTranquilLanternRadius());
 
         ServerPlayNetworking.send(player, ModNetworking.TRANQUIL_LANTERN_CONFIG_SYNC, buf);
     }

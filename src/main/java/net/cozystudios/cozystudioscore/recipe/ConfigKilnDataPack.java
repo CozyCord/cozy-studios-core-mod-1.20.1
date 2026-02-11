@@ -3,6 +3,7 @@ package net.cozystudios.cozystudioscore.recipe;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.cozystudios.cozystudioscore.CozyStudiosCore;
+import net.cozystudios.cozystudioscore.config.KilnConfig;
 import net.cozystudios.cozystudioscore.config.ModConfig;
 import net.minecraft.registry.Registries;
 import net.minecraft.server.MinecraftServer;
@@ -25,7 +26,7 @@ public final class ConfigKilnDataPack {
 
     private ConfigKilnDataPack() {}
 
-    public static void writePackForServer(MinecraftServer server, ModConfig config) {
+    public static void writePackForServer(MinecraftServer server, KilnConfig config) {
         try {
             Path datapacksDir = server.getSavePath(WorldSavePath.DATAPACKS);
             Path packRoot = datapacksDir.resolve(PACK_FOLDER_NAME);
