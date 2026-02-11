@@ -34,6 +34,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.COZY_CRUMBS, Models.GENERATED);
         itemModelGenerator.register(ModItems.MYSTICAL_BERRIES, Models.GENERATED);
         itemModelGenerator.register(ModItems.JUNGLE_HORN, Models.GENERATED);
+        itemModelGenerator.register(ModItems.ABACUS, Models.GENERATED);
 
         generateExtraModel("golden_leaf_bite1", itemModelGenerator);
         generateExtraModel("golden_leaf_bite2", itemModelGenerator);

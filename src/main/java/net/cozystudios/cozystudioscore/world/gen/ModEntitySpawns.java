@@ -1,8 +1,14 @@
 package net.cozystudios.cozystudioscore.world.gen;
 
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+
 import net.cozystudios.cozystudioscore.entity.ModEntities;
-import net.cozystudios.cozystudioscore.entity.variant.MushlingVariant;
 import net.cozystudios.cozystudioscore.entity.variant.FernlingVariant;
+import net.cozystudios.cozystudioscore.entity.variant.MushlingVariant;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.block.Block;
@@ -17,8 +23,6 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
-
-import java.util.*;
 
 public class ModEntitySpawns {
 
@@ -108,9 +112,15 @@ public class ModEntitySpawns {
             int max;
 
             switch (e.getKey()) {
-                case CRIMSON, WARPED -> {
+                case CRIMSON -> {
                     group = SpawnGroup.MONSTER;
-                    weight = 80;
+                    weight = 15;
+                    min = 1;
+                    max = 2;
+                }
+                case WARPED -> {
+                    group = SpawnGroup.MONSTER;
+                    weight = 10;
                     min = 1;
                     max = 2;
                 }
@@ -122,7 +132,7 @@ public class ModEntitySpawns {
                 }
                 default -> {
                     group = SpawnGroup.CREATURE;
-                    weight = 50;
+                    weight = 35;
                     min = 1;
                     max = 3;
                 }
@@ -146,8 +156,11 @@ public class ModEntitySpawns {
                 (type, world, reason, pos, random) -> {
                     RegistryEntry<Biome> entry = world.getBiome(pos);
 
-                    if (entry.matchesKey(BiomeKeys.CRIMSON_FOREST) || entry.matchesKey(BiomeKeys.WARPED_FOREST)) {
-                        return true;
+                    if (entry.matchesKey(BiomeKeys.CRIMSON_FOREST)) {
+                        return world.getBlockState(pos.down()).isOf(Blocks.CRIMSON_NYLIUM);
+                    }
+                    if (entry.matchesKey(BiomeKeys.WARPED_FOREST)) {
+                        return world.getBlockState(pos.down()).isOf(Blocks.WARPED_NYLIUM);
                     }
 
                     if (entry.matchesKey(BiomeKeys.LUSH_CAVES)) {

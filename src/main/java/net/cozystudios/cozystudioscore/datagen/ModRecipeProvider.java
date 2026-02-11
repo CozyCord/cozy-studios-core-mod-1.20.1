@@ -260,6 +260,18 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input(Items.WHEAT)
                 .criterion(hasItem(Items.HONEY_BOTTLE), conditionsFromItem(Items.HONEY_BOTTLE))
                 .offerTo(exporter, new Identifier("cozystudioscore", "cozy_crumbs"));
+
+        // Abacus
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.ABACUS, 1)
+                .pattern(" I ")
+                .pattern("PSP")
+                .pattern("PSP")
+                .input('I', Items.IRON_INGOT)
+                .input('P', ItemTags.PLANKS)
+                .input('S', Items.STICK)
+                .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+                .group("abacus")
+                .offerTo(exporter, new Identifier("cozystudioscore", "abacus"));
     }
 
     private void generateStonecuttingRecipes(Consumer<RecipeJsonProvider> exporter) {

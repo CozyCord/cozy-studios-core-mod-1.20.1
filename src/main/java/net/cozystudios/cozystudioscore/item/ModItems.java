@@ -2,6 +2,7 @@ package net.cozystudios.cozystudioscore.item;
 
 import net.cozystudios.cozystudioscore.CozyStudiosCore;
 import net.cozystudios.cozystudioscore.entity.ModEntities;
+import net.cozystudios.cozystudioscore.item.custom.AbacusItem;
 import net.cozystudios.cozystudioscore.item.custom.CozyCrumbsItem;
 import net.cozystudios.cozystudioscore.item.custom.GoldenLeafItem;
 import net.cozystudios.cozystudioscore.item.custom.JungleHornItem;
@@ -54,6 +55,8 @@ public class ModItems {
     public static final Item JUNGLE_HORN = registerItem("jungle_horn",
             new JungleHornItem(new FabricItemSettings().maxCount(1)));
 
+    public static final Item ABACUS = registerItem("abacus",
+            new AbacusItem(new FabricItemSettings().maxCount(1)));
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(CozyStudiosCore.MOD_ID, name), item);

@@ -2,6 +2,8 @@ package net.cozystudios.cozystudioscore;
 
 import net.cozystudios.cozystudioscore.client.ModKeybinds;
 import net.cozystudios.cozystudioscore.client.TranquilLanternClientState;
+import net.cozystudios.cozystudioscore.client.render.AbacusHudRenderer;
+import net.cozystudios.cozystudioscore.client.render.AbacusOutlineRenderer;
 import net.cozystudios.cozystudioscore.client.render.TranquilLanternRadiusRenderer;
 import net.cozystudios.cozystudioscore.entity.ModEntities;
 import net.cozystudios.cozystudioscore.entity.client.*;
@@ -37,6 +39,8 @@ public class CozyStudiosCoreClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.MYSTICAL_TRADER, MysticalTraderRenderer::new);
 
         TranquilLanternRadiusRenderer.register();
+        AbacusOutlineRenderer.register();
+        AbacusHudRenderer.register();
 
         ModKeybinds.register();
         ModNetworking.initClient();

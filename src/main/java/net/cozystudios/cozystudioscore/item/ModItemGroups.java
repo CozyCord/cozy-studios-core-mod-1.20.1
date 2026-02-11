@@ -19,6 +19,7 @@ public class ModItemGroups {
                         entries.add(ModItems.GOLDEN_LEAF);
                         entries.add(ModItems.MYSTICAL_BERRIES);
                         entries.add(ModItems.JUNGLE_HORN);
+                        entries.add(ModItems.ABACUS);
 
                         entries.add(ModBlocks.TRANQUIL_LANTERN);
                         entries.add(ModBlocks.GOLDEN_TRANQUIL_LANTERN);

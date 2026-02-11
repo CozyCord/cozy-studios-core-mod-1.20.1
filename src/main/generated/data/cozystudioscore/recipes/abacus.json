@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "abacus",
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    " I ",
+    "PSP",
+    "PSP"
+  ],
+  "result": {
+    "item": "cozystudioscore:abacus"
+  },
+  "show_notification": true
+}
