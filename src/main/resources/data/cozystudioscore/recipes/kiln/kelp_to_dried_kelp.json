@@ -1,0 +1,10 @@
+{
+  "type": "cozystudioscore:kiln",
+  "ingredient": {
+    "item": "minecraft:kelp"
+  },
+  "result": "minecraft:dried_kelp",
+  "experience": 0.1,
+  "cookingtime": 100,
+  "group": "kiln"
+}
