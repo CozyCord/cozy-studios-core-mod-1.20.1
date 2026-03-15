@@ -17,6 +17,6 @@ public class MysticalBerriesItem extends Item {
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.literal("A mystical berry who will feed a...").formatted(Formatting.GOLD));
+        tooltip.add(Text.translatable("item.cozystudioscore.mystical_berries.desc").formatted(Formatting.GOLD));
     }
 }

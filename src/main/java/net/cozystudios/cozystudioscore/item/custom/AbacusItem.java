@@ -38,7 +38,7 @@ public class AbacusItem extends Item {
             unbind(stack);
             if (!world.isClient) {
                 player.sendMessage(
-                        Text.literal("Abacus unbound").formatted(Formatting.GOLD),
+                        Text.translatable("item.cozystudioscore.abacus.unbound").formatted(Formatting.GOLD),
                         true
                 );
             }
@@ -48,7 +48,7 @@ public class AbacusItem extends Item {
             bind(stack, pos);
             if (!world.isClient) {
                 player.sendMessage(
-                        Text.literal("Abacus bound to " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ())
+                        Text.translatable("item.cozystudioscore.abacus.bound", pos.getX(), pos.getY(), pos.getZ())
                                 .formatted(Formatting.GOLD),
                         true
                 );
@@ -100,12 +100,12 @@ public class AbacusItem extends Item {
         if (isBound(stack)) {
             BlockPos pos = getBoundPos(stack);
             if (pos != null) {
-                tooltip.add(Text.literal("Bound to: " + pos.getX() + ", " + pos.getY() + ", " + pos.getZ())
+                tooltip.add(Text.translatable("item.cozystudioscore.abacus.desc", pos.getX(), pos.getY(), pos.getZ())
                         .formatted(Formatting.GOLD));
             }
         } else {
-            tooltip.add(Text.literal("Right-click a block to bind").formatted(Formatting.GRAY));
+            tooltip.add(Text.translatable("item.cozystudioscore.abacus.desc.1").formatted(Formatting.GRAY));
         }
-        tooltip.add(Text.literal("Right-click again to unbind").formatted(Formatting.DARK_GRAY));
+        tooltip.add(Text.translatable("item.cozystudioscore.abacus.desc.2").formatted(Formatting.DARK_GRAY));
     }
 }

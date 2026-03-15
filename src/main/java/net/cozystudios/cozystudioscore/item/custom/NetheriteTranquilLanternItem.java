@@ -17,6 +17,6 @@ public class NetheriteTranquilLanternItem extends BlockItem {
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.literal("✨ Pushes hostile mobs away within 100 blocks").formatted(Formatting.DARK_PURPLE));
+        tooltip.add(Text.translatable("block.cozystudioscore.netherite_tranquil_lantern.desc").formatted(Formatting.DARK_PURPLE));
     }
 }
