@@ -17,6 +17,6 @@ public class CozyCrumbsItem extends Item {
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.literal("A cozy snack, but for who?").formatted(Formatting.GRAY, Formatting.ITALIC));
+        tooltip.add(Text.translatable("item.cozystudioscore.cozy_crumbs.desc").formatted(Formatting.GRAY, Formatting.ITALIC));
     }
 }

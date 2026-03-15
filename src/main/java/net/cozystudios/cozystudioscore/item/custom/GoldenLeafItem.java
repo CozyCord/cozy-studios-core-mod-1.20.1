@@ -84,11 +84,11 @@ public class GoldenLeafItem extends Item {
             int remaining = MAX_USES - usesAfter;
 
             if (remaining > 0) {
-                Text msg = Text.literal("Uses left: ").formatted(Formatting.GOLD)
-                        .append(Text.literal(String.valueOf(remaining)).formatted(Formatting.GREEN));
+                Text msg = Text.translatable("item.cozystudioscore.golden_leaf.uses_left",
+                        Text.literal(String.valueOf(remaining)).formatted(Formatting.GREEN));
                 player.sendMessage(msg, true);
             } else {
-                Text msg = Text.literal("You wasted something beautiful.")
+                Text msg = Text.translatable("item.cozystudioscore.golden_leaf.consume")
                         .formatted(Formatting.DARK_PURPLE, Formatting.ITALIC);
                 player.sendMessage(msg, true);
             }
@@ -108,15 +108,15 @@ public class GoldenLeafItem extends Item {
         int uses = stack.getOrCreateNbt().getInt(USES_KEY);
         int remaining = MAX_USES - uses;
 
-        tooltip.add(Text.literal("Grants infinite regeneration").formatted(Formatting.GOLD));
-        tooltip.add(Text.literal("Can be eaten up to 3 times").formatted(Formatting.GRAY));
+        tooltip.add(Text.translatable("item.cozystudioscore.golden_leaf.desc").formatted(Formatting.GOLD));
+        tooltip.add(Text.translatable("item.cozystudioscore.golden_leaf.desc.1").formatted(Formatting.GRAY));
 
         if (stack.hasNbt() && remaining > 0) {
-            tooltip.add(Text.literal("Uses left: " + remaining).formatted(Formatting.GREEN));
+            tooltip.add(Text.translatable("item.cozystudioscore.golden_leaf.uses_left", remaining).formatted(Formatting.GREEN));
         } else if (stack.hasNbt() && remaining <= 0) {
-            tooltip.add(Text.literal("No uses left").formatted(Formatting.RED));
+            tooltip.add(Text.translatable("item.cozystudioscore.golden_leaf.no_uses_left").formatted(Formatting.RED));
         } else {
-            tooltip.add(Text.literal("Uses left: 3").formatted(Formatting.GREEN));
+            tooltip.add(Text.translatable("item.cozystudioscore.golden_leaf.uses_left", MAX_USES).formatted(Formatting.GREEN));
         }
     }
 }

@@ -34,7 +34,7 @@ public class TitleScreenMixin {
         if (!cozystudios$showCredits()) return;
 
         MinecraftClient mc = MinecraftClient.getInstance();
-        Text text = Text.literal("Mod Made By Cozy Studios").formatted(Formatting.UNDERLINE);
+        Text text = Text.translatable("cozystudioscore.credits").formatted(Formatting.UNDERLINE);
 
         int sw = ctx.getScaledWindowWidth();
         int sh = ctx.getScaledWindowHeight();

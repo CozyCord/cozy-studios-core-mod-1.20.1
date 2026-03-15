@@ -17,6 +17,6 @@ public class DiamondTranquilLanternItem extends BlockItem {
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.literal("✨ Pushes hostile mobs away within 50 blocks").formatted(Formatting.AQUA));
+        tooltip.add(Text.translatable("block.cozystudioscore.diamond_tranquil_lantern.desc").formatted(Formatting.AQUA));
     }
 }
