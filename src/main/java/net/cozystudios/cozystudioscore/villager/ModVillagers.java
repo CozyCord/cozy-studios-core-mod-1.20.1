@@ -37,7 +37,7 @@ public class ModVillagers {
     private static PointOfInterestType registerPoi() {
         return PointOfInterestHelper.register(
                 new Identifier(CozyStudiosCore.MOD_ID, "saplingpoi"),
-                1, 12, // ticket count, search distance
+                1, 12,
                 ModBlocks.ARBORIST_TABLE
         );
     }

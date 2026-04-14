@@ -27,12 +27,12 @@ public class TranquilLanternBlock extends BlockWithEntity {
     public static final DirectionProperty FACING = net.minecraft.block.HorizontalFacingBlock.FACING;
 
     private static final VoxelShape SHAPE = VoxelShapes.union(
-            Block.createCuboidShape(4, 0, 4, 12, 2, 12),   // baseplate
-            Block.createCuboidShape(4, 8, 4, 12, 10, 12),  // middle ring
-            Block.createCuboidShape(5, 10, 5, 11, 12, 11), // inner cube
-            Block.createCuboidShape(7, 12, 7, 9, 14, 9),   // tiny top cube
-            Block.createCuboidShape(5, 13, 8, 11, 18, 8),  // handle/stem
-            Block.createCuboidShape(5, 2, 5, 11, 8, 11)    // main body
+            Block.createCuboidShape(4, 0, 4, 12, 2, 12),
+            Block.createCuboidShape(4, 8, 4, 12, 10, 12),
+            Block.createCuboidShape(5, 10, 5, 11, 12, 11),
+            Block.createCuboidShape(7, 12, 7, 9, 14, 9),
+            Block.createCuboidShape(5, 13, 8, 11, 18, 8),
+            Block.createCuboidShape(5, 2, 5, 11, 8, 11)
     );
 
     public TranquilLanternBlock(Settings settings) {

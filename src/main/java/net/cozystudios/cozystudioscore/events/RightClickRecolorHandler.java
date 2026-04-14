@@ -19,7 +19,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 import static net.minecraft.block.Blocks.*;
-import static net.minecraft.block.Block.*; // <-- for NOTIFY_* / SKIP_DROPS / FORCE_STATE flags
+import static net.minecraft.block.Block.*;
 
 public final class RightClickRecolorHandler {
     private RightClickRecolorHandler() {}
@@ -42,7 +42,6 @@ public final class RightClickRecolorHandler {
         BlockState state = world.getBlockState(pos);
         Block block = state.getBlock();
 
-        // Wool
         if (cfg.recolorWool && state.isIn(BlockTags.WOOL)) {
             Block newWool = woolFor(target);
             if (newWool != null && block != newWool) {
@@ -53,7 +52,6 @@ public final class RightClickRecolorHandler {
             return ActionResult.PASS;
         }
 
-        // Beds
         if (cfg.recolorBeds && block instanceof BedBlock) {
             Block newBed = bedFor(target);
             if (newBed == null || block == newBed) return ActionResult.PASS;
@@ -90,7 +88,6 @@ public final class RightClickRecolorHandler {
             return ActionResult.SUCCESS;
         }
 
-        // Banners
         if (cfg.recolorBanners && (block instanceof BannerBlock || block instanceof WallBannerBlock)) {
             boolean isWall = block instanceof WallBannerBlock;
 

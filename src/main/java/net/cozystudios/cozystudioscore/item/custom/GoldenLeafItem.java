@@ -20,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class GoldenLeafItem extends Item {
-    private static final String USES_KEY = "GoldenLeafUses"; // NBT tag
+    private static final String USES_KEY = "GoldenLeafUses";
     private static final int MAX_USES = 3;
 
     public GoldenLeafItem(Settings settings) {
@@ -40,7 +40,7 @@ public class GoldenLeafItem extends Item {
             if (current == null || current.getDuration() <= 40) {
                 player.addStatusEffect(new StatusEffectInstance(
                         StatusEffects.REGENERATION,
-                        100, // 5 seconds
+                        100,
                         0,
                         true,
                         false

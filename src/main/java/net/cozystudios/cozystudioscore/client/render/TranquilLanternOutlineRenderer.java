@@ -51,7 +51,6 @@ public final class TranquilLanternOutlineRenderer {
             VoxelShape shape = state.getOutlineShape(client.world, pos, ShapeContext.absent());
             if (shape.isEmpty()) continue;
 
-            // Determine color based on lantern type
             int[] color = getColorForLantern(state);
             outlineConsumers.setColor(color[0], color[1], color[2], color[3]);
 
@@ -66,23 +65,18 @@ public final class TranquilLanternOutlineRenderer {
     }
 
     private static int[] getColorForLantern(BlockState state) {
-        // Base Tranquil Lantern - White (255, 255, 255)
         if (state.isOf(ModBlocks.TRANQUIL_LANTERN)) {
             return new int[]{255, 255, 255, 255};
         }
-        // Golden Tranquil Lantern - Gold (255, 215, 0)
         else if (state.isOf(ModBlocks.GOLDEN_TRANQUIL_LANTERN)) {
             return new int[]{255, 215, 0, 255};
         }
-        // Diamond Tranquil Lantern - Light Blue (173, 216, 230)
         else if (state.isOf(ModBlocks.DIAMOND_TRANQUIL_LANTERN)) {
             return new int[]{173, 216, 230, 255};
         }
-        // Netherite Tranquil Lantern - Dark Gray (64, 64, 64)
         else if (state.isOf(ModBlocks.NETHERITE_TRANQUIL_LANTERN)) {
             return new int[]{64, 64, 64, 255};
         }
-        // Default to white
         return new int[]{255, 255, 255, 255};
     }
 

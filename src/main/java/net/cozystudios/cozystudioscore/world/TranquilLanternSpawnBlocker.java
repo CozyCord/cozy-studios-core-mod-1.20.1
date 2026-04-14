@@ -52,7 +52,6 @@ public class TranquilLanternSpawnBlocker {
             syncConfigToPlayer(handler.player);
         });
 
-        // Register server-side receiver for sync requests
         ServerPlayNetworking.registerGlobalReceiver(ModNetworking.TRANQUIL_LANTERN_REQUEST_SYNC, (server, player, handler, buf, responseSender) -> {
             server.execute(() -> syncLanternsToPlayer(player));
         });
@@ -69,7 +68,6 @@ public class TranquilLanternSpawnBlocker {
 
         TranquilLanternsConfig config = TranquilLanternsConfig.get();
 
-        // Use the maximum possible radius to check all chunks
         int maxRadius = Math.max(
             Math.max(config.getTranquilLanternRadius(), config.getGoldenTranquilLanternRadius()),
             Math.max(config.getDiamondTranquilLanternRadius(), config.getNetheriteTranquilLanternRadius())
@@ -90,7 +88,6 @@ public class TranquilLanternSpawnBlocker {
                 if (inChunk == null || inChunk.isEmpty()) continue;
 
                 for (BlockPos lanternPos : inChunk) {
-                    // Get the actual radius for this specific lantern
                     int radius = getRadiusForLantern(world, lanternPos);
                     int radiusSq = radius * radius;
 
@@ -145,7 +142,6 @@ public class TranquilLanternSpawnBlocker {
 
                 if (!world.isChunkLoaded(lanternPos)) continue;
 
-                // Get the radius for this specific lantern type
                 int radius = getRadiusForLantern(world, lanternPos);
 
                 Box cube = new Box(

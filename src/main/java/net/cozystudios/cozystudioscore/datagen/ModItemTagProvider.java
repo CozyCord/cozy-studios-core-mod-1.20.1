@@ -25,7 +25,6 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
 
-        // --- Music Discs ---
         getOrCreateTagBuilder(ItemTags.MUSIC_DISCS)
                 .add(
                         key(ModItems.AT_ORIGINAL_SOUNDTRACK_MUSIC_DISC),
@@ -34,7 +33,6 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                         key(ModItems.HOMEWARD_MUSIC_DISC)
                 );
 
-        // --- Creeper-Drop Discs ---
         getOrCreateTagBuilder(ItemTags.CREEPER_DROP_MUSIC_DISCS)
                 .add(
                         key(ModItems.DAYSPRING_MUSIC_DISC),

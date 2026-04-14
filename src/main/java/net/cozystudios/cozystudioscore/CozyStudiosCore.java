@@ -55,7 +55,6 @@ public class CozyStudiosCore implements ModInitializer {
         ModTradersSpawner.register();
         ModLootInjector.register();
 
-        // === Extra: configurable stack sizes ===
         ServerLifecycleEvents.SERVER_STARTING.register(server -> {
             GeneralConfig config = GeneralConfig.get();
             if (config.maxStackSizeOverride >= 16 && config.maxStackSizeOverride <= 64) {

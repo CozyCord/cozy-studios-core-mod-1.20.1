@@ -31,7 +31,6 @@ public class ModNetworking {
 
     public static void initClient() {
 
-        // Receive config sync from server
         ClientPlayNetworking.registerGlobalReceiver(TRANQUIL_LANTERN_CONFIG_SYNC, (client, handler, buf, responseSender) -> {
             int tranquilRadius = buf.readInt();
             int goldenRadius = buf.readInt();

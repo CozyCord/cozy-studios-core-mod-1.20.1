@@ -29,14 +29,14 @@ import java.util.List;
 
 public class KilnBlock extends AbstractFurnaceBlock {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
-    public static final BooleanProperty LIT = Properties.LIT; // inherited, but declared for clarity
+    public static final BooleanProperty LIT = Properties.LIT;
 
     public KilnBlock(Settings settings) {
         super(settings);
         this.setDefaultState(
                 this.stateManager.getDefaultState()
                         .with(FACING, Direction.NORTH)
-                        .with(LIT, false) // start unlit
+                        .with(LIT, false)
         );
     }
 

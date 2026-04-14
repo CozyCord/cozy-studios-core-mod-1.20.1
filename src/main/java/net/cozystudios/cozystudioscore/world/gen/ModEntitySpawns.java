@@ -33,9 +33,6 @@ public class ModEntitySpawns {
             new EnumMap<>(FernlingVariant.class);
 
     static {
-        // =========================
-        //  MUSHLINGS
-        // =========================
         VARIANT_BIOMES.put(MushlingVariant.DEFAULT, Set.of(
                 BiomeKeys.FOREST,
                 BiomeKeys.DARK_FOREST,
@@ -65,9 +62,6 @@ public class ModEntitySpawns {
                 BiomeKeys.WARPED_FOREST
         ));
 
-        // =========================
-        //  FERNLINGS
-        // =========================
         FERNLING_VARIANT_BIOMES.put(FernlingVariant.DEFAULT, Set.of(
                 BiomeKeys.FOREST,
                 BiomeKeys.BIRCH_FOREST,
@@ -99,7 +93,6 @@ public class ModEntitySpawns {
     }
 
     public static void addSpawns() {
-        // --- MUSHLING per-variant biome spawns ---
         for (Map.Entry<MushlingVariant, Set<RegistryKey<Biome>>> e : VARIANT_BIOMES.entrySet()) {
             if (e.getValue().isEmpty()) continue;
 
@@ -148,7 +141,6 @@ public class ModEntitySpawns {
             );
         }
 
-        // --- MUSHLING spawn restriction ---
         SpawnRestriction.register(
                 ModEntities.MUSHLING,
                 SpawnRestriction.Location.ON_GROUND,
@@ -183,9 +175,6 @@ public class ModEntitySpawns {
                 }
         );
 
-        // =========================
-        //  MYSTICAL ELK
-        // =========================
         BiomeModifications.addSpawn(
                 BiomeSelectors.includeByKey(BiomeKeys.DARK_FOREST),
                 SpawnGroup.CREATURE,
@@ -200,9 +189,6 @@ public class ModEntitySpawns {
                 AnimalEntity::isValidNaturalSpawn
         );
 
-        // =========================
-        //  FERNLING per-variant biome spawns
-        // =========================
         for (Map.Entry<FernlingVariant, Set<RegistryKey<Biome>>> e : FERNLING_VARIANT_BIOMES.entrySet()) {
             if (e.getValue().isEmpty()) continue;
 

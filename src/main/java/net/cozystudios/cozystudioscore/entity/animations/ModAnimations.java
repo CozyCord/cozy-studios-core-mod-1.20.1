@@ -7,7 +7,6 @@ import net.minecraft.client.render.entity.animation.Transformation;
 
 public class ModAnimations {
 
-    //MUSHLING
 
     public static final Animation WALKING = Animation.Builder.create(1f).looping()
             .addBoneAnimation("fernling",

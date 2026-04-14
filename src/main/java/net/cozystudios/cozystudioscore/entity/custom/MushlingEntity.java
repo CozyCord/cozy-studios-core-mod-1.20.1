@@ -131,7 +131,6 @@ public class MushlingEntity extends TameableEntity {
         return baby;
     }
 
-    // --- Sounds ---
     @Override protected @Nullable SoundEvent getAmbientSound() {
         return switch (this.random.nextInt(4)) {
             case 0 -> ModSounds.MUSHLING_IDLE_1;
@@ -145,7 +144,6 @@ public class MushlingEntity extends TameableEntity {
     @Override protected @Nullable SoundEvent getHurtSound(DamageSource source) { return SoundEvents.ENTITY_PANDA_HURT; }
     @Override protected @Nullable SoundEvent getDeathSound() { return SoundEvents.ENTITY_PANDA_DEATH; }
 
-    // --- Interaction ---
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
@@ -185,7 +183,6 @@ public class MushlingEntity extends TameableEntity {
     @Override public EntityView method_48926() { return this.getWorld(); }
     @Override public boolean isBreedingItem(ItemStack stack) { return stack.isOf(ModItems.COZY_CRUMBS); }
 
-    // --- Night Light System ---
     private void updateTamedNightLight() {
         if (!this.isAlive() || !this.isTamed() || this.getWorld().isDay()) {
             removeLastLightIfPresent();
@@ -231,7 +228,6 @@ public class MushlingEntity extends TameableEntity {
         super.remove(reason);
     }
 
-    // --- Variants ---
     public MushlingVariant getVariant() { return MushlingVariant.byId(this.dataTracker.get(DATA_ID_TYPE_VARIANT) & 255); }
     public void setVariant(MushlingVariant variant) { this.dataTracker.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255); }
 

@@ -20,10 +20,8 @@ public class MysticalElkRenderer extends MobEntityRenderer<MysticalElkEntity, My
     public MysticalElkRenderer(EntityRendererFactory.Context ctx) {
         super(ctx, new MysticalElkModel<>(ctx.getPart(ModModelLayers.MYSTICAL_ELK)), 0.8f);
 
-        // add glowing emissive texture
         this.addFeature(new MysticalElkEmissiveFeature(this));
 
-        // add saddle texture
         this.addFeature(new MysticalElkSaddleFeature(this));
     }
 

@@ -89,7 +89,6 @@ public class MushlingModel<T extends MushlingEntity> extends SinglePartEntityMod
         return mushling;
     }
 
-    // Added: getter for the head (for emissive rendering)
     public ModelPart getHead() {
         return head;
     }

@@ -27,7 +27,7 @@ public class MysticalElkEmissiveFeature extends FeatureRenderer<MysticalElkEntit
 
         this.getContextModel().render(matrices,
                 vertexConsumers.getBuffer(emissiveLayer),
-                0xF000F0, // full bright
+                0xF000F0,
                 OverlayTexture.DEFAULT_UV,
                 1.0F, 1.0F, 1.0F, 1.0F);
     }

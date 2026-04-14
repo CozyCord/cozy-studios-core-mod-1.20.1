@@ -25,7 +25,7 @@ public class ModBlocks {
                     Block.Settings.copy(Blocks.LANTERN)
                             .luminance(state -> 15)
                             .requiresTool()
-                            .strength(2.0f, 3.0f) // hardness, blast resistance
+                            .strength(2.0f, 3.0f)
             )
     );
 
@@ -69,7 +69,6 @@ public class ModBlocks {
     );
 
 
-    // --- Registration helpers ---
     @SuppressWarnings("SameParameterValue")
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);

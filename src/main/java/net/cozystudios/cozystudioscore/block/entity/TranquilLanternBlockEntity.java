@@ -33,7 +33,6 @@ public class TranquilLanternBlockEntity extends BlockEntity {
         double cz = pos.getZ() + 0.5;
         double r2 = radius * radius;
 
-        // Player regen effect
         for (PlayerEntity player : world.getPlayers()) {
             if (player.squaredDistanceTo(cx, cy, cz) <= r2) {
                 if (!player.hasStatusEffect(StatusEffects.REGENERATION) ||
@@ -49,7 +48,6 @@ public class TranquilLanternBlockEntity extends BlockEntity {
             }
         }
 
-        // Mob suppression logic
         if (bump || burn) {
             Box box = new Box(cx - radius, cy - radius, cz - radius,
                     cx + radius, cy + radius, cz + radius);

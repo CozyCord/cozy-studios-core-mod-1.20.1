@@ -42,10 +42,8 @@ public class TranquilLanternRadiusRenderer {
                                           VertexConsumerProvider provider,
                                           Camera camera) {
 
-        // Get the radius based on the lantern type
         int radius = getRadiusForLantern(state);
 
-        // Get the color based on the lantern type
         float[] color = getColorForLantern(state);
 
         Vec3d cam = camera.getPos();
@@ -82,23 +80,18 @@ public class TranquilLanternRadiusRenderer {
     }
 
     private static float[] getColorForLantern(BlockState state) {
-        // Base Tranquil Lantern - White (255, 255, 255)
         if (state.isOf(ModBlocks.TRANQUIL_LANTERN)) {
             return new float[]{1.0f, 1.0f, 1.0f};
         }
-        // Golden Tranquil Lantern - Gold (255, 215, 0)
         else if (state.isOf(ModBlocks.GOLDEN_TRANQUIL_LANTERN)) {
             return new float[]{1.0f, 215f/255f, 0.0f};
         }
-        // Diamond Tranquil Lantern - Light Blue (173, 216, 230)
         else if (state.isOf(ModBlocks.DIAMOND_TRANQUIL_LANTERN)) {
             return new float[]{173f/255f, 216f/255f, 230f/255f};
         }
-        // Netherite Tranquil Lantern - Dark Gray (64, 64, 64)
         else if (state.isOf(ModBlocks.NETHERITE_TRANQUIL_LANTERN)) {
             return new float[]{64f/255f, 64f/255f, 64f/255f};
         }
-        // Default to white
         return new float[]{1.0f, 1.0f, 1.0f};
     }
 }

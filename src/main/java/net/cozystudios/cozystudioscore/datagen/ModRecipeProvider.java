@@ -25,10 +25,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
     @Override
     public void generate(Consumer<RecipeJsonProvider> exporter) {
-        // Tranquil Lantern upgrades
         generateTranquilLanternRecipes(exporter);
 
-        // Base Tranquil Lantern
         ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.TRANQUIL_LANTERN, 1)
                 .pattern("LLL")
                 .pattern("LGL")
@@ -39,7 +37,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .group("tranquil_lantern")
                 .offerTo(exporter);
 
-        // Kiln
         ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.KILN, 1)
                 .pattern("BBB")
                 .pattern("BFB")
@@ -51,7 +48,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .group("kiln")
                 .offerTo(exporter);
 
-        // Arborist Table
         ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.ARBORIST_TABLE, 1)
                 .pattern("OHO")
                 .pattern("SCS")
@@ -65,33 +61,24 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .group("arborist_table")
                 .offerTo(exporter);
 
-        // Crafted items
         generateCraftedItemRecipes(exporter);
 
-        // Stonecutting recipes
         generateStonecuttingRecipes(exporter);
 
-        // Smelting/Blasting/Smoking recipes
         generateCookingRecipes(exporter);
 
-        // Concrete powder recipes
         generateConcretePowderRecipes(exporter);
 
-        // Deepslate stonecutting
         generateDeepslateStonecuttingRecipes(exporter);
 
-        // Wool recolor recipes
         generateWoolRecolorRecipes(exporter);
 
-        // Banner recolor recipes
         generateBannerRecolorRecipes(exporter);
 
-        // Peaceful Mob Drops
         generatePeacefulMobDropRecipes(exporter);
     }
 
     private void generateTranquilLanternRecipes(Consumer<RecipeJsonProvider> exporter) {
-        // Golden Tranquil Lantern - Tranquil Lantern surrounded by Gold Blocks
         ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.GOLDEN_TRANQUIL_LANTERN, 1)
                 .pattern("GGG")
                 .pattern("GTG")
@@ -101,7 +88,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(ModBlocks.TRANQUIL_LANTERN), conditionsFromItem(ModBlocks.TRANQUIL_LANTERN))
                 .offerTo(exporter, new Identifier("cozystudioscore", "golden_tranquil_lantern"));
 
-        // Diamond Tranquil Lantern - Golden Tranquil Lantern surrounded by Diamond Blocks
         ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.DIAMOND_TRANQUIL_LANTERN, 1)
                 .pattern("DDD")
                 .pattern("DTD")
@@ -111,7 +97,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(ModBlocks.GOLDEN_TRANQUIL_LANTERN), conditionsFromItem(ModBlocks.GOLDEN_TRANQUIL_LANTERN))
                 .offerTo(exporter, new Identifier("cozystudioscore", "diamond_tranquil_lantern"));
 
-        // Netherite Tranquil Lantern - Diamond Tranquil Lantern surrounded by Netherite Ingots
         ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.NETHERITE_TRANQUIL_LANTERN, 1)
                 .pattern("NNN")
                 .pattern("NTN")
@@ -123,7 +108,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     private void generateCraftedItemRecipes(Consumer<RecipeJsonProvider> exporter) {
-        // Bell
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Items.BELL, 1)
                 .pattern("SSS")
                 .pattern(" I ")
@@ -134,7 +118,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.GOLD_INGOT), conditionsFromItem(Items.GOLD_INGOT))
                 .offerTo(exporter, new Identifier("cozystudioscore", "bell"));
 
-        // Saddle
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, Items.SADDLE, 1)
                 .pattern("LLL")
                 .pattern(" S ")
@@ -145,7 +128,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.LEATHER), conditionsFromItem(Items.LEATHER))
                 .offerTo(exporter, new Identifier("cozystudioscore", "saddle"));
 
-        // Name Tag
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, Items.NAME_TAG, 1)
                 .pattern("S")
                 .pattern("I")
@@ -156,7 +138,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.INK_SAC), conditionsFromItem(Items.INK_SAC))
                 .offerTo(exporter, new Identifier("cozystudioscore", "name_tag"));
 
-        // Horse Armors
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, Items.IRON_HORSE_ARMOR, 1)
                 .pattern("  I")
                 .pattern("ILI")
@@ -184,7 +165,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.DIAMOND), conditionsFromItem(Items.DIAMOND))
                 .offerTo(exporter, new Identifier("cozystudioscore", "diamond_horse_armor"));
 
-        // Mushroom blocks
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Items.BROWN_MUSHROOM_BLOCK, 1)
                 .pattern("MM")
                 .pattern("MM")
@@ -207,7 +187,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.BROWN_MUSHROOM), conditionsFromItem(Items.BROWN_MUSHROOM))
                 .offerTo(exporter, new Identifier("cozystudioscore", "mushroom_stem"));
 
-        // Other items
         ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Items.SHROOMLIGHT, 1)
                 .input(Items.MUSHROOM_STEM)
                 .input(Items.GLOWSTONE)
@@ -239,7 +218,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.INK_SAC), conditionsFromItem(Items.INK_SAC))
                 .offerTo(exporter, new Identifier("cozystudioscore", "glow_ink_sac"));
 
-        // Shapeless recipes
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.PAPER, 3)
                 .input(Items.SUGAR_CANE)
                 .input(Items.SUGAR_CANE)
@@ -260,18 +238,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input(Items.WHEAT)
                 .criterion(hasItem(Items.HONEY_BOTTLE), conditionsFromItem(Items.HONEY_BOTTLE))
                 .offerTo(exporter, new Identifier("cozystudioscore", "cozy_crumbs"));
-
-        // Abacus
-        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.ABACUS, 1)
-                .pattern(" I ")
-                .pattern("PSP")
-                .pattern("PSP")
-                .input('I', Items.IRON_INGOT)
-                .input('P', ItemTags.PLANKS)
-                .input('S', Items.STICK)
-                .criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
-                .group("abacus")
-                .offerTo(exporter, new Identifier("cozystudioscore", "abacus"));
     }
 
     private void generateStonecuttingRecipes(Consumer<RecipeJsonProvider> exporter) {
@@ -282,7 +248,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     private void generateCookingRecipes(Consumer<RecipeJsonProvider> exporter) {
-        // Leather from rotten flesh
         CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(Items.ROTTEN_FLESH), RecipeCategory.MISC,
                 Items.LEATHER, 0.35f, 200)
                 .criterion(hasItem(Items.ROTTEN_FLESH), conditionsFromItem(Items.ROTTEN_FLESH))
@@ -307,13 +272,11 @@ public class ModRecipeProvider extends FabricRecipeProvider {
             Item concrete = getConcreteByColor(color);
             Item powder = getConcretePowderByColor(color);
 
-            // Smelting
             CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(concrete), RecipeCategory.BUILDING_BLOCKS,
                     powder, 0.1f, 200)
                     .criterion(hasItem(concrete), conditionsFromItem(concrete))
                     .offerTo(exporter, new Identifier("cozystudioscore", color + "_concrete_powder_smelting"));
 
-            // Blasting
             CookingRecipeJsonBuilder.createBlasting(Ingredient.ofItems(concrete), RecipeCategory.BUILDING_BLOCKS,
                     powder, 0.1f, 100)
                     .criterion(hasItem(concrete), conditionsFromItem(concrete))
@@ -322,7 +285,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     private void generateDeepslateStonecuttingRecipes(Consumer<RecipeJsonProvider> exporter) {
-        // From deepslate
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, Items.COBBLED_DEEPSLATE, Items.DEEPSLATE, 1,
                 "deepslate_stonecutting/cobbled_deepslate_from_deepslate_stonecutting");
         offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, Items.POLISHED_DEEPSLATE, Items.DEEPSLATE, 1,
@@ -478,7 +440,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     private void generatePeacefulMobDropRecipes(Consumer<RecipeJsonProvider> exporter) {
-        // Beef
         ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Items.BEEF, 1)
                 .pattern("###")
                 .pattern("## ")
@@ -487,7 +448,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.WHEAT), conditionsFromItem(Items.WHEAT))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/beef"));
 
-        // Blaze Rod
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.BLAZE_ROD, 2)
                 .pattern("# #")
                 .pattern("#R#")
@@ -497,14 +457,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.QUARTZ), conditionsFromItem(Items.QUARTZ))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/blaze_rod"));
 
-        // Bone from Bonemeal
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.BONE, 1)
                 .pattern("###")
                 .input('#', Items.BONE_MEAL)
                 .criterion(hasItem(Items.BONE_MEAL), conditionsFromItem(Items.BONE_MEAL))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/bone_from_bonemeal"));
 
-        // Chicken
         ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Items.CHICKEN, 1)
                 .pattern("###")
                 .pattern("#  ")
@@ -513,7 +471,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.WHEAT_SEEDS), conditionsFromItem(Items.WHEAT_SEEDS))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/chicken"));
 
-        // Cod
         ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Items.COD, 1)
                 .pattern("###")
                 .pattern("#R#")
@@ -523,7 +480,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.KELP), conditionsFromItem(Items.KELP))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/cod"));
 
-        // Creeper Head
         ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, Items.CREEPER_HEAD, 1)
                 .pattern("#R#")
                 .pattern("RLR")
@@ -534,7 +490,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.GUNPOWDER), conditionsFromItem(Items.GUNPOWDER))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/creeper_head"));
 
-        // Dragon Egg
         ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, Items.DRAGON_EGG, 1)
                 .pattern("#R#")
                 .pattern("RLR")
@@ -545,7 +500,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.CHORUS_FRUIT), conditionsFromItem(Items.CHORUS_FRUIT))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/dragon_egg"));
 
-        // Dragon Head
         ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, Items.DRAGON_HEAD, 1)
                 .pattern("#R#")
                 .pattern("RLR")
@@ -556,7 +510,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.CHORUS_FRUIT), conditionsFromItem(Items.CHORUS_FRUIT))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/dragon_head"));
 
-        // Ender Pearl
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.ENDER_PEARL, 1)
                 .pattern("###")
                 .pattern("#R#")
@@ -566,7 +519,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.OBSIDIAN), conditionsFromItem(Items.OBSIDIAN))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/ender_pearl"));
 
-        // Ghast Tear
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.GHAST_TEAR, 1)
                 .pattern("###")
                 .pattern("#R#")
@@ -576,7 +528,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.QUARTZ), conditionsFromItem(Items.QUARTZ))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/ghast_tear"));
 
-        // Ink Sac
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.INK_SAC, 1)
                 .pattern("#R ")
                 .input('#', Items.COAL)
@@ -584,7 +535,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.COAL), conditionsFromItem(Items.COAL))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/ink_sac"));
 
-        // Mutton
         ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Items.MUTTON, 1)
                 .pattern("# #")
                 .pattern("###")
@@ -593,7 +543,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.WHEAT), conditionsFromItem(Items.WHEAT))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/mutton"));
 
-        // Nether Star
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.NETHER_STAR, 1)
                 .pattern("###")
                 .pattern("###")
@@ -602,7 +551,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.WITHER_SKELETON_SKULL), conditionsFromItem(Items.WITHER_SKELETON_SKULL))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/nether_star"));
 
-        // Porkchop
         ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Items.PORKCHOP, 1)
                 .pattern("#RL")
                 .pattern("#RL")
@@ -613,7 +561,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.BEETROOT), conditionsFromItem(Items.BEETROOT))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/porkchop"));
 
-        // Prismarine Crystals
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.PRISMARINE_CRYSTALS, 1)
                 .pattern("#R#")
                 .input('#', Items.GLASS)
@@ -621,7 +568,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.GLASS), conditionsFromItem(Items.GLASS))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/prismarine_crystals"));
 
-        // Prismarine Shard
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.PRISMARINE_SHARD, 1)
                 .pattern("#R#")
                 .input('#', Items.GRAVEL)
@@ -629,7 +575,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.GRAVEL), conditionsFromItem(Items.GRAVEL))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/prismarine_shard"));
 
-        // Rabbit
         ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Items.RABBIT, 1)
                 .pattern("###")
                 .pattern("## ")
@@ -638,7 +583,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.CARROT), conditionsFromItem(Items.CARROT))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/rabbit"));
 
-        // Rabbit Foot
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.RABBIT_FOOT, 1)
                 .pattern("#R#")
                 .pattern("RLR")
@@ -649,7 +593,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.RABBIT), conditionsFromItem(Items.RABBIT))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/rabbit_foot"));
 
-        // Salmon
         ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Items.SALMON, 1)
                 .pattern("###")
                 .pattern("#R#")
@@ -659,7 +602,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.KELP), conditionsFromItem(Items.KELP))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/salmon"));
 
-        // Shulker Shell
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.SHULKER_SHELL, 1)
                 .pattern("###")
                 .pattern("#R#")
@@ -669,7 +611,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.END_STONE), conditionsFromItem(Items.END_STONE))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/shulker_shell"));
 
-        // Skeleton Skull
         ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, Items.SKELETON_SKULL, 1)
                 .pattern("#R#")
                 .pattern("RLR")
@@ -680,7 +621,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.BONE), conditionsFromItem(Items.BONE))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/skeleton_skull"));
 
-        // Slime Ball
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.SLIME_BALL, 1)
                 .pattern("#R#")
                 .pattern("RLR")
@@ -691,7 +631,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.LILY_PAD), conditionsFromItem(Items.LILY_PAD))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/slime"));
 
-        // Spider Eye
         ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Items.SPIDER_EYE, 1)
                 .pattern("#R")
                 .pattern("R#")
@@ -700,7 +639,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.BROWN_MUSHROOM), conditionsFromItem(Items.BROWN_MUSHROOM))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/spider_eye"));
 
-        // Sponge
         ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, Items.SPONGE, 1)
                 .pattern("###")
                 .pattern("# #")
@@ -709,7 +647,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.YELLOW_WOOL), conditionsFromItem(Items.YELLOW_WOOL))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/sponge"));
 
-        // Trident
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, Items.TRIDENT, 1)
                 .pattern("###")
                 .pattern("RLR")
@@ -720,7 +657,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.DIAMOND), conditionsFromItem(Items.DIAMOND))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/trident"));
 
-        // Tropical Fish
         ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, Items.TROPICAL_FISH, 1)
                 .pattern("###")
                 .pattern("#R#")
@@ -730,7 +666,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.KELP), conditionsFromItem(Items.KELP))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/tropical_fish"));
 
-        // Wither Skeleton Skull
         ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, Items.WITHER_SKELETON_SKULL, 1)
                 .pattern("#R#")
                 .pattern("RLR")
@@ -741,7 +676,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.CRYING_OBSIDIAN), conditionsFromItem(Items.CRYING_OBSIDIAN))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/wither_skeleton_skull"));
 
-        // Zombie Head
         ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, Items.ZOMBIE_HEAD, 1)
                 .pattern("#R#")
                 .pattern("RLR")
@@ -752,63 +686,52 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.ROTTEN_FLESH), conditionsFromItem(Items.ROTTEN_FLESH))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/zombie_head"));
 
-        // Shapeless Recipes
 
-        // Feather from Egg
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.FEATHER, 1)
                 .input(Items.EGG)
                 .criterion(hasItem(Items.EGG), conditionsFromItem(Items.EGG))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/feather_from_egg"));
 
-        // Gunpowder
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.GUNPOWDER, 1)
                 .input(Items.FLINT)
                 .criterion(hasItem(Items.FLINT), conditionsFromItem(Items.FLINT))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/gunpowder"));
 
-        // Rabbit Hide
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.RABBIT_HIDE, 4)
                 .input(Items.LEATHER)
                 .criterion(hasItem(Items.LEATHER), conditionsFromItem(Items.LEATHER))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/rabbit_hide"));
 
-        // Rotten Flesh from Beef
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.ROTTEN_FLESH, 1)
                 .input(Items.BEEF)
                 .criterion(hasItem(Items.BEEF), conditionsFromItem(Items.BEEF))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/rotten_flesh_from_beef"));
 
-        // Rotten Flesh from Chicken
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.ROTTEN_FLESH, 1)
                 .input(Items.CHICKEN)
                 .criterion(hasItem(Items.CHICKEN), conditionsFromItem(Items.CHICKEN))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/rotten_flesh_from_chicken"));
 
-        // Rotten Flesh from Cod
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.ROTTEN_FLESH, 1)
                 .input(Items.COD)
                 .criterion(hasItem(Items.COD), conditionsFromItem(Items.COD))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/rotten_flesh_from_cod"));
 
-        // Rotten Flesh from Mutton
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.ROTTEN_FLESH, 1)
                 .input(Items.MUTTON)
                 .criterion(hasItem(Items.MUTTON), conditionsFromItem(Items.MUTTON))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/rotten_flesh_from_mutton"));
 
-        // Rotten Flesh from Porkchop
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.ROTTEN_FLESH, 1)
                 .input(Items.PORKCHOP)
                 .criterion(hasItem(Items.PORKCHOP), conditionsFromItem(Items.PORKCHOP))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/rotten_flesh_from_porkchop"));
 
-        // Rotten Flesh from Rabbit
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.ROTTEN_FLESH, 1)
                 .input(Items.RABBIT)
                 .criterion(hasItem(Items.RABBIT), conditionsFromItem(Items.RABBIT))
                 .offerTo(exporter, new Identifier("cozystudioscore", "peaceful_mob_drops/rotten_flesh_from_rabbit"));
 
-        // Rotten Flesh from Salmon
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.ROTTEN_FLESH, 1)
                 .input(Items.SALMON)
                 .criterion(hasItem(Items.SALMON), conditionsFromItem(Items.SALMON))

@@ -33,14 +33,12 @@ public class FernlingRenderer extends LivingEntityRenderer<FernlingEntity, Fernl
                         new Identifier(CozyStudiosCore.MOD_ID, "textures/entity/fernling_swamp.png"));
             });
 
-    // emissive eyes/glow layer
     private static final RenderLayer FERNLING_EYES_LAYER =
             RenderLayer.getEyes(new Identifier(CozyStudiosCore.MOD_ID, "textures/entity/fernling_e.png"));
 
     public FernlingRenderer(EntityRendererFactory.Context ctx) {
         super(ctx, new FernlingModel<>(ctx.getPart(ModModelLayers.FERNLING)), 0.6f);
 
-        // add glowing eyes
         this.addFeature(new EyesFeatureRenderer<FernlingEntity, FernlingModel<FernlingEntity>>(this) {
             @Override
             public RenderLayer getEyesTexture() {

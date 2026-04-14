@@ -6,7 +6,7 @@ import net.cozystudios.cozystudioscore.entity.ModEntities;
 import net.cozystudios.cozystudioscore.entity.variant.FernlingVariant;
 import net.cozystudios.cozystudioscore.item.ModItems;
 import net.cozystudios.cozystudioscore.sound.ModSounds;
-import net.cozystudios.cozystudioscore.world.gen.ModEntitySpawns; // <-- added
+import net.cozystudios.cozystudioscore.world.gen.ModEntitySpawns;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Fertilizable;
 import net.minecraft.entity.*;
@@ -62,7 +62,7 @@ public class FernlingEntity extends TameableEntity {
         this.goalSelector.add(1, new FollowOwnerGoal(this, 1.1D, 10f, 3f, false));
         this.goalSelector.add(1, new FollowParentGoal(this, 1.1D));
 
-        this.goalSelector.add(2, new AnimalMateGoal(this, 1.15D)); // breedable
+        this.goalSelector.add(2, new AnimalMateGoal(this, 1.15D));
         this.goalSelector.add(3, new TemptGoal(this, 1.25D, Ingredient.ofItems(ModItems.COZY_CRUMBS), false));
 
         this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 4.0F) {
@@ -187,7 +187,6 @@ public class FernlingEntity extends TameableEntity {
         return baby;
     }
 
-    /* SOUNDS */
     @Override
     protected @Nullable SoundEvent getAmbientSound() {
         return ModSounds.FERNLING_IDLE;
@@ -203,7 +202,6 @@ public class FernlingEntity extends TameableEntity {
         return SoundEvents.ENTITY_FOX_DEATH;
     }
 
-    /* TAME / HEAL / SIT / BREED */
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemstack = player.getStackInHand(hand);
@@ -211,7 +209,6 @@ public class FernlingEntity extends TameableEntity {
 
         Item itemForTaming = ModItems.COZY_CRUMBS;
 
-        // Tame
         if (item == itemForTaming && !isTamed()) {
             if (this.getWorld().isClient()) {
                 return ActionResult.CONSUME;
@@ -223,7 +220,7 @@ public class FernlingEntity extends TameableEntity {
                     super.setOwner(player);
                     this.navigation.recalculatePath();
                     this.setTarget(null);
-                    this.getWorld().sendEntityStatus(this, (byte)7); // hearts
+                    this.getWorld().sendEntityStatus(this, (byte)7);
                     setSitting(true);
                     setInSittingPose(true);
                 }
@@ -231,7 +228,6 @@ public class FernlingEntity extends TameableEntity {
             }
         }
 
-        // Heal if tamed
         if (isTamed() && item == itemForTaming && this.getHealth() < this.getMaxHealth()) {
             if (!player.getAbilities().creativeMode) {
                 itemstack.decrement(1);
@@ -240,7 +236,6 @@ public class FernlingEntity extends TameableEntity {
             return ActionResult.SUCCESS;
         }
 
-        // Sit toggle (ignore when holding breeding/taming item)
         if (isTamed() && this.isOwner(player) && hand == Hand.MAIN_HAND &&
                 item != itemForTaming && !isBreedingItem(itemstack)) {
             boolean sitting = !isSitting();

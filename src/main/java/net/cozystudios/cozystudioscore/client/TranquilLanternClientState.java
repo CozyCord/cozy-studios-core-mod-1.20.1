@@ -16,7 +16,6 @@ public class TranquilLanternClientState {
 
     private static final Map<BlockPos, BlockState> CLIENT_LANTERNS = new HashMap<>();
 
-    // Server-side config values (null = not connected to server / use local config)
     private static Integer serverTranquilRadius = null;
     private static Integer serverGoldenRadius = null;
     private static Integer serverDiamondRadius = null;
@@ -59,7 +58,6 @@ public class TranquilLanternClientState {
         CLIENT_LANTERNS.clear();
     }
 
-    // Server config sync methods
     public static void setServerRadiusValues(int tranquil, int golden, int diamond, int netherite) {
         serverTranquilRadius = tranquil;
         serverGoldenRadius = golden;
@@ -74,7 +72,6 @@ public class TranquilLanternClientState {
         serverNetheriteRadius = null;
     }
 
-    // Get radius methods that prefer server values if available
     public static int getTranquilLanternRadius() {
         return serverTranquilRadius != null ? serverTranquilRadius : TranquilLanternsConfig.get().getTranquilLanternRadius();
     }
@@ -96,7 +93,6 @@ public class TranquilLanternClientState {
 
         if (client.world == null || client.player == null) return;
 
-        // Use the largest radius to ensure we find all lanterns
         int maxRadius = Math.max(
             Math.max(getTranquilLanternRadius(), getGoldenTranquilLanternRadius()),
             Math.max(getDiamondTranquilLanternRadius(), getNetheriteTranquilLanternRadius())

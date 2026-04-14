@@ -32,9 +32,6 @@ public class ModConfig extends PartitioningSerializer.GlobalData {
     @ConfigEntry.Gui.TransitiveObject
     AutoFtbModsConfig autoFtbModsConfig = new AutoFtbModsConfig();
 
-    // ======================
-    // Helpers
-    // ======================
     public static void register() {
         AutoConfig.register(ModConfig.class, PartitioningSerializer.wrap(GsonConfigSerializer::new));
     }

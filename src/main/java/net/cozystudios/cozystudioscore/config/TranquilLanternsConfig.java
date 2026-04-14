@@ -46,10 +46,6 @@ public class TranquilLanternsConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean netheriteTranquilLanternBurn = false;
 
-    // ======================
-    // Radius Calculation
-    // ======================
-    // Base radius values (constants - not exposed to config)
 
     @ConfigEntry.Gui.Excluded
     private static final int BASE_TRANQUIL_LANTERN_RADIUS = 13;

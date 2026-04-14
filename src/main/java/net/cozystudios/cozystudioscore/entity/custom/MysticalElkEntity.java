@@ -40,17 +40,14 @@ import java.util.Objects;
 
 public class MysticalElkEntity extends TameableEntity implements Mount, JumpingMount {
 
-    // === Animation states ===
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState runningAnimationState = new AnimationState();
 
     private int idleAnimationTimeout = 0;
 
-    // Saddled flag
     private static final TrackedData<Boolean> SADDLED =
             DataTracker.registerData(MysticalElkEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
-    // Track jump charge
     private float queuedJumpStrength;
 
     public MysticalElkEntity(EntityType<? extends TameableEntity> entityType, World world) {
@@ -75,7 +72,6 @@ public class MysticalElkEntity extends TameableEntity implements Mount, JumpingM
         this.setSaddled(nbt.getBoolean("Saddled"));
     }
 
-    // === Animation setup ===
     private void setupAnimationStates() {
         float moveSpeed = this.limbAnimator.getSpeed();
 
@@ -156,7 +152,6 @@ public class MysticalElkEntity extends TameableEntity implements Mount, JumpingM
         Item item = itemstack.getItem();
         Item itemForTaming = ModItems.MYSTICAL_BERRIES;
 
-        // Tame
         if (item == itemForTaming && !isTamed()) {
             if (!player.getAbilities().creativeMode) {
                 itemstack.decrement(1);
@@ -174,7 +169,6 @@ public class MysticalElkEntity extends TameableEntity implements Mount, JumpingM
             return ActionResult.SUCCESS;
         }
 
-        // Heal
         if (isTamed() && item == itemForTaming && this.getHealth() < this.getMaxHealth()) {
             if (!player.getAbilities().creativeMode) {
                 itemstack.decrement(1);
@@ -186,7 +180,6 @@ public class MysticalElkEntity extends TameableEntity implements Mount, JumpingM
             return ActionResult.SUCCESS;
         }
 
-        // Saddle
         if (isTamed() && item == Items.SADDLE && !this.isSaddled()) {
             if (!player.getAbilities().creativeMode) {
                 itemstack.decrement(1);
@@ -196,11 +189,9 @@ public class MysticalElkEntity extends TameableEntity implements Mount, JumpingM
             return ActionResult.SUCCESS;
         }
 
-        // Unsaddle (Shift + Empty Hand)
         if (isTamed() && this.isSaddled() && itemstack.isEmpty() && player.isSneaking()) {
             this.setSaddled(false);
 
-            // Give saddle back
             if (!player.getAbilities().creativeMode) {
                 this.dropItem(Items.SADDLE);
             }
@@ -209,7 +200,6 @@ public class MysticalElkEntity extends TameableEntity implements Mount, JumpingM
             return ActionResult.SUCCESS;
         }
 
-        // Mount
         if (isTamed() && this.isSaddled() && !this.hasPassengers() && !this.isBaby()) {
             if (!this.getWorld().isClient()) {
                 player.startRiding(this);
@@ -301,7 +291,6 @@ public class MysticalElkEntity extends TameableEntity implements Mount, JumpingM
         }
     }
 
-    // --- JumpingMount implementation ---
     @Override
     public void startJumping(int charge) {
         this.queuedJumpStrength = (float)charge / 100.0F;
@@ -345,7 +334,6 @@ public class MysticalElkEntity extends TameableEntity implements Mount, JumpingM
         return super.updatePassengerForDismount(passenger);
     }
 
-    // --- Randomize stats on spawn ---
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason,
                                  @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {

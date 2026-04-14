@@ -29,7 +29,6 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
 
-        // --- Kiln Smeltable Blocks ---
         getOrCreateTagBuilder(ModTags.Blocks.KILN_SMELTABLE_BLOCKS)
                 .add(
                         key(Blocks.COBBLESTONE),
@@ -92,7 +91,6 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         key(Blocks.SEA_PICKLE)
                 );
 
-        // --- Pickaxe Mineable ---
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
                 .add(
                         key(ModBlocks.KILN),
@@ -101,7 +99,6 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         key(ModBlocks.DIAMOND_TRANQUIL_LANTERN),
                         key(ModBlocks.NETHERITE_TRANQUIL_LANTERN));
 
-        // --- Needs Stone Tool ---
         getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
                 .add(
                         key(ModBlocks.KILN),

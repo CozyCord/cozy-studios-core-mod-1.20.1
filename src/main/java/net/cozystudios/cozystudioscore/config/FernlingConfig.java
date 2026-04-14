@@ -7,13 +7,13 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 @Config(name = "fernling")
 public class FernlingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
-    public int fernlingBonemealCooldownMin = 600; // 30s
+    public int fernlingBonemealCooldownMin = 600;
 
     @ConfigEntry.Gui.Tooltip
-    public int fernlingBonemealCooldownMax = 2400; // 2 mins
+    public int fernlingBonemealCooldownMax = 2400;
 
     @ConfigEntry.Gui.Tooltip
-    public double fernlingBonemealChance = 0.15; // 15%
+    public double fernlingBonemealChance = 0.15;
 
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.BoundedDiscrete(min = 1, max = 8)
