@@ -118,10 +118,10 @@ public class ModEntitySpawns {
                     max = 2;
                 }
                 case LUSH -> {
-                    group = SpawnGroup.CREATURE;
-                    weight = 160;
-                    min = 2;
-                    max = 5;
+                    group = SpawnGroup.MONSTER;
+                    weight = 60;
+                    min = 1;
+                    max = 3;
                 }
                 default -> {
                     group = SpawnGroup.CREATURE;

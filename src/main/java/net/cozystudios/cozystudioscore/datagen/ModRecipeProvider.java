@@ -201,7 +201,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.STRING), conditionsFromItem(Items.STRING))
                 .offerTo(exporter, new Identifier("cozystudioscore", "cobweb"));
 
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.STRING, 1)
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.STRING, 4)
                 .input(Ingredient.fromTag(ItemTags.WOOL))
                 .criterion("has_wool", conditionsFromTag(ItemTags.WOOL))
                 .offerTo(exporter, new Identifier("cozystudioscore", "string"));
