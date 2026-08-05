@@ -30,6 +30,9 @@
     ],
     "fabric-datagen": [
       "net.cozystudios.cozystudioscore.CozyStudiosCoreDataGenerator"
+    ],
+    "jei_mod_plugin": [
+      "net.cozystudios.cozystudioscore.integration.ftbquests.CozyStudiosJeiPlugin"
     ]
   },
   "mixins": [

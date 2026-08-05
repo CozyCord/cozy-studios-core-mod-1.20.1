@@ -106,22 +106,22 @@ public class ModEntitySpawns {
 
             switch (e.getKey()) {
                 case CRIMSON -> {
-                    group = SpawnGroup.MONSTER;
-                    weight = 15;
+                    group = SpawnGroup.CREATURE;
+                    weight = 8;
                     min = 1;
                     max = 2;
                 }
                 case WARPED -> {
-                    group = SpawnGroup.MONSTER;
-                    weight = 10;
+                    group = SpawnGroup.CREATURE;
+                    weight = 6;
                     min = 1;
                     max = 2;
                 }
                 case LUSH -> {
-                    group = SpawnGroup.MONSTER;
-                    weight = 60;
+                    group = SpawnGroup.CREATURE;
+                    weight = 10;
                     min = 1;
-                    max = 3;
+                    max = 2;
                 }
                 default -> {
                     group = SpawnGroup.CREATURE;

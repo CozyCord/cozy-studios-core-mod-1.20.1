@@ -247,7 +247,7 @@ public class MushlingEntity extends TameableEntity {
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason reason,
                                  @Nullable EntityData data, @Nullable NbtCompound nbt) {
         MushlingVariant chosen = ModEntitySpawns.pickVariantForBiome(world, this.getBlockPos())
-                .orElse(Util.getRandom(MushlingVariant.values(), this.random));
+                .orElse(MushlingVariant.DEFAULT);
         setVariant(chosen);
         return super.initialize(world, difficulty, reason, data, nbt);
     }

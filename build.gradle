@@ -10,11 +10,35 @@ base {
     archivesName = project.archives_base_name
 }
 
+// Relocate the whole build directory outside the workspace so VS Code's Java LSP
+// (redhat.java / Eclipse JDT) never scans `build/loom-cache/remapped_working/`.
+// Without this, JDT LSP opens the transient remapped mod jars for indexing and
+// holds a Windows file lock on them, causing Fabric Loom's next remap to fail
+// with `AccessDeniedException`. Final classpath jars still live under
+// `${projectDir}/.gradle/loom-cache/remapped_mods/` and are unaffected.
+def externalBuildDir = new File(System.getenv("LOCALAPPDATA") ?: System.getProperty("user.home"),
+        "GradleBuilds/${rootProject.name}")
+layout.buildDirectory.set(externalBuildDir)
+
+// Mirror the final remapped jar back into the workspace's build/libs/ so the
+// user still finds their mod jar in the expected place after a build.
+tasks.register("copyJarToWorkspace", Copy) {
+    from(layout.buildDirectory.dir("libs"))
+    into(rootProject.file("build/libs"))
+    include("*.jar")
+}
+tasks.matching { it.name == "assemble" || it.name == "build" }.configureEach {
+    finalizedBy("copyJarToWorkspace")
+}
+
 repositories {
     maven { url = uri("https://maven.fabricmc.net/") }
     maven { url = uri("https://maven.shedaniel.me/") }
     maven { url = uri("https://maven.terraformersmc.com/") }
     maven { url = uri("https://cursemaven.com") }
+    maven { url = uri("https://maven.blamejared.com/") }
+    maven { url = uri("https://maven.ftb.dev/releases") }
+    maven { url = uri("https://maven.architectury.dev/") }
     mavenCentral()
 }
 
@@ -59,6 +83,24 @@ dependencies {
     modRuntimeOnly "com.terraformersmc:modmenu:${mod_menu_version}"
     modCompileOnly "me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}"
     modRuntimeOnly "me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}"
+
+    // JEI + FTB Quests compat (compile-only; guarded at runtime by mod-loaded checks).
+    // Use the full -fabric jar (intermediary mappings) so Fabric Loom can remap it
+    // to yarn. The Mojang-mapped -api variants don't work in a yarn project.
+    modCompileOnly "mezz.jei:jei-1.20.1-fabric:${jei_version}"
+    modCompileOnly "dev.ftb.mods:ftb-quests-fabric:${ftb_quests_version}"
+    modCompileOnly "dev.ftb.mods:ftb-library-fabric:${ftb_library_version}"
+    modCompileOnly "dev.architectury:architectury-fabric:${architectury_version}"
+}
+
+// Keep JEI's Mojang-mapped -api variants off the classpath so we compile only
+// against the intermediary-mapped classes loom produces.
+configurations.all {
+    exclude group: "mezz.jei", module: "jei-1.20.1-common-api"
+    exclude group: "mezz.jei", module: "jei-1.20.1-fabric-api"
+    exclude group: "mezz.jei", module: "jei-1.20.1-forge-api"
+    exclude group: "mezz.jei", module: "jei-1.20.1-common-api-intermediary"
+    exclude group: "mezz.jei", module: "jei-1.20.1-forge-api-intermediary"
 }
 
 processResources {
@@ -75,7 +117,8 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 java {
-    withSourcesJar()
+    // withSourcesJar() removed — triggers Loom source-remap of dep sources jars
+    // that races VS Code Java LSP on Windows. Re-enable only when publishing.
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 }

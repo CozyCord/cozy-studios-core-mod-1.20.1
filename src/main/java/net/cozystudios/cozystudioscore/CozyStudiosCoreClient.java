@@ -13,6 +13,7 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.cozystudios.cozystudioscore.block.ModBlocks;
@@ -48,5 +49,10 @@ public class CozyStudiosCoreClient implements ClientModInitializer {
         });
 
         AutoFtbModMover.registerClientTicker();
+
+        if (FabricLoader.getInstance().isModLoaded("ftbquests")
+                && FabricLoader.getInstance().isModLoaded("jei")) {
+            net.cozystudios.cozystudioscore.integration.ftbquests.FtbQuestsJeiCompat.init();
+        }
     }
 }
