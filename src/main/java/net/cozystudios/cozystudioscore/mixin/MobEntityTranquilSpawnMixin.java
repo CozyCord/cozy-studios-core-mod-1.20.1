@@ -1,5 +1,6 @@
 package net.cozystudios.cozystudioscore.mixin;
 
+import net.cozystudios.cozystudioscore.tag.ModEntityTypeTags;
 import net.cozystudios.cozystudioscore.world.TranquilLanternSpawnBlocker;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -27,6 +28,7 @@ public class MobEntityTranquilSpawnMixin {
 
         if (spawnReason != SpawnReason.NATURAL) return;
         if (type.getSpawnGroup() != SpawnGroup.MONSTER) return;
+        if (type.isIn(ModEntityTypeTags.TRANQUIL_LANTERN_IMMUNE)) return;
         if (!(world instanceof ServerWorld serverWorld)) return;
 
         if (!TranquilLanternSpawnBlocker.hasAnyLanterns(serverWorld)) return;

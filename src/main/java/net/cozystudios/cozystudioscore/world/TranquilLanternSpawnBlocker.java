@@ -152,7 +152,7 @@ public class TranquilLanternSpawnBlocker {
                 List<MobEntity> mobs = world.getEntitiesByClass(
                         MobEntity.class,
                         cube,
-                        mob -> mob != null && !mob.isRemoved() && isHostileMob(mob)
+                        mob -> mob != null && !mob.isRemoved() && isHostileMob(mob) && !TranquilLanternTargets.isImmune(mob)
                 );
 
                 if (mobs.isEmpty()) continue;

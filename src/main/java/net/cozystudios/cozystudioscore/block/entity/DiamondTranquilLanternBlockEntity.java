@@ -2,6 +2,7 @@ package net.cozystudios.cozystudioscore.block.entity;
 
 import net.cozystudios.cozystudioscore.config.ModConfig;
 import net.cozystudios.cozystudioscore.config.TranquilLanternsConfig;
+import net.cozystudios.cozystudioscore.world.TranquilLanternTargets;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
@@ -52,6 +53,8 @@ public class DiamondTranquilLanternBlockEntity extends BlockEntity {
                     cx + radius, cy + radius, cz + radius);
 
             for (HostileEntity mob : world.getEntitiesByClass(HostileEntity.class, box, Entity::isAlive)) {
+                if (TranquilLanternTargets.isImmune(mob)) continue;
+
                 double dx = mob.getX() - cx;
                 double dy = mob.getY() - cy;
                 double dz = mob.getZ() - cz;
