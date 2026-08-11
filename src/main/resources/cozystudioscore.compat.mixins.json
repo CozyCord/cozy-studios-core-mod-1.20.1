@@ -1,0 +1,16 @@
+{
+  "required": false,
+  "package": "net.cozystudios.cozystudioscore.mixin.compat",
+  "compatibilityLevel": "JAVA_17",
+  "plugin": "net.cozystudios.cozystudioscore.mixin.compat.CompatMixinPlugin",
+  "mixins": [
+    "CropBlockMayPlaceMixin",
+    "BuddingTomatoBlockMayPlaceMixin",
+    "BwgFarmLandBlockSprinklerMixin",
+    "PeatFarmBlockSprinklerMixin",
+    "SiltFarmBlockSprinklerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

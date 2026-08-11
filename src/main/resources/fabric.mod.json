@@ -36,7 +36,8 @@
     ]
   },
   "mixins": [
-    "cozystudioscore.mixins.json"
+    "cozystudioscore.mixins.json",
+    "cozystudioscore.compat.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.17.2",

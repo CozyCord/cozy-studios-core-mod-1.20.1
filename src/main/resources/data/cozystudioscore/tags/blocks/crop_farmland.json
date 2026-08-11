@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "biomeswevegone:sandy_farmland",       "required": false },
+    { "id": "biomeswevegone:lush_farmland",        "required": false },
+    { "id": "regions_unexplored:peat_farmland",    "required": false },
+    { "id": "regions_unexplored:silt_farmland",    "required": false },
+    { "id": "farm_and_charm:fertilized_farmland",  "required": false },
+    { "id": "farmersdelight:rich_soil_farmland",   "required": false }
+  ]
+}

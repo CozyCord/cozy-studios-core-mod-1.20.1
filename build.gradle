@@ -10,27 +10,6 @@ base {
     archivesName = project.archives_base_name
 }
 
-// Relocate the whole build directory outside the workspace so VS Code's Java LSP
-// (redhat.java / Eclipse JDT) never scans `build/loom-cache/remapped_working/`.
-// Without this, JDT LSP opens the transient remapped mod jars for indexing and
-// holds a Windows file lock on them, causing Fabric Loom's next remap to fail
-// with `AccessDeniedException`. Final classpath jars still live under
-// `${projectDir}/.gradle/loom-cache/remapped_mods/` and are unaffected.
-def externalBuildDir = new File(System.getenv("LOCALAPPDATA") ?: System.getProperty("user.home"),
-        "GradleBuilds/${rootProject.name}")
-layout.buildDirectory.set(externalBuildDir)
-
-// Mirror the final remapped jar back into the workspace's build/libs/ so the
-// user still finds their mod jar in the expected place after a build.
-tasks.register("copyJarToWorkspace", Copy) {
-    from(layout.buildDirectory.dir("libs"))
-    into(rootProject.file("build/libs"))
-    include("*.jar")
-}
-tasks.matching { it.name == "assemble" || it.name == "build" }.configureEach {
-    finalizedBy("copyJarToWorkspace")
-}
-
 repositories {
     maven { url = uri("https://maven.fabricmc.net/") }
     maven { url = uri("https://maven.shedaniel.me/") }
