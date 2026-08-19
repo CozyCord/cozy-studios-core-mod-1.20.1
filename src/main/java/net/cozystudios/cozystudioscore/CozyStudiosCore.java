@@ -9,6 +9,7 @@ import net.cozystudios.cozystudioscore.config.ModConfig;
 import net.cozystudios.cozystudioscore.entity.ModEntities;
 import net.cozystudios.cozystudioscore.item.ModItemGroups;
 import net.cozystudios.cozystudioscore.item.ModItems;
+import net.cozystudios.cozystudioscore.loot.LootTableFixes;
 import net.cozystudios.cozystudioscore.loot.ModLootInjector;
 import net.cozystudios.cozystudioscore.recipe.ConfigKilnDataPack;
 import net.cozystudios.cozystudioscore.recipe.ModRecipeTypes;
@@ -54,6 +55,7 @@ public class CozyStudiosCore implements ModInitializer {
         net.cozystudios.cozystudioscore.villager.ModVillagers.registerVillagers();
         ModTradersSpawner.register();
         ModLootInjector.register();
+        LootTableFixes.register();
 
         ServerLifecycleEvents.SERVER_STARTING.register(server -> {
             GeneralConfig config = GeneralConfig.get();

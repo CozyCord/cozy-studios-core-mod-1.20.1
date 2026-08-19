@@ -1,0 +1,147 @@
+﻿{
+    "pools":  [
+                  {
+                      "rolls":  {
+                                    "min":  1.0,
+                                    "max":  2.0,
+                                    "type":  "minecraft:uniform"
+                                },
+                      "entries":  [
+                                      {
+                                          "type":  "minecraft:item",
+                                          "weight":  1,
+                                          "name":  "beachparty:overgrown_disc"
+                                      },
+                                      {
+                                          "type":  "minecraft:empty",
+                                          "weight":  5
+                                      },
+                                      {
+                                          "type":  "minecraft:item",
+                                          "weight":  1,
+                                          "name":  "beachparty:trunks",
+                                          "functions":  [
+                                                            {
+                                                                "function":  "minecraft:set_nbt",
+                                                                "tag":  "{display:{color:255}}"
+                                                            }
+                                                        ]
+                                      },
+                                      {
+                                          "type":  "minecraft:item",
+                                          "weight":  1,
+                                          "name":  "beachparty:bikini",
+                                          "functions":  [
+                                                            {
+                                                                "function":  "minecraft:set_nbt",
+                                                                "tag":  "{display:{color:16711935}}"
+                                                            }
+                                                        ]
+                                      },
+                                      {
+                                          "type":  "minecraft:item",
+                                          "weight":  1,
+                                          "name":  "beachparty:crocs",
+                                          "functions":  [
+                                                            {
+                                                                "function":  "minecraft:set_nbt",
+                                                                "tag":  "{display:{color:652480}}"
+                                                            }
+                                                        ]
+                                      },
+                                      {
+                                          "type":  "minecraft:item",
+                                          "weight":  1,
+                                          "name":  "beachparty:swim_wings",
+                                          "functions":  [
+                                                            {
+                                                                "function":  "minecraft:set_nbt",
+                                                                "tag":  "{display:{color:16776960}}"
+                                                            }
+                                                        ]
+                                      },
+                                      {
+                                          "type":  "minecraft:item",
+                                          "weight":  1,
+                                          "name":  "beachparty:pool_noodle",
+                                          "functions":  [
+                                                            {
+                                                                "function":  "minecraft:set_nbt",
+                                                                "tag":  "{display:{color:16711680}}"
+                                                            }
+                                                        ]
+                                      },
+                                      {
+                                          "type":  "minecraft:item",
+                                          "weight":  1,
+                                          "name":  "beachparty:sunglasses"
+                                      },
+                                      {
+                                          "type":  "minecraft:item",
+                                          "weight":  1,
+                                          "name":  "beachparty:beach_hat"
+                                      },
+                                      {
+                                          "type":  "minecraft:item",
+                                          "weight":  1,
+                                          "name":  "beachparty:palm_sprout",
+                                          "functions":  [
+                                                            {
+                                                                "function":  "minecraft:set_count",
+                                                                "count":  {
+                                                                              "min":  1.0,
+                                                                              "max":  3.0,
+                                                                              "type":  "minecraft:uniform"
+                                                                          }
+                                                            }
+                                                        ]
+                                      },
+                                      {
+                                          "type":  "minecraft:item",
+                                          "weight":  1,
+                                          "name":  "beachparty:radio"
+                                      },
+                                      {
+                                          "type":  "minecraft:item",
+                                          "weight":  1,
+                                          "name":  "beachparty:coconut",
+                                          "functions":  [
+                                                            {
+                                                                "function":  "minecraft:set_count",
+                                                                "count":  {
+                                                                              "min":  2.0,
+                                                                              "max":  7.0,
+                                                                              "type":  "minecraft:uniform"
+                                                                          }
+                                                            }
+                                                        ]
+                                      },
+                                      {
+                                          "type":  "minecraft:item",
+                                          "weight":  1,
+                                          "name":  "beachparty:beach_ball"
+                                      },
+                                      {
+                                          "type":  "minecraft:item",
+                                          "weight":  1,
+                                          "name":  "beachparty:palm_torch_item",
+                                          "functions":  [
+                                                            {
+                                                                "function":  "minecraft:set_count",
+                                                                "count":  {
+                                                                              "min":  3.0,
+                                                                              "max":  5.0,
+                                                                              "type":  "minecraft:uniform"
+                                                                          }
+                                                            }
+                                                        ]
+                                      },
+                                      {
+                                          "type":  "minecraft:item",
+                                          "weight":  1,
+                                          "name":  "beachparty:floaty_boat"
+                                      }
+                                  ]
+                  }
+              ]
+}
