@@ -11,6 +11,7 @@ import net.cozystudios.cozystudioscore.item.ModItemGroups;
 import net.cozystudios.cozystudioscore.item.ModItems;
 import net.cozystudios.cozystudioscore.loot.LootTableFixes;
 import net.cozystudios.cozystudioscore.loot.ModLootInjector;
+import net.cozystudios.cozystudioscore.worldgen.KiwiTreeBiomeInjector;
 import net.cozystudios.cozystudioscore.recipe.ConfigKilnDataPack;
 import net.cozystudios.cozystudioscore.recipe.ModRecipeTypes;
 import net.cozystudios.cozystudioscore.sound.ModSounds;
@@ -56,6 +57,7 @@ public class CozyStudiosCore implements ModInitializer {
         ModTradersSpawner.register();
         ModLootInjector.register();
         LootTableFixes.register();
+        KiwiTreeBiomeInjector.register();
 
         ServerLifecycleEvents.SERVER_STARTING.register(server -> {
             GeneralConfig config = GeneralConfig.get();
