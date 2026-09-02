@@ -1,0 +1,15 @@
+plugins {
+    id 'java'
+}
+
+version = rootProject.mod_version
+group = rootProject.maven_group
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+jar {
+    archiveBaseName.set('cozystudioscore-clutter-compat')
+}

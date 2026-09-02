@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "cozystudioscore_clutter_compat",
+  "version": "1.0.0",
+  "name": "Cozy Studios Core: Clutter Compat",
+  "description": "Ships a placed_feature for Clutter's kiwi tree so it spawns in jungle biomes. Only loads when Clutter is installed.",
+  "environment": "*",
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "clutter": "*"
+  }
+}

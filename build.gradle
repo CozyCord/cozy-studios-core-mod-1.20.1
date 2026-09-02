@@ -57,23 +57,19 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    // Optional compile/runtime deps
+    include project(':nested-compat:clutter')
+
     modCompileOnly "com.terraformersmc:modmenu:${mod_menu_version}"
     modRuntimeOnly "com.terraformersmc:modmenu:${mod_menu_version}"
     modCompileOnly "me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}"
     modRuntimeOnly "me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}"
 
-    // JEI + FTB Quests compat (compile-only; guarded at runtime by mod-loaded checks).
-    // Use the full -fabric jar (intermediary mappings) so Fabric Loom can remap it
-    // to yarn. The Mojang-mapped -api variants don't work in a yarn project.
     modCompileOnly "mezz.jei:jei-1.20.1-fabric:${jei_version}"
     modCompileOnly "dev.ftb.mods:ftb-quests-fabric:${ftb_quests_version}"
     modCompileOnly "dev.ftb.mods:ftb-library-fabric:${ftb_library_version}"
     modCompileOnly "dev.architectury:architectury-fabric:${architectury_version}"
 }
 
-// Keep JEI's Mojang-mapped -api variants off the classpath so we compile only
-// against the intermediary-mapped classes loom produces.
 configurations.all {
     exclude group: "mezz.jei", module: "jei-1.20.1-common-api"
     exclude group: "mezz.jei", module: "jei-1.20.1-fabric-api"
@@ -96,8 +92,6 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 java {
-    // withSourcesJar() removed — triggers Loom source-remap of dep sources jars
-    // that races VS Code Java LSP on Windows. Re-enable only when publishing.
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 }
@@ -123,6 +117,5 @@ publishing {
         }
     }
     repositories {
-        // Add publishing repos here if needed
     }
 }
