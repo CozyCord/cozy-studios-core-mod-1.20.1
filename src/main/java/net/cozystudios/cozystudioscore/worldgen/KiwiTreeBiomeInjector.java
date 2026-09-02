@@ -4,6 +4,7 @@ import net.cozystudios.cozystudioscore.CozyStudiosCore;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -20,7 +21,7 @@ public class KiwiTreeBiomeInjector {
 
     private static final RegistryKey<PlacedFeature> KIWI_TREE_PLACED = RegistryKey.of(
             RegistryKeys.PLACED_FEATURE,
-            new Identifier("clutter", "kiwi_tree_placed")
+            new Identifier("clutter", "kiwi_tree")
     );
 
     private static final TagKey<Biome> C_IS_JUNGLE = TagKey.of(
@@ -41,5 +42,15 @@ public class KiwiTreeBiomeInjector {
         );
 
         CozyStudiosCore.LOGGER.info("Registered kiwi tree placement into jungle biomes");
+
+        ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+            var registry = server.getRegistryManager().get(RegistryKeys.PLACED_FEATURE);
+            boolean present = registry.contains(KIWI_TREE_PLACED);
+            if (present) {
+                CozyStudiosCore.LOGGER.info("Placed feature {} is loaded in the registry", KIWI_TREE_PLACED.getValue());
+            } else {
+                CozyStudiosCore.LOGGER.error("Placed feature {} is MISSING from the registry — datapack file was not loaded", KIWI_TREE_PLACED.getValue());
+            }
+        });
     }
 }
