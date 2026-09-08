@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 public class ModItemGroups {
     public static final ItemGroup CORE_GROUP = Registry.register(Registries.ITEM_GROUP,
             new Identifier(CozyStudiosCore.MOD_ID, "core"),
-            FabricItemGroup.builder().displayName(Text.translatable("itemgroup.core"))
+            FabricItemGroup.builder().displayName(Text.translatable("itemgroup.cozystudioscore"))
                     .icon(() -> new ItemStack(ModItems.GOLDEN_LEAF)).entries((displayContext, entries) -> {
                         entries.add(ModItems.COZY_CRUMBS);
                         entries.add(ModItems.GOLDEN_LEAF);
