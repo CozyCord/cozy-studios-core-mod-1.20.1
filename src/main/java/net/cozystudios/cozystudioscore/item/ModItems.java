@@ -1,6 +1,7 @@
 package net.cozystudios.cozystudioscore.item;
 
 import net.cozystudios.cozystudioscore.CozyStudiosCore;
+import net.cozystudios.cozystudioscore.block.ModBlocks;
 import net.cozystudios.cozystudioscore.entity.ModEntities;
 import net.cozystudios.cozystudioscore.item.custom.CozyCrumbsItem;
 import net.cozystudios.cozystudioscore.item.custom.GoldenLeafItem;
@@ -8,6 +9,7 @@ import net.cozystudios.cozystudioscore.item.custom.JungleHornItem;
 import net.cozystudios.cozystudioscore.item.custom.MysticalBerriesItem;
 import net.cozystudios.cozystudioscore.sound.ModSounds;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.item.FoodComponents;
 import net.minecraft.item.Item;
 import net.minecraft.item.MusicDiscItem;
 import net.minecraft.item.SpawnEggItem;
@@ -22,7 +24,8 @@ public class ModItems {
             new CozyCrumbsItem(new FabricItemSettings()));
 
     public static final Item MYSTICAL_BERRIES = registerItem("mystical_berries",
-            new MysticalBerriesItem(new FabricItemSettings()));
+            new MysticalBerriesItem(ModBlocks.MYSTICAL_CAVE_VINES_HEAD,
+                    new FabricItemSettings().food(FoodComponents.GLOW_BERRIES)));
 
     public static final Item GOLDEN_LEAF = registerItem("golden_leaf",
             new GoldenLeafItem(new FabricItemSettings()));
@@ -50,6 +53,9 @@ public class ModItems {
 
     public static final Item HOMEWARD_MUSIC_DISC = registerItem("homeward_music_disc",
             new MusicDiscItem(9, ModSounds.HOMEWARD, new FabricItemSettings().maxCount(1), 157));
+
+    public static final Item FUNNY_LOOKING_GUMMY_MUSIC_DISC = registerItem("funny_looking_gummy_music_disc",
+            new MusicDiscItem(9, ModSounds.FUNNY_LOOKING_GUMMY, new FabricItemSettings().maxCount(1), 129));
 
     public static final Item JUNGLE_HORN = registerItem("jungle_horn",
             new JungleHornItem(new FabricItemSettings().maxCount(1)));

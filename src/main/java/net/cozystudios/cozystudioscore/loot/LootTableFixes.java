@@ -45,6 +45,23 @@ public class LootTableFixes {
             id(NS, "loot_replacements/incendium/castle/barrel/generic")
     );
 
+    private static final Map<Identifier, Identifier> CHIPPED_REPLACEMENTS = Map.of(
+            id("chipped", "blocks/alchemy_bench"),
+            id(NS, "loot_replacements/chipped/blocks/alchemy_bench"),
+            id("chipped", "blocks/botanist_workbench"),
+            id(NS, "loot_replacements/chipped/blocks/botanist_workbench"),
+            id("chipped", "blocks/carpenters_table"),
+            id(NS, "loot_replacements/chipped/blocks/carpenters_table"),
+            id("chipped", "blocks/glassblower"),
+            id(NS, "loot_replacements/chipped/blocks/glassblower"),
+            id("chipped", "blocks/loom_table"),
+            id(NS, "loot_replacements/chipped/blocks/loom_table"),
+            id("chipped", "blocks/mason_table"),
+            id(NS, "loot_replacements/chipped/blocks/mason_table"),
+            id("chipped", "blocks/tinkering_table"),
+            id(NS, "loot_replacements/chipped/blocks/tinkering_table")
+    );
+
     private static volatile Gson lootGson;
     private static volatile boolean lootGsonResolved;
 
@@ -56,6 +73,9 @@ public class LootTableFixes {
         }
         if (loader.isModLoaded("incendium")) {
             active.putAll(INCENDIUM_REPLACEMENTS);
+        }
+        if (loader.isModLoaded("chipped")) {
+            active.putAll(CHIPPED_REPLACEMENTS);
         }
         if (active.isEmpty()) return;
 

@@ -1,7 +1,8 @@
 package net.cozystudios.cozystudioscore.item.custom;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.item.Item;
+import net.minecraft.item.AliasedBlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -10,9 +11,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class MysticalBerriesItem extends Item {
-    public MysticalBerriesItem(Settings settings) {
-        super(settings);
+public class MysticalBerriesItem extends AliasedBlockItem {
+    public MysticalBerriesItem(Block block, Settings settings) {
+        super(block, settings);
     }
 
     @Override

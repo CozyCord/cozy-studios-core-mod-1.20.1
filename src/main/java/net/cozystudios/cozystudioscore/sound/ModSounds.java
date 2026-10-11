@@ -12,6 +12,7 @@ public class ModSounds {
     public static final SoundEvent DAYSPRING = registerSoundEvent("dayspring");
     public static final SoundEvent WINDSWEPT = registerSoundEvent("windswept");
     public static final SoundEvent HOMEWARD = registerSoundEvent("homeward");
+    public static final SoundEvent FUNNY_LOOKING_GUMMY = registerSoundEvent("funny_looking_gummy");
     public static final SoundEvent FERNLING_IDLE = registerSoundEvent("fernling_idle");
     public static final SoundEvent MUSHLING_IDLE_1 = registerSoundEvent("mushling_idle_1");
     public static final SoundEvent MUSHLING_IDLE_2 = registerSoundEvent("mushling_idle_2");

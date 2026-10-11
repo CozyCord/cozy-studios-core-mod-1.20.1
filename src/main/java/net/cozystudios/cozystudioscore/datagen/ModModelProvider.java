@@ -43,6 +43,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.DAYSPRING_MUSIC_DISC, Models.GENERATED);
         itemModelGenerator.register(ModItems.WINDSWEPT_MUSIC_DISC, Models.GENERATED);
         itemModelGenerator.register(ModItems.HOMEWARD_MUSIC_DISC, Models.GENERATED);
+        itemModelGenerator.register(ModItems.FUNNY_LOOKING_GUMMY_MUSIC_DISC, Models.GENERATED);
     }
 
     private void generateExtraModel(String name, ItemModelGenerator generator) {

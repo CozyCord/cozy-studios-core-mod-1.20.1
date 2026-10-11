@@ -37,8 +37,8 @@ public class CozyStudiosCore implements ModInitializer {
     public void onInitialize() {
         ModConfig.register();
         ModItemGroups.registerItemGroups();
-        ModItems.registerModItems();
         ModBlocks.registerModBlocks();
+        ModItems.registerModItems();
         ModBlockEntities.registerBlockEntities();
         ModRecipeTypes.register();
         TranquilLanternSpawnBlocker.register();
@@ -58,6 +58,10 @@ public class CozyStudiosCore implements ModInitializer {
         ModLootInjector.register();
         LootTableFixes.register();
         KiwiTreeBiomeInjector.register();
+        net.cozystudios.cozystudioscore.worldgen.MysticalCaveVinesBiomeInjector.register();
+        net.cozystudios.cozystudioscore.compat.perfectplushies.PhomesteadSlotExtender.register();
+        net.cozystudios.cozystudioscore.compat.perfectplushies.PhomesteadTraderCompat.register();
+        net.cozystudios.cozystudioscore.util.MeleonEasterEgg.register();
 
         ServerLifecycleEvents.SERVER_STARTING.register(server -> {
             GeneralConfig config = GeneralConfig.get();

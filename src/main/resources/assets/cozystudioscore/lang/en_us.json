@@ -1,7 +1,6 @@
 {
   "-- CREATIVE TAB --": "",
   "itemgroup.cozystudioscore": "Cozy Studios Core",
-
   "-- ITEMS --": "",
   "item.cozystudioscore.golden_leaf": "Golden Leaf",
   "item.cozystudioscore.cozy_crumbs": "Cozy Crumbs",
@@ -19,17 +18,14 @@
   "item.cozystudioscore.windswept_music_disc.desc": "Tokimi & storm8976 - Windswept",
   "item.cozystudioscore.homeward_music_disc": "Homeward Music Disc",
   "item.cozystudioscore.homeward_music_disc.desc": "Tokimi & storm8976 - Homeward",
-
   "-- ENTITIES --": "",
   "entity.minecraft.villager.arborist": "Arborist",
   "entity.cozystudioscore.mystical_trader": "Mystical Trader",
   "entity.cozystudioscore.fernling": "Fernling",
   "entity.cozystudioscore.mushling": "Mushling",
   "entity.cozystudioscore.mystical_elk": "Mystical Elk",
-
   "-- KEYBINDS --": "",
   "key.cozystudioscore.toggle_tranquil_lantern_radius": "Toggle Tranquil Lantern Visual Radius",
-
   "-- BLOCKS --": "",
   "block.cozystudioscore.tranquil_lantern": "Tranquil Lantern",
   "block.cozystudioscore.golden_tranquil_lantern": "Golden Tranquil Lantern",
@@ -39,7 +35,6 @@
   "container.cozystudioscore.kiln": "Kiln",
   "tooltip.cozystudioscore.kiln": "Smelts building blocks twice as fast",
   "block.cozystudioscore.arborist_table": "Arborist Table",
-
   "-- ADVANCEMENTS --": "",
   "advancements.cozystudioscore.tranquil_lantern.title": "Peaceful Glow",
   "advancements.cozystudioscore.tranquil_lantern.description": "Craft a Tranquil Lantern to protect your home.",
@@ -57,13 +52,10 @@
   "advancements.cozystudioscore.arborist_table.description": "You’ve stopped planting trees... now you study them.",
   "advancements.cozystudioscore.tree_whisperer.title": "Tree Whisperer",
   "advancements.cozystudioscore.tree_whisperer.description": "The trees trust you now... and so do their caretakers.",
-
   "-- SOUNDS --": "",
   "sounds.cozystudioscore.golden_leaf_use": "The Power of the Leaf Surrounds You",
-
   "-- CONFIG TITLE --": "",
   "text.autoconfig.cozystudioscore.title": "Cozy Studios Core",
-
   "-- Categories --": "",
   "text.autoconfig.cozystudioscore.category.general": "General",
   "text.autoconfig.cozystudioscore.category.default": "Tranquil Lanterns",
@@ -72,8 +64,6 @@
   "text.autoconfig.cozystudioscore.category.recolor_on_use": "Recolor",
   "text.autoconfig.cozystudioscore.category.auto_ftb_mods": "Auto FTB Mover",
   "category.cozystudioscore": "CozyStudios Core",
-
-
   "-- General Options --": "",
   "text.autoconfig.cozystudioscore.option.generalConfig.peacefulHunger": "Enable Hunger in Peaceful Mode",
   "text.autoconfig.cozystudioscore.option.generalConfig.peacefulHunger.@Tooltip": "When enabled, players in Peaceful will lose hunger just like in Easy/Normal/Hard.",
@@ -85,7 +75,6 @@
   "text.autoconfig.cozystudioscore.option.generalConfig.maxStackSizeOverride.@Tooltip": "Override stack size for items that are usually set to max 16. (16–64).",
   "text.autoconfig.cozystudioscore.option.generalConfig.showTitleScreenCredits": "Main Menu Credits",
   "text.autoconfig.cozystudioscore.option.generalConfig.showTitleScreenCredits.@Tooltip": "Enable the Main Menu Credits text.",
-
   "-- Tranquil Lanterns Options --": "",
   "text.autoconfig.cozystudioscore.option.tranquilLanternsConfig.tranquilLanternRadiusPercent": "Tranquil Lantern Radius Increase",
   "text.autoconfig.cozystudioscore.option.tranquilLanternsConfig.tranquilLanternRadiusPercent.@Tooltip": "Percentage increase to base radius (13 blocks). 0% = 13 blocks, 100% = 26 blocks.",
@@ -111,7 +100,6 @@
   "text.autoconfig.cozystudioscore.option.tranquilLanternsConfig.netheriteTranquilLanternBump.@Tooltip": "Enable Netherite Tranquil Lantern Bump, which will bump the mobs to the outer edge of the radius.",
   "text.autoconfig.cozystudioscore.option.tranquilLanternsConfig.netheriteTranquilLanternBurn": "Netherite Tranquil Lantern Burn",
   "text.autoconfig.cozystudioscore.option.tranquilLanternsConfig.netheriteTranquilLanternBurn.@Tooltip": "Enable Netherite Tranquil Lantern Burn, which will burn mobs instead of bumping them.",
-
   "-- Fernling Options --": "",
   "text.autoconfig.cozystudioscore.option.fernlingConfig.fernlingBonemealRadius": "Bonemeal Radius",
   "text.autoconfig.cozystudioscore.option.fernlingConfig.fernlingBonemealRadius.@Tooltip": "How far around a tamed Fernling it can apply bonemeal.",
@@ -121,7 +109,6 @@
   "text.autoconfig.cozystudioscore.option.fernlingConfig.fernlingBonemealCooldownMax.@Tooltip": "Maximum number of ticks (20 ticks = 1s) before the Fernling tries bonemeal again.",
   "text.autoconfig.cozystudioscore.option.fernlingConfig.fernlingBonemealChance": "Bonemeal Chance",
   "text.autoconfig.cozystudioscore.option.fernlingConfig.fernlingBonemealChance.@Tooltip": "Chance (0.0–1.0) for a Fernling to bonemeal when cooldown ends.",
-
   "-- Kiln Options --": "",
   "text.autoconfig.cozystudioscore.option.kilnConfig.extraKilnRecipes": "Extra Kiln Recipes",
   "text.autoconfig.cozystudioscore.option.kilnConfig.extraKilnRecipes.@Tooltip[0]": "Add custom kiln recipes here.",
@@ -130,7 +117,6 @@
   "text.autoconfig.cozystudioscore.option.kilnConfig.kilnConfigDefaultXp.@Tooltip": "Base XP per recipe unless overridden.",
   "text.autoconfig.cozystudioscore.option.kilnConfig.kilnConfigDefaultTime": "Kiln Cook Time",
   "text.autoconfig.cozystudioscore.option.kilnConfig.kilnConfigDefaultTime.@Tooltip": "Ticks per recipe (20 = 1 second).",
-
   "-- Recolor Options --": "",
   "text.autoconfig.cozystudioscore.option.recolorOnUseConfig.enableRightClickRecolor": "Enable Right-Click Recolor",
   "text.autoconfig.cozystudioscore.option.recolorOnUseConfig.enableRightClickRecolor.@Tooltip": "Allows recoloring of wool, beds, and banners with dyes by right-clicking.",
@@ -140,7 +126,6 @@
   "text.autoconfig.cozystudioscore.option.recolorOnUseConfig.recolorBeds.@Tooltip": "Allow recoloring bed blocks directly with dyes.",
   "text.autoconfig.cozystudioscore.option.recolorOnUseConfig.recolorBanners": "Recolor Banners",
   "text.autoconfig.cozystudioscore.option.recolorOnUseConfig.recolorBanners.@Tooltip": "Allow recoloring banner blocks directly with dyes, preserving patterns.",
-
   "-- Auto FTB Mover Options --": "",
   "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.enableAutoFtbMods": "Enable Auto FTB Mod Mover",
   "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.enableAutoFtbMods.@Tooltip": "Automatically handles FTB mods and making sure you have it installed, basically a FTB mod manager for Modrinth packs.",
@@ -157,5 +142,7 @@
   "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.ftbXmodHash": "FTB XMod Hash",
   "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.ftbXmodHash.@Tooltip": "SHA-1 hash for the FTB XMod mod.",
   "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.questAdditionsHash": "Quest Additions Hash",
-  "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.questAdditionsHash.@Tooltip": "SHA-1 hash for the Quest Additions mod."
+  "text.autoconfig.cozystudioscore.option.autoFtbModsConfig.questAdditionsHash.@Tooltip": "SHA-1 hash for the Quest Additions mod.",
+  "item.cozystudioscore.funny_looking_gummy_music_disc": "Funny Looking Gummy Music Disc",
+  "item.cozystudioscore.funny_looking_gummy_music_disc.desc": "Tokimi - Funny Looking Gummy"
 }

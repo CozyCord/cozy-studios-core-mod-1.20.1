@@ -27,6 +27,13 @@ public class CompatMixinPlugin implements IMixinConfigPlugin {
             case "BwgFarmLandBlockSprinklerMixin"  -> loader.isModLoaded("biomeswevegone")     && loader.isModLoaded("farm_and_charm");
             case "PeatFarmBlockSprinklerMixin"     -> loader.isModLoaded("regions_unexplored") && loader.isModLoaded("farm_and_charm");
             case "SiltFarmBlockSprinklerMixin"     -> loader.isModLoaded("regions_unexplored") && loader.isModLoaded("farm_and_charm");
+            case "ChippedWorkbenchDoubleDropMixin" -> loader.isModLoaded("chipped");
+            case "VineryWinemakerDurabilityMixin"  -> loader.isModLoaded("vinery");
+            case "VineryWinemakerDamageMixin"      -> loader.isModLoaded("vinery");
+            case "VineryWineAgingSleepMixin"       -> loader.isModLoaded("vinery");
+            case "ItemEntityMeleonBurnMixin"       -> loader.isModLoaded("perfectplushies");
+            case "FurnaceMeleonFuelMixin"          -> loader.isModLoaded("perfectplushies");
+            case "SpelunkerySpringWaterInfiniteMixin" -> loader.isModLoaded("spelunkery");
             default -> true;
         };
     }

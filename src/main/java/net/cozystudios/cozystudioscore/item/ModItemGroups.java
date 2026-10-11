@@ -35,6 +35,7 @@ public class ModItemGroups {
                         entries.add(ModItems.DAYSPRING_MUSIC_DISC);
                         entries.add(ModItems.HOMEWARD_MUSIC_DISC);
                         entries.add(ModItems.WINDSWEPT_MUSIC_DISC);
+                        entries.add(ModItems.FUNNY_LOOKING_GUMMY_MUSIC_DISC);
 
 
 

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "berries=false": {
+      "model": "cozystudioscore:block/mystical_cave_vines_plant"
+    },
+    "berries=true": {
+      "model": "cozystudioscore:block/mystical_cave_vines_plant_lit"
+    }
+  }
+}

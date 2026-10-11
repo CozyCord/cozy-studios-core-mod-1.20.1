@@ -5,8 +5,12 @@ import net.cozystudios.cozystudioscore.block.custom.ArboristTableBlock;
 import net.cozystudios.cozystudioscore.block.custom.DiamondTranquilLanternBlock;
 import net.cozystudios.cozystudioscore.block.custom.GoldenTranquilLanternBlock;
 import net.cozystudios.cozystudioscore.block.custom.KilnBlock;
+import net.cozystudios.cozystudioscore.block.custom.MysticalCaveVinesBodyBlock;
+import net.cozystudios.cozystudioscore.block.custom.MysticalCaveVinesHeadBlock;
 import net.cozystudios.cozystudioscore.block.custom.NetheriteTranquilLanternBlock;
 import net.cozystudios.cozystudioscore.block.custom.TranquilLanternBlock;
+import net.minecraft.block.CaveVines;
+import net.minecraft.sound.BlockSoundGroup;
 import net.cozystudios.cozystudioscore.item.custom.DiamondTranquilLanternItem;
 import net.cozystudios.cozystudioscore.item.custom.GoldenTranquilLanternItem;
 import net.cozystudios.cozystudioscore.item.custom.NetheriteTranquilLanternItem;
@@ -68,10 +72,39 @@ public class ModBlocks {
             new ArboristTableBlock(Block.Settings.copy(Blocks.COMPOSTER))
     );
 
+    public static final Block MYSTICAL_CAVE_VINES_HEAD = registerBlockNoItem("mystical_cave_vines",
+            new MysticalCaveVinesHeadBlock(
+                    Block.Settings.create()
+                            .mapColor(Blocks.CAVE_VINES.getDefaultMapColor())
+                            .ticksRandomly()
+                            .noCollision()
+                            .breakInstantly()
+                            .luminance(state -> state.get(CaveVines.BERRIES) ? 14 : 0)
+                            .sounds(BlockSoundGroup.CAVE_VINES)
+                            .pistonBehavior(net.minecraft.block.piston.PistonBehavior.DESTROY)
+            )
+    );
+
+    public static final Block MYSTICAL_CAVE_VINES_BODY = registerBlockNoItem("mystical_cave_vines_plant",
+            new MysticalCaveVinesBodyBlock(
+                    Block.Settings.create()
+                            .mapColor(Blocks.CAVE_VINES_PLANT.getDefaultMapColor())
+                            .noCollision()
+                            .breakInstantly()
+                            .luminance(state -> state.get(CaveVines.BERRIES) ? 14 : 0)
+                            .sounds(BlockSoundGroup.CAVE_VINES)
+                            .pistonBehavior(net.minecraft.block.piston.PistonBehavior.DESTROY)
+            )
+    );
+
 
     @SuppressWarnings("SameParameterValue")
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
+        return Registry.register(Registries.BLOCK, new Identifier(CozyStudiosCore.MOD_ID, name), block);
+    }
+
+    private static Block registerBlockNoItem(String name, Block block) {
         return Registry.register(Registries.BLOCK, new Identifier(CozyStudiosCore.MOD_ID, name), block);
     }
 

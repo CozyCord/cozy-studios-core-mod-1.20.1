@@ -8,7 +8,14 @@
     "BuddingTomatoBlockMayPlaceMixin",
     "BwgFarmLandBlockSprinklerMixin",
     "PeatFarmBlockSprinklerMixin",
-    "SiltFarmBlockSprinklerMixin"
+    "SiltFarmBlockSprinklerMixin",
+    "ChippedWorkbenchDoubleDropMixin",
+    "VineryWinemakerDurabilityMixin",
+    "VineryWinemakerDamageMixin",
+    "VineryWineAgingSleepMixin",
+    "ItemEntityMeleonBurnMixin",
+    "FurnaceMeleonFuelMixin",
+    "SpelunkerySpringWaterInfiniteMixin"
   ],
   "injectors": {
     "defaultRequire": 1
