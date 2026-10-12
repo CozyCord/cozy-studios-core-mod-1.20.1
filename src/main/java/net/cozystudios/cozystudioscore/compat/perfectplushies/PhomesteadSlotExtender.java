@@ -25,7 +25,7 @@ public final class PhomesteadSlotExtender {
         }
 
         addCommon(51);
-        for (int slot = 52; slot <= 61; slot++) {
+        for (int slot = 52; slot <= 63; slot++) {
             addCommon(slot);
         }
     }
