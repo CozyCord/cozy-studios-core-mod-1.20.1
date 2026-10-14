@@ -60,6 +60,7 @@ public class CozyStudiosCore implements ModInitializer {
         KiwiTreeBiomeInjector.register();
         net.cozystudios.cozystudioscore.worldgen.MysticalCaveVinesBiomeInjector.register();
         net.cozystudios.cozystudioscore.compat.perfectplushies.PhomesteadSlotExtender.register();
+        net.cozystudios.cozystudioscore.compat.perfectplushies.MobPlushieExtender.register();
         net.cozystudios.cozystudioscore.compat.perfectplushies.PhomesteadTraderCompat.register();
         net.cozystudios.cozystudioscore.util.MeleonEasterEgg.register();
 
