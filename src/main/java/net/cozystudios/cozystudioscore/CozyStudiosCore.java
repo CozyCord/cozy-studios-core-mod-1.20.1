@@ -62,6 +62,7 @@ public class CozyStudiosCore implements ModInitializer {
         net.cozystudios.cozystudioscore.compat.perfectplushies.PhomesteadSlotExtender.register();
         net.cozystudios.cozystudioscore.compat.perfectplushies.MobPlushieExtender.register();
         net.cozystudios.cozystudioscore.compat.perfectplushies.PhomesteadTraderCompat.register();
+        net.cozystudios.cozystudioscore.compat.sophisticatedstorage.SophisticatedUnpackHandler.register();
         net.cozystudios.cozystudioscore.util.MeleonEasterEgg.register();
 
         ServerLifecycleEvents.SERVER_STARTING.register(server -> {

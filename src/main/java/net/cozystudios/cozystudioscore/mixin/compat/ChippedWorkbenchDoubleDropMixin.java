@@ -2,6 +2,7 @@ package net.cozystudios.cozystudioscore.mixin.compat;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.state.property.Property;
@@ -33,10 +34,13 @@ public class ChippedWorkbenchDoubleDropMixin {
 
         Direction facing = state.get(HorizontalFacingBlock.FACING);
         BlockPos otherPos;
+        boolean brokeSide;
         if ("main".equals(modelValue)) {
             otherPos = pos.offset(facing.rotateYClockwise());
+            brokeSide = false;
         } else if ("side".equals(modelValue)) {
             otherPos = pos.offset(facing.rotateYCounterclockwise());
+            brokeSide = true;
         } else {
             return;
         }
@@ -45,5 +49,9 @@ public class ChippedWorkbenchDoubleDropMixin {
         if (otherState.getBlock() != state.getBlock()) return;
 
         Block.dropStacks(otherState, world, otherPos, null, player, player.getMainHandStack());
+
+        if (brokeSide) {
+            world.setBlockState(otherPos, Blocks.AIR.getDefaultState(), 3);
+        }
     }
 }
