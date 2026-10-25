@@ -24,7 +24,8 @@
     "RecipeManagerStripMixin"
   ],
   "client": [
-    "JeiClientLifecycleHandlerCaptureMixin"
+    "JeiClientLifecycleHandlerCaptureMixin",
+    "NiftyCartsSendGuardMixin"
   ],
   "injectors": {
     "defaultRequire": 1

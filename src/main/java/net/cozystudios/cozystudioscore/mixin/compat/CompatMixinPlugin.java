@@ -41,6 +41,7 @@ public class CompatMixinPlugin implements IMixinConfigPlugin {
             case "CropBlockFertilizedMoistureMixin" -> loader.isModLoaded("farm_and_charm");
             case "RecipeManagerStripMixin"         -> loader.isModLoaded("farm_and_charm") || loader.isModLoaded("meadow");
             case "JeiClientLifecycleHandlerCaptureMixin" -> loader.isModLoaded("fairylights") && loader.isModLoaded("jei");
+            case "NiftyCartsSendGuardMixin"        -> loader.isModLoaded("niftycarts");
             default -> true;
         };
     }
