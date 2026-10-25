@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "clutter:basalt_sulphur_ore", "required": false },
+    { "id": "clutter:blackstone_sulphur_ore", "required": false }
+  ]
+}

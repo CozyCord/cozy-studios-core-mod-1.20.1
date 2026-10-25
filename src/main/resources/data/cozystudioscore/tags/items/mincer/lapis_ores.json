@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "#minecraft:lapis_ores", "required": false },
+    { "id": "#c:lapis_ores", "required": false }
+  ]
+}

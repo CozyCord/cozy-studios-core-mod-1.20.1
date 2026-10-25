@@ -1,0 +1,11 @@
+{
+  "type": "farm_and_charm:mincer",
+  "ingredient": {
+    "tag": "cozystudioscore:mincer/mu_citrine_ores"
+  },
+  "recipe_type": "METAL",
+  "result": {
+    "item": "mythicupgrades:citrine",
+    "count": 2
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "farm_and_charm:mincer",
+  "ingredient": {
+    "item": "clutter:onyx_ore"
+  },
+  "recipe_type": "METAL",
+  "result": {
+    "item": "clutter:raw_onyx",
+    "count": 3
+  }
+}

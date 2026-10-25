@@ -1,0 +1,11 @@
+{
+  "type": "farm_and_charm:mincer",
+  "ingredient": {
+    "tag": "cozystudioscore:mincer/mu_topaz_ores"
+  },
+  "recipe_type": "METAL",
+  "result": {
+    "item": "mythicupgrades:topaz",
+    "count": 2
+  }
+}

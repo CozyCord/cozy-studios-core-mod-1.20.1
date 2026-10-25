@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "mythicupgrades:necoium_ore", "required": false },
+    { "id": "mythicupgrades:deepslate_necoium_ore", "required": false }
+  ]
+}

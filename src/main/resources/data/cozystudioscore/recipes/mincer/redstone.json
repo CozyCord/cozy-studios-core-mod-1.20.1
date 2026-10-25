@@ -1,0 +1,11 @@
+{
+  "type": "farm_and_charm:mincer",
+  "ingredient": {
+    "tag": "cozystudioscore:mincer/redstone_ores"
+  },
+  "recipe_type": "METAL",
+  "result": {
+    "item": "minecraft:redstone",
+    "count": 5
+  }
+}

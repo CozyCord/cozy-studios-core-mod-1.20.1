@@ -1,20 +1,18 @@
 package net.cozystudios.cozystudioscore.client;
 
 import net.cozystudios.cozystudioscore.block.ModBlocks;
-import net.cozystudios.cozystudioscore.config.ModConfig;
 import net.cozystudios.cozystudioscore.config.TranquilLanternsConfig;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 import java.util.Set;
 
 public class TranquilLanternClientState {
 
-    private static final Map<BlockPos, BlockState> CLIENT_LANTERNS = new HashMap<>();
+    private static final Set<BlockPos> CLIENT_LANTERNS = new HashSet<>();
 
     private static Integer serverTranquilRadius = null;
     private static Integer serverGoldenRadius = null;
@@ -22,32 +20,31 @@ public class TranquilLanternClientState {
     private static Integer serverNetheriteRadius = null;
 
     public static Set<BlockPos> getLanterns() {
-        return Collections.unmodifiableSet(CLIENT_LANTERNS.keySet());
+        return Collections.unmodifiableSet(CLIENT_LANTERNS);
     }
 
     public static BlockState getLanternState(BlockPos pos) {
-        return CLIENT_LANTERNS.get(pos);
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (client.world == null) return null;
+        BlockState state = client.world.getBlockState(pos);
+        if (state.isOf(ModBlocks.TRANQUIL_LANTERN) ||
+            state.isOf(ModBlocks.GOLDEN_TRANQUIL_LANTERN) ||
+            state.isOf(ModBlocks.DIAMOND_TRANQUIL_LANTERN) ||
+            state.isOf(ModBlocks.NETHERITE_TRANQUIL_LANTERN)) {
+            return state;
+        }
+        return null;
     }
 
     public static void setAll(Set<BlockPos> positions) {
         CLIENT_LANTERNS.clear();
-        MinecraftClient client = MinecraftClient.getInstance();
-        if (client.world != null) {
-            for (BlockPos p : positions) {
-                BlockState state = client.world.getBlockState(p);
-                CLIENT_LANTERNS.put(p.toImmutable(), state);
-            }
+        for (BlockPos p : positions) {
+            CLIENT_LANTERNS.add(p.toImmutable());
         }
     }
 
     public static void add(BlockPos pos) {
-        if (pos != null) {
-            MinecraftClient client = MinecraftClient.getInstance();
-            if (client.world != null) {
-                BlockState state = client.world.getBlockState(pos);
-                CLIENT_LANTERNS.put(pos.toImmutable(), state);
-            }
-        }
+        if (pos != null) CLIENT_LANTERNS.add(pos.toImmutable());
     }
 
     public static void remove(BlockPos pos) {
@@ -108,7 +105,7 @@ public class TranquilLanternClientState {
                 state.isOf(ModBlocks.GOLDEN_TRANQUIL_LANTERN) ||
                 state.isOf(ModBlocks.DIAMOND_TRANQUIL_LANTERN) ||
                 state.isOf(ModBlocks.NETHERITE_TRANQUIL_LANTERN)) {
-                CLIENT_LANTERNS.put(pos.toImmutable(), state);
+                CLIENT_LANTERNS.add(pos.toImmutable());
             }
         });
     }

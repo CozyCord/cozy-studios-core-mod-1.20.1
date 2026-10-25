@@ -1,0 +1,11 @@
+{
+  "type": "farm_and_charm:mincer",
+  "ingredient": {
+    "tag": "cozystudioscore:mincer/mu_aquamarine_ores"
+  },
+  "recipe_type": "METAL",
+  "result": {
+    "item": "mythicupgrades:aquamarine",
+    "count": 2
+  }
+}

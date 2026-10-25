@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "mythicupgrades:topaz_ore", "required": false },
+    { "id": "mythicupgrades:deepslate_topaz_ore", "required": false }
+  ]
+}

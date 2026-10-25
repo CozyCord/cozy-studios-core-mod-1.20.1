@@ -1,0 +1,11 @@
+{
+  "type": "farm_and_charm:mincer",
+  "ingredient": {
+    "tag": "cozystudioscore:mincer/things_gleaming_ores"
+  },
+  "recipe_type": "METAL",
+  "result": {
+    "item": "things:gleaming_powder",
+    "count": 3
+  }
+}

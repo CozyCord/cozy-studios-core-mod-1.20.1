@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "#minecraft:redstone_ores", "required": false },
+    { "id": "#c:redstone_ores", "required": false }
+  ]
+}

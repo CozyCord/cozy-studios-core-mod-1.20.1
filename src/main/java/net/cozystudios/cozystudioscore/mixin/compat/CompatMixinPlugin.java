@@ -37,6 +37,10 @@ public class CompatMixinPlugin implements IMixinConfigPlugin {
             case "SpelunkerySpringWaterInfiniteMixin" -> loader.isModLoaded("spelunkery");
             case "SophisticatedChestDoubleOnPlacedMixin" -> loader.isModLoaded("sophisticatedstorage");
             case "BrewstationBoozeFailSpawnMixin"  -> loader.isModLoaded("brewery");
+            case "CreateTreeFertilizerFixMixin"    -> loader.isModLoaded("create");
+            case "CropBlockFertilizedMoistureMixin" -> loader.isModLoaded("farm_and_charm");
+            case "RecipeManagerStripMixin"         -> loader.isModLoaded("farm_and_charm") || loader.isModLoaded("meadow");
+            case "JeiClientLifecycleHandlerCaptureMixin" -> loader.isModLoaded("fairylights") && loader.isModLoaded("jei");
             default -> true;
         };
     }

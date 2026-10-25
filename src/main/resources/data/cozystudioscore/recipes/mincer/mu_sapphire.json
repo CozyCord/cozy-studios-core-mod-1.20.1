@@ -1,0 +1,11 @@
+{
+  "type": "farm_and_charm:mincer",
+  "ingredient": {
+    "item": "mythicupgrades:sapphire_ore"
+  },
+  "recipe_type": "METAL",
+  "result": {
+    "item": "mythicupgrades:sapphire",
+    "count": 2
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "clutter:silver_ore", "required": false },
+    { "id": "clutter:deepslate_silver_ore", "required": false }
+  ]
+}

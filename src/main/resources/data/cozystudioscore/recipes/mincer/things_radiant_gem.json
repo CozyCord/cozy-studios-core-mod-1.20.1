@@ -1,0 +1,11 @@
+{
+  "type": "farm_and_charm:mincer",
+  "ingredient": {
+    "item": "things:radiant_ore"
+  },
+  "recipe_type": "METAL",
+  "result": {
+    "item": "things:radiant_gem",
+    "count": 3
+  }
+}

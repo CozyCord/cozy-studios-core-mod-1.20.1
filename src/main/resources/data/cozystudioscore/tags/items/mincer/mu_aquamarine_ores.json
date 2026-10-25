@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "mythicupgrades:aquamarine_ore", "required": false },
+    { "id": "mythicupgrades:deepslate_aquamarine_ore", "required": false }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "mythicupgrades:citrine_ore", "required": false },
+    { "id": "mythicupgrades:deepslate_citrine_ore", "required": false }
+  ]
+}

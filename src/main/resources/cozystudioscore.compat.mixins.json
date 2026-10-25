@@ -5,6 +5,7 @@
   "plugin": "net.cozystudios.cozystudioscore.mixin.compat.CompatMixinPlugin",
   "mixins": [
     "CropBlockMayPlaceMixin",
+    "CropBlockFertilizedMoistureMixin",
     "BuddingTomatoBlockMayPlaceMixin",
     "BwgFarmLandBlockSprinklerMixin",
     "PeatFarmBlockSprinklerMixin",
@@ -18,7 +19,12 @@
     "FurnaceMeleonFuelMixin",
     "SpelunkerySpringWaterInfiniteMixin",
     "SophisticatedChestDoubleOnPlacedMixin",
-    "BrewstationBoozeFailSpawnMixin"
+    "BrewstationBoozeFailSpawnMixin",
+    "CreateTreeFertilizerFixMixin",
+    "RecipeManagerStripMixin"
+  ],
+  "client": [
+    "JeiClientLifecycleHandlerCaptureMixin"
   ],
   "injectors": {
     "defaultRequire": 1

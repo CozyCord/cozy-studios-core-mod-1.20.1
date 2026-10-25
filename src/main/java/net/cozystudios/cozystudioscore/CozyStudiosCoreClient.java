@@ -52,6 +52,8 @@ public class CozyStudiosCoreClient implements ClientModInitializer {
 
         AutoFtbModMover.registerClientTicker();
 
+        net.cozystudios.cozystudioscore.client.FairyLightsJeiReloadFix.register();
+
         if (FabricLoader.getInstance().isModLoaded("ftbquests")
                 && FabricLoader.getInstance().isModLoaded("jei")) {
             net.cozystudios.cozystudioscore.integration.ftbquests.FtbQuestsJeiCompat.init();
