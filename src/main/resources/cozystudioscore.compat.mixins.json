@@ -18,10 +18,12 @@
     "ItemEntityMeleonBurnMixin",
     "FurnaceMeleonFuelMixin",
     "SpelunkerySpringWaterInfiniteMixin",
+    "SpelunkeryChiselVeinMiningMixin",
     "SophisticatedChestDoubleOnPlacedMixin",
     "BrewstationBoozeFailSpawnMixin",
     "CreateTreeFertilizerFixMixin",
-    "RecipeManagerStripMixin"
+    "RecipeManagerStripMixin",
+    "HerbalbrewsDrinkTooltipMixin"
   ],
   "client": [
     "JeiClientLifecycleHandlerCaptureMixin",

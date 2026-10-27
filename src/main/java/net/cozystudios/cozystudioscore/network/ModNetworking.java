@@ -3,8 +3,11 @@ package net.cozystudios.cozystudioscore.network;
 import net.cozystudios.cozystudioscore.CozyStudiosCore;
 import net.cozystudios.cozystudioscore.client.TranquilLanternClientState;
 import net.cozystudios.cozystudioscore.client.render.TranquilLanternRadiusRenderer;
+import net.cozystudios.cozystudioscore.item.ModItems;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -26,6 +29,9 @@ public class ModNetworking {
 
     public static final Identifier TRANQUIL_LANTERN_CONFIG_SYNC =
             new Identifier(CozyStudiosCore.MOD_ID, "tranquil_lantern_config_sync");
+
+    public static final Identifier BISECT_COOKIE_FLOAT =
+            new Identifier(CozyStudiosCore.MOD_ID, "bisect_cookie_float");
 
     public static void init() {}
 
@@ -74,6 +80,15 @@ public class ModNetworking {
                 TranquilLanternClientState.remove(pos);
 
                 if (TranquilLanternRadiusRenderer.SHOW_RADIUS) {
+                }
+            });
+        });
+
+        ClientPlayNetworking.registerGlobalReceiver(BISECT_COOKIE_FLOAT, (client, handler, buf, responseSender) -> {
+            client.execute(() -> {
+                MinecraftClient mc = MinecraftClient.getInstance();
+                if (mc.gameRenderer != null) {
+                    mc.gameRenderer.showFloatingItem(new ItemStack(ModItems.BISECT_COOKIE));
                 }
             });
         });

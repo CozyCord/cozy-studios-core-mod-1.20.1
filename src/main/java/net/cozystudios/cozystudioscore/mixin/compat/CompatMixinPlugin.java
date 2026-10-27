@@ -35,11 +35,13 @@ public class CompatMixinPlugin implements IMixinConfigPlugin {
             case "ItemEntityMeleonBurnMixin"       -> loader.isModLoaded("perfectplushies");
             case "FurnaceMeleonFuelMixin"          -> loader.isModLoaded("perfectplushies");
             case "SpelunkerySpringWaterInfiniteMixin" -> loader.isModLoaded("spelunkery");
+            case "SpelunkeryChiselVeinMiningMixin" -> loader.isModLoaded("spelunkery") && loader.isModLoaded("veinmining");
             case "SophisticatedChestDoubleOnPlacedMixin" -> loader.isModLoaded("sophisticatedstorage");
             case "BrewstationBoozeFailSpawnMixin"  -> loader.isModLoaded("brewery");
             case "CreateTreeFertilizerFixMixin"    -> loader.isModLoaded("create");
             case "CropBlockFertilizedMoistureMixin" -> loader.isModLoaded("farm_and_charm");
             case "RecipeManagerStripMixin"         -> loader.isModLoaded("farm_and_charm") || loader.isModLoaded("meadow");
+            case "HerbalbrewsDrinkTooltipMixin"    -> loader.isModLoaded("herbalbrews");
             case "JeiClientLifecycleHandlerCaptureMixin" -> loader.isModLoaded("fairylights") && loader.isModLoaded("jei");
             case "NiftyCartsSendGuardMixin"        -> loader.isModLoaded("niftycarts");
             default -> true;

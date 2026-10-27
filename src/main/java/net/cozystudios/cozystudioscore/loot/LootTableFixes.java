@@ -1,12 +1,11 @@
 package net.cozystudios.cozystudioscore.loot;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import net.cozystudios.cozystudioscore.CozyStudiosCore;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.loot.LootManager;
+import net.minecraft.loot.LootDataType;
 import net.minecraft.loot.LootTable;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
@@ -14,10 +13,10 @@ import net.minecraft.util.Identifier;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class LootTableFixes {
 
@@ -62,9 +61,6 @@ public class LootTableFixes {
             id(NS, "loot_replacements/chipped/blocks/tinkering_table")
     );
 
-    private static volatile Gson lootGson;
-    private static volatile boolean lootGsonResolved;
-
     public static void register() {
         FabricLoader loader = FabricLoader.getInstance();
         Map<Identifier, Identifier> active = new HashMap<>();
@@ -87,9 +83,6 @@ public class LootTableFixes {
     }
 
     private static LootTable loadReplacement(ResourceManager rm, Identifier replacementId, Identifier originalId) {
-        Gson gson = getLootGson();
-        if (gson == null) return null;
-
         Identifier resourcePath = new Identifier(
                 replacementId.getNamespace(),
                 "loot_tables/" + replacementId.getPath() + ".json"
@@ -104,36 +97,17 @@ public class LootTableFixes {
         Resource resource = resourceOpt.get();
         try (Reader reader = new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8)) {
             JsonElement json = JsonParser.parseReader(reader);
-            LootTable table = gson.fromJson(json, LootTable.class);
+            Optional<LootTable> parsed = LootDataType.LOOT_TABLES.parse(originalId, json);
+            if (parsed.isEmpty()) {
+                CozyStudiosCore.LOGGER.error("LootDataType.parse returned empty for {}", originalId);
+                return null;
+            }
             CozyStudiosCore.LOGGER.info("Replaced loot table {} with fixed version", originalId);
-            return table;
+            return parsed.get();
         } catch (Exception e) {
             CozyStudiosCore.LOGGER.error("Failed to deserialize loot replacement {} for {}: {}",
                     resourcePath, originalId, e.toString());
             return null;
-        }
-    }
-
-    private static Gson getLootGson() {
-        if (lootGsonResolved) return lootGson;
-        synchronized (LootTableFixes.class) {
-            if (lootGsonResolved) return lootGson;
-            try {
-                for (Field f : LootManager.class.getDeclaredFields()) {
-                    if (f.getType() == Gson.class) {
-                        f.setAccessible(true);
-                        lootGson = (Gson) f.get(null);
-                        break;
-                    }
-                }
-            } catch (Exception e) {
-                CozyStudiosCore.LOGGER.error("Could not resolve LootManager Gson via reflection", e);
-            }
-            lootGsonResolved = true;
-            if (lootGson == null) {
-                CozyStudiosCore.LOGGER.error("LootManager Gson not found; loot table fixes disabled");
-            }
-            return lootGson;
         }
     }
 
